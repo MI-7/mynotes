@@ -1,0 +1,2948 @@
+/* @override */
+
+/*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
+
+/*
+ * What follows is the result of much research on cross-browser styling.
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ */
+
+/* ==========================================================================
+   Base styles: opinionated defaults
+   ========================================================================== */
+
+html {
+    font-size: 14px;
+}
+
+/*
+ * Remove text-shadow in selection highlight: h5bp.com/i
+ * These selection rule sets have to be separate.
+ * Customize the background color to match your design.
+ */
+
+::-moz-selection {
+    background: #3CB2D0;
+    text-shadow: none;
+}
+
+::selection {
+    background: #3CB2D0;
+    text-shadow: none;
+}
+
+/*
+ * A better looking default horizontal rule
+ */
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+/*
+ * Remove the gap between images, videos, audio and canvas and the bottom of
+ * their containers: h5bp.com/i/440
+ */
+
+audio,
+canvas,
+img,
+video {
+    vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+
+textarea {
+    resize: vertical;
+}
+
+/* ==========================================================================
+   Browse Happy prompt
+   ========================================================================== */
+
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+
+
+
+
+
+/* PAGE COLOURS
+   ================================================== */
+
+body {
+	margin: 0;
+	color: white;
+	transition: background-color 0.2s ease;
+	font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B'; 
+	font-weight: 400; 
+	font-style: normal;
+	text-align: left;
+}
+
+body input,
+body .caseStudyButton,
+body .callToAction {
+	color: white;
+}
+
+
+
+/* HOME */
+
+body.home,
+body.home,
+body.home nav {
+	background-color: #2CBAE7;
+}
+
+body.home input,
+body.home .caseStudyButton,
+body.home .callToAction,
+body.home .navButton:hover,
+body.home .footerNavButton,
+body.home .navButton.current,
+body.home .topTrialButton,
+body.home .teamWrapper,
+body.home .freelancerName {
+	color: #2CBAE7;
+}
+
+body.home .freelancerName,
+body.home .emailText,
+body.home .tourTitle {
+	color: white;
+}
+
+body.home .current,
+body.home .topTrialButton, 
+body.home .trialButtonLarge,
+body.home .callToAction{
+	background-color: white;
+}
+
+body.home .btn:hover{
+	background-color: #3F4B54;
+}
+
+
+/* PRICING */
+
+body.pricing,
+body.pricing,
+body.pricing nav {
+	background-color: #FE4972;
+}
+
+body.pricing input,
+body.pricing .caseStudy,
+body.pricing .callToAction,
+body.pricing .videoButton,
+body.pricing .navButton:hover,
+body.pricing .userMoreButton,
+body.pricing .footerNavButton,
+body.pricing .pricingTrialButton,
+body.pricing .navButton.current,
+body.pricing .topTrialButton,
+body.pricing .teamWrapper,
+body.pricing .caseStudyButton,
+body.pricing .white {
+	color: #FE4972;
+}
+
+body.pricing .current,
+body.pricing .topTrialButton,
+body.pricing .trialButtonLarge,
+body.pricing .caseTopTrialButton,
+body.pricing .pricingTrialButton {
+	background-color: white;
+}
+
+body.pricing .emailText,
+body.pricing .paymentIntro,
+body.pricing .plan,
+body.pricing .freelancerName {
+	color: white;
+}
+
+body.pricing .btn:hover {
+	background-color: #3F4B54;
+}
+
+textarea:focus, input:focus {
+    outline: none;
+    background-color: #5F6B67;
+    color: white;    
+}
+
+
+	
+
+
+
+/* TYPEFACES
+   ================================================== */   
+   
+@font-face {
+	font-family: 'clarendonLight';
+	src: url('../fonts/clarendonfs-light.otf');
+	src: url('../fonts/clarendonfs-light.eot'); /* IE9 Compat Modes */
+	src: url('../fonts/clarendonfs-light.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+	     url('../fonts/clarendonfs-light.woff') format('woff'), /* Modern Browsers */
+	     url('../fonts/clarendonfs-light.ttf') format('truetype'), /* Safari, Android, iOS */
+	     url('../fonts/clarendonfs-light.svg#webfontI7XVJ1Zh') format('svg'); /* Legacy iOS */
+}
+	
+@font-face {
+	font-family: 'clarendonBold';
+	src: url('../fonts/clarendonfs-bold.otf');
+	src: url('../fonts/clarendonfs-bold.eot'); /* IE9 Compat Modes */
+	src: url('../fonts/clarendonfs-bold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+	     url('../fonts/clarendonfs-bold.woff') format('woff'), /* Modern Browsers */
+	     url('../fonts/clarendonfs-bold.ttf') format('truetype'), /* Safari, Android, iOS */
+	     url('../fonts/clarendonfs-bold.svg#webfontI7XVJ1Zh') format('svg'); /* Legacy iOS */
+}
+
+	
+
+
+
+
+/* MAIN TYPE STYLES AND LINKS
+   ================================================== */   
+
+h1 {
+	color: white;
+	font: 3.2rem/1.10 clarendonLight, Georgia;
+	letter-spacing: 0;
+	margin: 0;
+}
+
+h2 {
+	color: white;
+	font: 2.4rem/1.10 clarendonLight, Georgia;
+	letter-spacing: 0;
+	margin: 0;
+}
+
+h3 {
+	font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B'; 
+	font-style: normal;
+	color: white;
+	font-size: 1.4rem;
+	line-height: 1.3;
+	letter-spacing: 0;
+	margin: 0;
+	font-weight: 400;	
+}
+
+h4 {
+	color: white;
+	font-size: 1.35rem;
+	line-height:1.6rem;
+	letter-spacing: 0;
+	margin: 0;
+	font-weight: 400;	
+	
+}
+
+p {
+	-moz-margin-before: 0;
+	-webkit-margin-before: 0;
+	margin: 0;
+	font-weight: 300;
+	line-height: 1.6rem;
+}
+
+a {
+	text-decoration: none;
+	color: white;	
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+.smaller {
+	-moz-margin-before: 0;
+	-webkit-margin-before: 0;
+	margin: 0;
+	font-weight: 300;
+	line-height: 1.4rem;
+	font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B'; 
+	font-style: normal;
+	text-align: left;
+	font-size: 1rem;	
+}
+
+.emailText {
+	padding-right: 45px;
+}
+
+.emailSection {
+	border-bottom: 1px dotted white;
+	padding-bottom: 135px;
+	margin-bottom: 100px;
+}
+
+.emailSignup {
+	margin-top: 40px;
+}
+
+.userCopy {
+	padding-bottom: 22px;
+}
+
+.caseQuote {
+	font-weight: 400;
+	padding-top: 13px;
+	padding-bottom: 22px;
+}
+
+.takeTrial {
+	padding-bottom: 135px;
+	margin-bottom: 100px;
+}
+
+.introNumber {
+	background-color: white;
+	margin-right: 7px;
+	font-size: 0.8rem;
+	color: #5F6B67;
+	border-radius: 11px;
+	display: inline-block;
+	width: 20px;
+	text-align: center;
+	height: 17px;
+	padding-top: 3px;
+	position: relative;
+	top: -1px;
+	margin-left: -1px;
+}
+
+.introSub {
+	font: 1.2rem/1.10 'Gotham Rounded SSm A', 'Gotham Rounded SSm B';
+	letter-spacing: 0;
+	margin: 0;
+	padding-bottom: 10px;
+}
+
+.caseSpeechMarks {
+	width: 78px;
+	padding-bottom: 27px;
+	display: none;
+}
+
+/*.priceIntroText .introText{
+	margin-top: 0;
+	margin-bottom: 100px;
+}*/
+
+.homeSmall {
+	font: 0.9rem/1.10 'Gotham Rounded SSm A', 'Gotham Rounded SSm B';
+	text-transform: uppercase;
+	font-weight: 300;
+	border-bottom: 1px dotted white;
+	padding-bottom: 20px;
+	float: left;
+	padding-top: 2px;
+	color: white;
+}
+
+.homeEmail{
+	position: absolute;
+}
+
+.teamBanner {
+	background-color: white;
+	color: blue;
+	height: 42px;
+	position: fixed;
+	margin-top: 42px;
+	width: 100%;
+	line-height: 42px;
+}
+
+.teamWrapper {
+	position: fixed;
+	width: 100%;
+	z-index: 6;
+	background-color:white;
+	top: 0;
+}
+
+.teamInner {
+	margin: auto;
+	max-width: 1142px;
+	padding-right: 5%;
+	padding-left: 5%;
+	line-height: 42px;
+	font-weight: 300;	
+}
+
+.teamBeta {
+	height: 21px;
+	border-radius: 10px;
+	color: white;
+	font-size: 0.8rem;
+	padding: 2px 21px;
+	margin-left: 20px;
+	font-weight: 400;
+	background-color: #2CBAE7;
+	position: relative;
+	top: -1px;
+	transition: all 0.2s ease;
+}
+
+.teamBeta:hover {
+	background-color: #5F6B67;
+}
+
+
+
+
+
+
+/* COLUMNS
+   ================================================== */
+
+[class*='column-'] {
+	box-sizing: border-box;
+	float: left;
+	position: relative;
+}
+
+/*[class*='column-']:first-child {
+	padding-left: 0;
+}*/
+
+.column-1 {
+	width: 25%;
+}
+
+.column-2 {
+	width: 50%;
+}
+
+.column-3 {
+	width: 75%;
+}
+
+.column-4 {
+	width: 100%;	
+}
+ 
+
+	
+
+
+
+
+/* COMMON PAGE ELEMENTS
+   ================================================== */
+
+.container {
+	/*background: url(../img/grid.svg) repeat;*/
+	background-size: 7px;
+	height: 100%;
+	width: 100%;
+	visibility: visible;
+/*	background-size: 400px;	*/
+/*background-image: linear-gradient(-45deg, rgba(189, 189, 189, 0) 0%, rgba(189, 189, 189, 0) 44%, rgba(189, 189, 189, 0.3) 45%, rgba(189, 189, 189, 0.3) 55%, rgba(189, 189, 189, 0) 56%, rgba(189, 189, 189, 0) 100%);
+background-size: 4px 4px;
+background-repeat: repeat;*/
+}
+
+.wrapper {
+	margin: auto;
+	max-width: 1142px;
+/*	background: url(../img/vertical-new.svg) center / 1142px repeat-y;*/
+	padding-right: 5%;
+	padding-left: 5%;
+}
+
+.page {
+	transition: top 0.2s ease;
+	overflow: visible;
+}
+
+section {
+	padding-bottom: 135px;
+	width: 100%;
+	position: relative;
+	float: left;
+	margin-bottom: 130px;
+	border-bottom: 1px dotted white;	
+}
+
+input[type=text] {
+  text-transform: uppercase;
+}
+
+::input-placeholder {
+	font-size: 0.8rem;
+	padding-left: 8px;
+	line-height: 1.1rem;
+	color: inherit;
+	padding: 0;
+}
+
+::-webkit-input-placeholder {
+	font-size: 0.8rem;
+	line-height: 1.1rem;
+	color: inherit;
+	padding: 0;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+	font-size: 0.8rem;
+   	padding-left: 8px;
+   	color: inherit;
+   	line-height: 1.1rem;
+   	padding: 0;
+     
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+	font-size: 0.8rem;
+   	padding-left: 8px;
+   	color: inherit;
+   	line-height: 1.1rem;
+   	padding: 0;  
+}
+
+:-ms-input-placeholder {  
+  	font-size: 0.8rem;
+   	padding-left: 8px;
+   	color: inherit; 
+   	line-height: 1.1rem;
+   	padding: 0; 
+}
+
+footer {
+	width: 100%;
+	padding-bottom: 400px;
+	position: relative;
+	float: left;
+}
+
+.btn {
+	transition: all 0.2s ease;
+	border-radius: 5px;
+	float: right;
+	background-color: white;
+}
+
+.btn:hover {
+	cursor: pointer;
+}
+
+input, select, textarea {
+    outline: none;
+    background-color: white;
+    transition: all 0.2s ease;
+    font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B'; 
+    font-weight: 400; 
+    font-style: normal;  
+}
+
+.modal {
+	-o-transform: scale(0, 0);
+	-moz-transform: scale(0, 0);
+	-ms-transform: scale(0, 0);
+	-webkit-transform: scale(1, 0);
+	transform: scale(0, 0);
+	-moz-transition: all 0.2s;
+	-o-transition: all 0.2s;
+	-webkit-transition: all 0.2s;
+	transition: all 0.2s;
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.7);
+	z-index: 7;
+	-webkit-transform-origin: 0 0;
+	-moz-transform-origin: 0 0;
+	-ms-transform-origin: 0 0;
+	-o-transform-origin: 0 0;
+	transform-origin: 0 0;
+	position: fixed;
+}
+
+.modal iframe {
+	display: none;
+	width: 90%;
+	height: 54%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-right: 5%;
+	margin-left: 5%;
+}
+
+.modal .screenshot {
+	height: 80%;
+	text-align: center;
+}
+
+.modal .screenshot img {
+	height: 100%;
+}
+
+.modal .dialog.screenshot:after {
+	padding-top: 0;
+}
+
+.modal:target {
+  	opacity: 1;
+  	-o-transform: scale(1, 1);
+	-moz-transform: scale(1, 1);
+	-ms-transform: scale(1, 1);
+	-webkit-transform: scale(1, 1);
+	transform: scale(1, 1);
+}
+
+.modal:target iframe {
+	display: block;
+}
+
+.modal:target .dialog {
+	-moz-transform: scale(1, 1) rotate(0deg) skew(0deg, 0deg);
+	-o-transform: scale(1, 1) rotate(0deg) skew(0deg, 0deg);
+	-ms-transform: scale(1, 1) rotate(0deg) skew(0deg, 0deg);
+	-webkit-transform: scale(1, 1) rotate(0deg) skew(0deg, 0deg);
+	transform: scale(1, 1) rotate(0deg) skew(0deg, 0deg);
+}
+
+.modal .dialog {
+	-moz-transform: scale(0, 0) rotate(90deg) skew(30deg, 20deg);
+	-o-transform: scale(0, 0) rotate(90deg) skew(30deg, 20deg);
+	-ms-transform: scale(0, 0) rotate(90deg) skew(30deg, 20deg);
+	-webkit-transform: scale(0, 0) rotate(0deg) skew(30deg, 20deg);
+	transform: scale(0, 0) rotate(90deg) skew(30deg, 20deg);
+	-moz-transition: all 0.5s 0.3s;
+	-o-transition: all 0.5s 0.3s;
+	-webkit-transition: all 0.5s;
+	-webkit-transition-delay: 0.3s;
+	-o-transition-delay: 0.3s;
+	-moz-transition-delay: 0.3s;
+	transition: all 0.5s 0.3s;
+	margin-right: 5%;
+	margin-top: 5%;
+	margin-left: 5%;
+	align-items: center;
+	width: 90%;
+}
+
+.modal .dialog:after {
+	content: "";
+	display: block;
+	padding-top: 94%;
+}
+
+.modal .dialog a {
+	position: absolute;
+	display: block;
+	right: -38px;
+	width: 23px;
+	top: 0;
+	height: 23px;
+}
+
+
+
+
+
+
+/* NAVIGATION
+   ================================================== */
+   	
+.navWrapper {
+	position: fixed;
+	width: 100%;
+	border-bottom: 1px solid white;
+	z-index: 7;
+/*	background: url(../img/paper.jpg) repeat;*/
+/*	background-size: 400px;*/
+/*background-image: linear-gradient(-45deg, rgba(189, 189, 189, 0) 0%, rgba(189, 189, 189, 0) 44%, rgba(189, 189, 189, 0.3) 45%, rgba(189, 189, 189, 0.3) 55%, rgba(189, 189, 189, 0) 56%, rgba(189, 189, 189, 0) 100%);
+background-size: 4px 4px;
+background-repeat: repeat;*/
+}
+
+.navInner {
+	margin: auto;
+	max-width: 1142px;
+	padding-right: 5%;
+	padding-left: 5%;
+}
+
+.login {
+	font-size: 0.85rem;
+	line-height: 1.5rem;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	float: right;     
+	text-align: right;
+	transition: all 0.2s ease;
+	padding-left: 42px;
+}
+
+.login:hover {
+	color: #3D4544;
+}
+
+.navButton {
+	color: white;
+	font-size: 0.85rem;
+	line-height:1.5rem;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: 146px;
+    float: left; 
+	border-right: 1px dotted white;
+	border-bottom: 0;
+	text-align: center;
+	transition: all 0.2s ease;
+}
+
+.navButton:first-of-type {
+	border-left: 1px dotted white;
+}
+
+.navButton:hover,
+.navButton.current {
+	background-color: white;
+}
+	
+	
+
+
+
+/* HEADER ELEMENTS
+   ================================================== */
+
+.logo {
+	height: 98px;
+	padding-top: 104px;
+	padding-bottom: 47px;
+}
+
+section .intro {
+	border-bottom: none;
+	padding-bottom: 0;
+}
+
+.intro {
+	position: relative;
+	border-bottom: 1px dotted white;
+	padding-bottom: 4px;
+}
+
+.homeIntro {
+	margin-bottom: 130px;
+	padding-bottom: 80px;
+}
+
+.emailWrapper {	
+	height: 122px;
+	position: relative;
+	top: 17px;
+	right: 0;
+}
+
+.emailSignup input {
+	border: none;
+	margin: 0;
+	height: 34px;
+	text-align: center;
+	box-sizing: border-box;
+	width: 70.8%;
+}
+
+.emailSignup .emailButton {
+	border: none;
+	width: 24%;
+	height: 23px;
+	position: absolute;
+	right: 0;
+	top: 5px;
+	border-radius: 5px;
+	font-size: 0.8rem;
+	line-height:1.3rem;
+	font-weight: 500;
+}
+
+.socialIcons {
+	bottom: 0;
+	position: absolute;
+	cursor: pointer;
+	box-sizing: border-box;
+	border-top: 1px dotted white;
+	padding-top: 21px;
+}
+
+.socialLogos {
+	cursor: pointer;
+	box-sizing: border-box;
+	width: 12%;
+	float: right;
+	margin-right: 10%;
+}
+
+.socialLogos:first-child {
+	margin-right: 0;
+	box-sizing: border-box;
+}
+
+.socialLogos object {
+    pointer-events:none;
+}
+
+.arrowDown {
+	width: 50px;
+	position: relative;
+	padding-top: 50px;
+	padding-bottom: 51px;
+}
+
+.introText {
+	border-top: 1px dotted white;	
+	box-sizing: border-box;
+	margin-left: 4%;
+	float: left;
+	padding-top: 18px;
+	margin-top: 49px;
+	width: 22%;
+}
+
+.introTextLogin {
+	border-top: 1px dotted white;	
+	box-sizing: border-box;
+	margin-left: 8%;
+	float: left;
+	padding-top: 25px;
+	margin-top: 69px;
+	width: 44%;
+}
+
+.introText:first-child {
+	margin-left: 0;
+}
+
+.introTextLogin:first-child {
+	margin-left: 0;
+}
+
+.newLog {
+	margin-top: 51px;
+}
+
+	
+
+
+/* COMMON HOMEPAGE ELEMENTS
+   ================================================== */
+   
+.topTrialButton {
+	padding-top: 11px;
+	padding-bottom: 11px;
+	text-align: center;
+	background-color: white;
+}
+
+.speechMarks {
+	width: 78px;
+	padding-bottom: 27px;
+}
+
+.speechMarksHome {
+	width: 70px;
+	padding-bottom: 27px;
+}
+
+.illustration {
+	margin-top: 173px;
+}
+
+.illustrationHome {
+	position: absolute;
+	right: 0;
+	bottom: 134px;
+}
+
+.quoteTextLarge {
+	font: 3.2rem/1.10 clarendonLight, Georgia;
+	padding-bottom: 50px;
+	border-bottom: 1px dotted white;
+}
+
+.quoteTextSmall {
+	padding-bottom: 50px;
+	border-bottom: 1px dotted white;
+}
+
+.quoteHome {
+	padding-right: 9%;
+}
+
+.soloUser {
+	padding-top: 29px;
+	position: relative;
+}
+
+.freelancerName {
+	font-size: 1.05rem;
+}
+
+.userJob {
+	display: inline-block;
+	font-weight: 300;
+	color: white;
+}
+
+.caseStudyButton {
+	position: absolute;
+	right: 0;
+	font-size: .8rem;
+	padding-right: 22px;
+	padding-left: 22px;
+	border-radius: 5px;
+	bottom: 3px;
+	display: ;
+}
+
+.arrowUser {
+	width: 43px;
+	position: absolute;
+	right: 0;
+	padding: 0;
+	bottom: 8px;
+}
+
+.userImage {
+	position: relative;
+}
+	
+.callToAction {
+	border-radius: 5px;
+	font-size: 1.0rem;
+	height: 23px;
+	text-align: center;
+	padding-top: 7px;
+	padding-right: 21px;
+	padding-left: 21px;
+	float: left;
+	position: relative;
+}
+
+.bottomTrial {
+	text-align: center;
+	padding: 30px 30px 25px;
+	float: left;
+	position: relative;
+}
+
+.iPhone {
+	width: 50%;
+	box-sizing: border-box;
+	float: left;
+	position: relative;
+}
+
+.appText {
+	font-size: 2.4em;
+	padding-top: 32%;
+}
+
+.phone {
+	width: 83%;
+	float: right;
+	padding-bottom: 2px;
+}
+
+.storeLogo {
+	width: 75%;
+	float: right;
+	padding-top: 73.4%;
+}
+
+
+/* PHOTOGRAPHER
+   ================================================== */
+
+
+.photographer .callToAction {
+	bottom: 47%;
+	background-color: #ff8e38;
+}
+
+
+/* CINEMATOGRAPHER
+   ================================================== */
+
+.cinematographer .callToAction {
+	bottom: 30%;
+}
+
+.cinemaCam {
+	margin-left: -38px;
+	width: 94%;
+	padding-bottom: 2px;
+}
+
+
+/* DESIGNER
+   ================================================== */
+
+.designer {
+	padding-top: 87px;
+}
+
+.wacom	{
+	width: 100%;
+	padding-bottom: 3px;
+}
+
+
+/* ANIMATOR
+   ================================================== */
+
+.animator .callToAction {
+	bottom: 56%;
+}
+
+.mac {
+	float: right;
+	width: 100%;
+	position: relative;
+	top: 78px;
+}
+
+
+/* ILLUSTRATOR
+   ================================================== */
+
+.illustrator .callToAction {
+	bottom: 45%;
+	height: 104px;
+	line-height: 103px;
+	padding-top: 0;
+	background-color: white;
+}
+
+.moleskine	{
+	margin-left: -9px;
+	width: 79.3%;
+	padding-bottom: 3px;
+}
+
+
+
+
+
+
+/* COMMON TOUR ELEMENTS
+   ================================================== */
+
+.tour {
+	position: relative;
+}
+
+.tourScreenshot {
+	width: 100%;
+	position: relative;
+}
+
+.tourContentRight {
+	padding-left: 7%;
+	padding-right: 15%;
+	position: relative;
+	padding-top: 62px;
+} 
+
+.tourContentLeft {
+	padding-right: 7%;
+	position: relative;
+	padding-right: 15%;
+	padding-top: 62px;
+} 
+
+.tourTitle {
+	padding-bottom: 15px;
+	box-sizing: border-box;
+	padding-right: 20px;
+} 
+
+.tourCopy {
+	padding-bottom: 35px;
+	font-size: 1.15rem;
+	line-height: 1.8rem;
+} 
+
+.noButton {
+	padding-bottom: 0;
+}
+
+
+.videoButton {
+	font-size: .8rem;
+	padding-right: 36px;
+	padding-left: 36px;
+	border-radius: 5px;
+	float: left;
+}
+
+.tourArrowDown {
+	width: 43px;
+	clear: both;
+	float: left;
+	margin-top: 72px;
+}
+
+
+/* TIMER
+   ================================================== */
+
+.timerTour .tourContent {
+	left: 0;
+	position: relative;
+	width: 47%;
+}
+
+.timer {
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 100%;
+}
+
+
+/* TOUR METRICS
+   ================================================== */
+
+.metricsTour .tourContent {
+	width: 41%;
+}
+
+.metrics {
+	position: absolute;
+	right: 0;
+	height: 100%;
+	bottom: 0;
+}
+
+
+
+
+
+/* CASESTUDIES PAGE
+   ================================================== */
+   
+.caseTopTrialButton {
+	padding-top: 14px;
+	padding-bottom: 15px;
+	text-align: center;
+	margin-top: 59px;
+}
+
+.caseRow {
+	margin-top: -50px;
+}
+
+.userStudy {
+	width: 20%;
+	position: relative;
+	float: left;
+	margin-left: 6.666%;
+}
+
+/*.userStudy:hover {
+	color: #FD4871;	
+}*/
+
+.userStudy:first-child {
+	margin-left: 0;
+}
+
+.userLogo {
+	height: 180px;
+	margin-bottom: 19px;
+}
+
+.userProfession {
+	font-size: 1.2rem;
+	line-height: 1.6rem;
+	padding-bottom: 1px;
+}
+
+.userName {
+	font-size: 1.0rem;
+	border-bottom: 1px dotted white;
+	padding-bottom: 14px;
+	font-weight: 300;
+}
+
+.userMoreButton {
+	font-size: .8rem;
+	padding-right: 21px;
+	padding-left: 21px;
+	border-radius: 5px;
+	float: left;
+}
+
+.rygiol {
+	background: url(../img/rygiol.svg) left 71% no-repeat;
+	background-size: 140px;
+	height: 100%;
+}
+
+.derek {
+	background: url(../img/derek.svg) left 80% no-repeat;
+	background-size: 95px;
+	height: 100%;
+}
+
+.brandon {
+	background: url(../img/brandon.svg) left 80% no-repeat;
+	background-size: 95px;
+	height: 100%;
+}
+
+.gerald {
+	background: url(../img/gerald.svg) left 80% no-repeat;
+	background-size: 95px;
+	height: 100%;
+}
+
+.vlad {
+	background: url(../img/vlad.svg) left 80% no-repeat;
+	background-size: 93px;
+	height: 100%;
+}
+
+.mark {
+	background: url(../img/mark.svg) left 70% no-repeat;
+	background-size: 180px;
+	height: 100%;
+}
+
+.britney {
+	background: url(../img/britney.svg) left 71% no-repeat;
+	background-size: 150px;
+	height: 100%;
+}
+
+.beast {
+	background: url(../img/bernard.svg) left 74% no-repeat;
+	background-size: 102px;
+	height: 100%;
+}
+
+
+
+
+
+
+
+/* CASESTUDIES INDIVIDUAL
+   ================================================== */
+
+
+.caseStudyMain {
+	padding-right: 88px;
+}
+
+.caseStudyHeader {
+	padding-bottom: 87px;
+	margin-bottom: 92px;
+	padding-top: 92px;
+}
+
+.caseStudiesBack {
+	font-size: .8rem;
+	margin-bottom: 53px;
+	float: left;
+	margin-top: 21px;
+	padding-right: 31px;
+	padding-left: 31px;
+}
+
+.caseStudyCopy {
+	padding-bottom: 20px;
+}
+
+.caseStudyAsideRow {
+	padding-bottom: 16px;
+	border-bottom: 1px dotted white;
+	padding-top: 16px;
+}
+
+.caseStudyAsideRow:first-child {
+	border-top: 1px dotted white;
+}
+
+.caseStudyIntroQuote {
+	padding-right: 88px;
+	line-height: 1.12em;
+}
+
+.caseStudyIntro {
+	padding-bottom: 36px;
+	font-size: 1.4em;
+}
+
+blockquote {
+	box-sizing: border-box;
+	margin: 0;
+	line-height:1.6rem;
+	text-align: left;
+	position: relative;
+	padding-bottom: 22px;
+	font-style: italic;
+	font-weight: 300;
+}
+
+blockquote:before {
+	content: '“';
+	font: normal normal 68px clarendonLight;
+	position: absolute;
+	left: -40px;
+	top: -11px;
+}
+
+.pulloutQuote {
+	box-sizing: border-box;
+	margin: 25px 0 49px;
+	font: 2.1rem clarendonLight, Helvetica, Arial;
+	line-height: 2.4rem;
+	border-bottom: 1px dotted white;
+	border-top: 1px dotted white;
+	padding-top: 40px;
+	padding-bottom: 47px;
+}
+
+.caseHeading {
+	padding-bottom: 12px;
+	padding-top: 7px;
+	font-size: 1.3rem;
+} 
+
+.caseParagraph {
+	padding-bottom: 21px;
+}
+
+
+.trialButtonLarge {
+	border-radius: 5px;
+	height: 100%;
+	text-align: center;
+	width: 24.6%;
+	position: absolute;
+	right: 0;
+	font-size: 1.3rem;
+	padding-top: 3.7%;
+}
+
+.beastLogo {
+	float: right;
+	width: 157px;
+	bottom: 14px;
+	position: absolute;
+	right: 0;
+}
+
+.rygiolLogo {
+	float: right;
+	width: 180px;
+	bottom: 10px;
+	position: absolute;
+	right: 0;
+}
+
+.geraldLogo {
+	float: right;
+	width: 120px;
+	position: absolute;
+	right: 0;
+	bottom: 16px;
+}
+
+.derekLogo {
+	float: right;
+	width: 120px;
+	position: absolute;
+	right: 0;
+	bottom: 16px;
+}
+
+.britneyLogo {
+	float: right;
+	width: 200px;
+	bottom: 0;
+	position: absolute;
+	right: 0;
+}
+
+.brandonLogo {
+	float: right;
+	width: 120px;
+	bottom: 16px;
+	position: absolute;
+	right: 0;
+}
+
+.markLogo {
+	float: right;
+	width: 192px;
+	bottom: 11px;
+	position: absolute;
+	right: 0;
+}
+
+
+.vladLogo {
+	float: right;
+	width: 120px;
+	bottom: 16px;
+	position: absolute;
+	right: 0;
+}
+
+
+
+
+
+
+/* PRICING
+   ================================================== */
+
+.priceTable {
+	padding-right: 93px;	
+}
+
+.labels {
+	width: 100%;
+	border-bottom: 1px dotted white;
+	float: left;
+}
+
+.column {
+	width: 23%;
+	float: right;
+	text-align: center;
+	padding-top: 11px;
+	padding-bottom: 11px;
+	border-left: 1px dotted white;
+	box-sizing: border-box;
+}
+
+.row {
+	border-bottom: 1px dotted white;
+	width: 100%;
+	box-sizing: border-box;
+	float: left;
+}
+
+.row:nth-child(odd) {
+	background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 44%, rgba(255, 255, 255, 0.3) 45%, rgba(255, 255, 255, 0.3) 55%, rgba(255, 255, 255, 0) 56%, rgba(255, 255, 255, 0) 100%);
+	background-size: 4px 4px;
+	background-repeat: repeat;
+}
+
+
+.plan {
+	padding-top: 16px;
+	padding-bottom: 15px;
+	text-align: center;
+	font-size: 1.2rem;
+}
+
+.feature {
+	box-sizing: border-box;
+	width: 54%;
+	float: left;
+	padding-top: 11px;
+	padding-bottom: 11px;
+	padding-left: 11px;
+}
+
+.price {
+	color: white;
+	text-align: center;
+	font: 2.1rem/2.1rem clarendonLight;
+	border-left: 1px dotted white;
+	width: 23%;
+	height: 53px;
+}
+
+.white {
+	background-color: white;
+	border-left: 1px dotted #FE4972;
+	border-bottom: 1px dotted #FE4972;
+}
+
+.large {
+	border-bottom: 1px dotted white;
+	font-weight: 600;
+	height: 53px;
+	line-height: 2.1rem;
+}
+ .last {
+ 	border-bottom: none;
+ }
+ 
+.benefits{
+	height: 100%;
+	position: absolute;
+	right: 0;
+}
+
+.benefitsLabel {
+	border-bottom: 1px dotted white;
+	
+}
+
+.pricingAside {
+	padding-bottom: 11px;
+	border-bottom: 1px dotted white;
+	padding-top: 11px;
+	text-align: center;
+}
+
+.pricingAside:first-child {
+	border-top: 1px dotted white;
+}
+
+.pricingAside:nth-child(odd) {
+	background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 44%, rgba(255, 255, 255, 0.3) 45%, rgba(255, 255, 255, 0.3) 55%, rgba(255, 255, 255, 0) 56%, rgba(255, 255, 255, 0) 100%);
+	background-size: 4px 4px;
+	background-repeat: repeat;
+}
+
+.pricingTrialButton {
+	border-radius: 5px;
+	font-size: 1.2rem;
+	line-height: 1.2rem;
+	text-align: center;
+	width: 100%;
+	position: absolute;
+	padding-top: 29px;
+	padding-bottom: 29px;
+	bottom: 0;
+}
+
+.payment {
+}
+
+.paymentIntro {
+	float: left;
+}
+
+.paymentCopy {
+	width: 60%;
+	float: right;
+}
+
+.planText {
+	padding-left: 25px;
+}
+
+.planText p {
+	padding-bottom: 11px;
+}
+
+
+
+
+
+
+
+
+/* FOOTER
+   ================================================== */
+
+.footerNav {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+.thriveLogo {
+	width: 92px;
+}
+
+.footerNavButton {
+	border-radius: 8px;
+	font-size: .8rem;
+	text-align: center;
+	float: right;
+	padding-right: 30px;
+	padding-left: 31px;
+	margin-left: 15px;
+}
+
+
+
+
+
+/* ==========================================================================
+   EXAMPLE Media Queries for Responsive Design.
+   These examples override the primary ('mobile first') styles.
+   Modify as content requires.
+   ========================================================================== */
+
+/*==========  Non-Mobile First Method  ==========*/
+
+/* Large Devices, Wide Screens */
+/*@media only screen and (max-width : 1200px) {
+	
+	h1 {
+		font: 2.6rem/1.10 clarendonLight, Georgia;
+	}
+	
+	h2 {
+		font: 2.0rem/1.10 clarendonLight, Georgia;
+	}
+	
+	h3 {
+		font-size: 1.3rem;
+		color: red;
+	}
+	
+	p {
+		font-size: 1rem;
+	}
+
+	.callToAction {
+		font-size: 1.0rem;	
+	}
+	
+	.emailWrapper {	
+		height: 120px;
+	}
+	
+	.emailSignup {
+		padding-bottom: 24px;
+	}
+	
+	.socialLogos {
+		width: 12%;
+		margin-right: 10%;
+	}
+	
+	.speechMarks {
+		width: 67px;
+	}
+		
+	.userName {
+		font-size: 1.3rem;
+	}
+	
+	.arrowDown {
+		width: 43px;
+		top: 53px;
+	}
+	
+	.arrowUser {
+		width: 38px;
+		bottom: 5px;
+	}
+	.tourArrowDown {
+		width: 42px;
+		padding-top: 38px;
+	}
+	
+	.trialButtonLarge {
+		font-size: 1.2rem;
+		padding-top: 56px;
+	}
+	
+	.userProfession{
+		font-size: 1.2rem;
+		line-height: 0.8rem;
+	}
+	
+	.teamWrapper {
+		display: none;
+	}
+}*/
+
+/* Medium Devices, Desktops */
+/*@media only screen and (max-width : 1050px) {
+	h1 {
+		font: 2.4rem/1.10 clarendonLight, Georgia;
+	}
+	
+	h2 {
+		font: 2.0rem/1.10 clarendonLight, Georgia;
+	}
+	
+	h3 {
+		font-size: 1.3rem;
+		color: green;
+	}
+	
+	p {
+		font-size: 1rem;
+	}
+	
+	.navButton {
+		width: 16%;
+	}
+	
+	.callToAction {
+		font-size: 0.9rem;	
+	}
+	
+	.emailWrapper {	
+		height: 106px;
+	}
+	
+	.emailSignup {
+		padding-bottom: 21px;
+	}
+	
+	.socialLogos {
+		width: 12%;
+		margin-right: 10%;
+	}
+	
+	.speechMarks {
+		width: 60px;
+	}
+	
+	.quoteText br {
+		display: none;
+	}
+	
+	.userName {
+		font-size: 1.2rem;
+	}
+	
+	.arrowDown {
+		width: 37px;
+		top: 53px;
+	}
+	
+	.caseStudyButton {
+		display: none;
+	}
+	
+	.arrowUser {
+		width: 38px;
+		bottom: 6px;
+	}
+	
+	.trialButtonLarge {
+		font-size: 1.2rem;
+		padding-top: 50px;
+	}
+	
+	.userStudy {
+		width: 45%;
+		margin-left: 10%;
+	}
+	
+	.userStudy:nth-child(3) {
+		margin-left: 0;
+		clear: both;
+	}
+	
+	.appText {
+		font-size: 1.9em;
+	}
+	
+	.teamWrapper {
+		display: none;
+	}	
+}*/
+
+/* Small Devices, Tablets */
+/*@media only screen and (max-width : 768px) {
+	
+		h1 {
+				font: 1.9rem/1.18 clarendonLight, Georgia;
+			}
+		
+		h2 {
+				font: 1.9rem/1.18 clarendonLight, Georgia;
+			}
+		
+		.wrapper {
+			padding-right: 8%;
+			padding-left: 8%;
+		}
+		
+		.navWrapper {
+			position: relative;
+		}
+		
+		.navInner {
+			margin: auto;
+			max-width: 1142px;
+			padding-right: 0;
+			padding-left: 0;
+		}
+		
+		.navButton {
+			padding: 9px 0 9px 9%;
+			width: 100%;
+			text-align: left;
+			transition: all 0.2s ease;
+			border-bottom: 1px dotted white;
+			border-right: 0;
+		}
+		
+		.navButton:first-of-type {
+			border-left: 0px dotted white;
+		}
+	    
+	    .container > nav > nav:last-child {
+		   border-bottom: 0;	
+	    }
+	
+		
+		.login {
+			display: none;
+		}
+		
+		.logo {
+			height: 90px;
+			padding-top: 43px;
+		}
+		
+		section {
+			padding-bottom: 118px;
+			margin-bottom: 77px;
+		}
+		
+		.intro .column-3 {
+			width: 100%;
+		}
+		
+		.intro br {
+			display: none;
+		}
+		
+		.emailWrapper {
+			display: none;
+		}
+		
+		.arrowUser {
+			display: none;
+		}
+		
+		soloUser {
+			position: relative;
+		}
+		
+		.speechMarks {
+			width: 51px;
+		}
+		
+		.freelancerName {
+			font-size: 1.1rem;
+		}
+		
+		.quote.column-3	{
+			width: 100%;
+		}
+	    
+	    .quoteText {
+	        padding-bottom: 34px;
+	    }
+	    
+	    .soloUser {
+	        padding-top: 32px;
+	        position: relative;
+	    }
+	    
+	    .camera	{
+	        margin-left: -10px;
+	        width: 107%;
+	    }
+	    
+	    .cinemaCam	{
+	        margin-left: -10px;
+	        width: 107%;
+	    }
+		
+		.quoteText br {
+			display: none;
+		}
+		
+		.userJob {
+			display: block;
+			width: 100%;
+	        padding-bottom:17px;
+		}
+		
+		.caseStudyButton {
+			font-size: .9rem;
+			padding-right: 22px;
+			padding-left: 22px;
+			top: 0;
+			padding-top: 2px;
+	        padding-bottom: 2px;
+	        position: relative;
+	        display: none;     
+		}
+		
+		.userImage.column-3 {
+			width: 100%;		
+		}
+		
+		.intro {
+			font-size: 2.4rem;      
+		}
+		
+		.intro br {
+			display: none;
+		}
+		
+		.callToAction.btn.column-1 {
+			width: 100%;
+			position: relative;
+			margin-top: 63px;
+		}
+		
+		.wacom,
+		.mac,
+		.moleskine {
+			width: 100%;
+			margin-left: 0;		
+		}
+		
+		.illustration {
+			margin-top: 20px;
+		}
+		
+		.column-2 {
+			width: 100%;	
+		}
+		
+		.tour {
+			width: 100%;
+		}
+		
+		.tourArrowDown {
+			display: none;
+		}
+		
+		.tourScreenshot {
+			width: 100%;
+			padding-bottom: 49px;
+		}
+		
+		.tourContentRight {
+			position: relative;
+			padding-left: 0;
+		}
+		
+		.tourContentLeft {
+			position: relative;
+			padding-right: 0;
+		}
+		
+		.timerTour .tourContent,
+		.metricsTour .tourContent {
+			width: 100%;
+			padding-left: 0;
+			position: relative;
+			padding-right: 0;
+		} 
+		
+		.tourTitle {
+			width: 100%;
+			padding-right: 0;
+			padding-top: 0;
+		}
+		
+		.tourTitle br {
+			display: none;
+		}
+		
+		.invoicesTour .tourContentRight {
+			padding-top: 0;
+		}
+		
+		.dashboardTour .tourContentRight {
+			padding-top: 0;
+		}
+		
+		.quotesTour .tourContentLeft {
+			padding-top: 0;
+		}
+		
+		.clientsTour .tourContentRight {
+			padding-top: 0;
+		}
+		
+		.plannerTour .tourContentRight {
+			padding-top: 0;
+		}
+		
+		.tourCopy {
+			width: 100%;
+			font-size: 1.1rem;
+		}
+		
+		.videoButtonWrapper {
+			width: 100%;	
+		}
+		
+		.videoButton {
+			display: block;
+			position: relative;
+			margin-top: 45px;
+			text-align: center;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			font-size: 1.12rem;
+		}
+		
+		.timer {
+			width: 100%;
+			position: relative;
+			display: none;
+		}
+		
+		.metrics {
+			width: 100%;
+			position: relative;
+			padding-top: 49px;
+		}
+		
+		.takeTrial .column-3 {
+			width: 100%;
+		}
+		
+		.takeTrial .column-3 br {
+			display: none;
+		}
+		
+		.trialButtonLarge .column-1 .btn {
+			position: relative;
+			clear: both;
+			width: 100%;
+			padding-top: 36px;
+			padding-bottom: 36px;
+			margin-top: 50px;
+		}
+		
+		.beast, .rygiol, .gerald, .derek, .britney, .brandon, .mark, .vlad {
+			background-position: 0 bottom;
+			position: relative;
+		}
+		
+		.caseStudiesIntro {
+			margin-bottom: 0;
+		}
+		
+		.caseRow {
+			border: none;
+			margin-bottom: 0;
+			padding-bottom: 0;
+		}
+		
+		.userStudy {
+			width: 100%;
+			margin-left: 0%;
+		}
+		
+		.userStudy:nth-child(3) {
+			margin-left: 0;
+			clear: both;
+		}
+		
+		.userLogo {
+			margin-top: 120px;
+			margin-bottom: 30px;
+			height: auto;
+		}
+		
+		.userProfession{
+			font-size: 1.3rem;
+			line-height: 0.8rem;
+			padding-right: 8px;
+		}
+		
+		.userName{
+			font-size: 0.9em;
+			border-bottom: 1px dotted white;
+			padding-bottom: 17px;
+		}
+		
+		.userMoreButton {
+			border-radius: 15px;
+			padding-top: 6px;
+			padding-bottom: 6px;
+		}
+		
+		.caseStudyIntroQuote {
+			padding-right: 0;
+			font-size: 1em;
+			line-height: 1.12em;
+		}
+		
+		.beast {
+			background-size: 110px;
+			height: 95px;
+		}
+		
+		.rygiol {
+			background-size: 160px;
+			height: 47px;
+		}
+		
+		.gerald {
+			background-size: 110px;
+			height: 110px;
+		}
+		
+		.derek {
+			height: 110px;
+			background-size: 110px;
+		}
+		
+		.britney {
+			height: 48px;
+			background-size: 180px;
+		}
+		
+		.brandon {
+			height: 110px;
+			background-size: 110px;
+		}
+		
+		.mark {
+			height: 47px;
+			background-size: 190px;
+		}
+		
+		.vlad {
+			height: 110px;
+			background-size: 110px;
+		}
+		
+		.benefits {
+			clear: both;
+			position: relative;
+			width: 100%;
+			top: 88px;
+		}
+		
+		.column-3.priceTable {
+			width: 100%;
+			padding-right: 0;
+		}
+		
+		.pricingTrialButton {
+			position: relative;
+			margin-top: 88px;
+			margin-bottom: 88px;
+		}
+		
+		.column-3.payment {
+			width: 100%;
+			padding-right: 0;
+		}
+		
+		.paymentIntro {
+			width: 100%;
+			padding-bottom: 22px;
+		}
+		
+		.paymentIntro br {
+			display: none;
+		}
+		
+		.paymentCopy {
+			position: relative;
+			clear: both;
+			width: 100%;
+		}
+		
+		.caseStudyMain.column-3 {
+			width: 100%;
+			padding-right: 0;
+		}
+		
+		.caseStudyAside {
+			width: 100%;
+			margin-top: 100px;
+		}
+		
+		.beastLogo, .rygiolLogo, .geraldLogo, .derekLogo, .britneyLogo, .brandonLogo, .markLogo, .vladLogo {
+			display: none;
+		}
+		
+		.soloApp {
+			padding-bottom: 190px;
+		}
+		
+		.plan {
+			font-size: 1.0rem;
+		}
+		
+		.price {
+			font: 1.9rem clarendonLight;
+		}
+		
+		.row .column,
+		.row .feature {
+			font-size: .9em;
+		}
+		
+		.pricingAside {
+			font-size: 0.9em;
+		}
+		
+		
+		.alternatePrice {
+			text-align: center;
+			width: 30%;
+			font-size: 1.0rem;
+			padding-bottom: 0;
+			padding-top: 0;
+			box-sizing: border-box;
+		}
+		
+		.iPhone {
+			width: 50%;
+			box-sizing: border-box;
+			float: left;
+			position: relative;
+		}
+		
+		.appText {
+			font-size: 1.9em;
+			padding-top: 0;
+			padding-bottom: 60px;
+		}
+		
+		.phone {
+			width: 100%;
+			float: left;
+		}
+		
+		.storeLogo {
+			width: 87%;
+			float: right;
+			padding-top: 93%;
+		}
+		
+		.teamWrapper {
+			display: none;
+		}		
+}*/
+
+
+
+
+/* Small Devices, Tablets */
+	/*@media only screen and (max-width : 768px) {
+	
+		
+
+	}*/
+
+
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 480px) {
+
+	.column-1 {
+		width: 100%;
+	}
+	
+	.column-2 {
+		width: 100%;
+	}
+	
+	.column-3 {
+		width: 100%;
+	}
+	
+	.column-4 {
+		width: 100%;	
+	}
+	
+	h1 {
+		font: 2.3rem/1.10 clarendonLight, Georgia;
+	}
+	
+	h2 {
+		font: 2.0rem/1.10 clarendonLight, Georgia;
+	}
+	
+	h3 {
+		font-size: 1.3rem;
+		line-height: 1.2;
+	}
+	
+	p {
+		font-size: 1.05rem;
+		line-height: 1.7rem;
+	}
+	
+	.wrapper {
+		padding-right: 8%;
+		padding-left: 8%;
+	}
+	
+	.navWrapper {
+		position: relative;
+	}
+	
+	.navInner {
+		margin: auto;
+		max-width: 1142px;
+		padding-right: 0;
+		padding-left: 0;
+	}
+	
+	.navButton {
+		padding: 9px 0 9px 9%;
+		width: 100%;
+		text-align: left;
+		transition: all 0.2s ease;
+		border-bottom: 1px dotted white;
+		border-right: 0;
+	}
+	
+	.navButton:first-of-type {
+		border-left: 0px dotted white;
+	}
+	
+	.container > nav > nav:last-child {
+	   border-bottom: 0;	
+	}
+	
+	.navButton:first-of-type {
+		border-left: 0px dotted white;
+	}
+    
+    .container > nav > nav:last-child {
+	   border-bottom: 0;	
+    }
+	
+	.login {
+		display: none;
+	}
+	
+	.logo {
+		height: 90px;
+		padding-top: 43px;
+	}
+	
+	.homeIntro {
+		margin-bottom: 100px;
+		padding-bottom: 100px;
+	}
+	
+	.arrowDown {
+		padding-top: 50px;
+		padding-bottom: 0;
+	}
+	
+	section {
+		padding-bottom: 100px;
+		margin-bottom: 102px;
+	}
+	
+	.intro br {
+		display: none;
+	}
+	
+	.emailWrapper {
+		display: none;
+	}
+	
+	.arrowUser {
+		display: none;
+	}
+	
+	.speechMarksHome {
+		width: 51px;
+		padding-bottom: 23px;
+	}
+	
+	.quoteHome {
+		padding-right: 0;
+	}
+	
+	.quoteTextSmall {
+		padding-bottom: 29px;
+		border-bottom: 1px dotted white;
+	}
+	
+	.callToAction {
+		border-radius: 5px;
+		font-size: 1.0rem;
+		height: 27px;
+		text-align: center;
+		padding-top: 10px;
+		padding-right: 21px;
+		padding-left: 21px;
+		float: left;
+		position: relative;
+	}
+	
+	.freelancerName {
+		font-size: 1.0rem;
+	}
+	
+    .quoteText {
+        padding-bottom: 34px;
+	}
+	
+	.timerTour .tourContent {
+		width: 100%;
+	}
+	
+	.metricsTour .tourContent {
+		width: 100%;
+	}
+	
+	.tourContentLeft {
+		position: relative;
+		padding-right: 0;
+	}
+	
+
+	.caseStudyButton {
+		position: absolute;
+		right: 0;
+		font-size: .8rem;
+		padding-right: 22px;
+		padding-left: 22px;
+		border-radius: 5px;
+		bottom: 21px;
+		height: 31px;
+		line-height: 31px;
+	}
+	
+	.illustrationHome {
+		position: relative;
+		right: 0;
+		bottom: 0;
+		padding-top: 21px;
+	}
+    
+    .camera	{
+        margin-left: -14px;
+        width: 107%;
+	}
+	
+	.userJob {
+		display: block;
+		width: 100%;
+        padding-bottom:17px;
+	}
+	
+	.callToAction.btn.column-1 {
+		clear: both;
+		width: 100%;
+		position: relative;
+		margin-top: 63px;
+	}
+	
+	.tourContentRight {
+		position: relative;
+		padding-right: 0;
+		padding-left: 0;
+		padding-top: 35px;
+	} 
+	
+	.noButton {
+		padding-bottom: 0;
+	}
+	
+	.emailText {
+		padding-right: 0;
+		padding-bottom: 34px;
+	}
+	
+	.screenshotBelow {
+		padding-bottom: 35px;
+	}
+	
+	.mac {
+		float: right;
+		width: 100%;
+		position: relative;
+		top: 78px;
+	}
+	
+	.caseStudiesIntro {
+		margin-bottom: 100px;
+	}
+	
+	.planText {
+		padding-left: 0;
+	}
+	
+	.wacom	{
+		width: 100%;
+		padding-bottom: 0;
+	}
+	
+	.bottomTrial {
+		text-align: center;
+		padding: 30px 30px 22px;
+		float: left;
+		position: relative;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	.timer {
+		width: 100%;
+		position: relative;
+		display: none;
+	}
+	
+	.metrics {
+		width: 100%;
+		position: relative;
+		padding-top: 49px;
+	}
+	
+	.takeTrial .column-3 {
+		width: 100%;
+	}
+	
+	.takeTrial .column-3 br {
+		display: none;
+	}
+	
+	.trialButtonLarge.column-1.btn {
+		position: relative;
+		clear: both;
+		width: 100%;
+		padding-top: 36px;
+		padding-bottom: 36px;
+		margin-top: 50px;
+	}
+	
+	.beast, .rygiol, .gerald, .derek, .britney, .brandon, .mark, .vlad {
+		background-position: 0 bottom;
+		position: relative;
+	}
+	
+	.caseRow {
+		border: none;
+		margin-bottom: 0;
+		padding-bottom: 0;
+	}
+	
+	.userStudy {
+		width: 100%;
+		margin-left: 0%;
+	}
+	
+	.userStudy:nth-child(3) {
+		margin-left: 0;
+		clear: both;
+	}
+	
+	.userLogo {
+		margin-top: 50px;
+		margin-bottom: 0;
+		height: auto;
+				border-bottom: 1px dotted white;
+		padding-bottom: 35px;
+	}
+	
+	.userProfession{
+		font-size: 1.2rem;
+		line-height: 1.0rem;
+		padding-right: 8px;
+		padding-top: 11px;
+	}
+	
+	.userName{
+		font-size: 0.9em;
+		border-bottom: 1px dotted white;
+		padding-bottom: 5px;
+	}
+	
+	.userMoreButton {
+		border-radius: 5px;
+		padding-top: 6px;
+		padding-bottom: 6px;
+	}
+	
+	.caseStudyIntroQuote {
+		padding-right: 0;
+	}
+	
+	.beast {
+		background-size: 110px;
+		height: 95px;
+	}
+	
+	.rygiol {
+		background-size: 160px;
+		height: 47px;
+	}
+	
+	.gerald {
+		background-size: 110px;
+		height: 110px;
+	}
+	
+	.derek {
+		height: 110px;
+		background-size: 110px;
+	}
+	
+	.britney {
+		height: 48px;
+		background-size: 180px;
+	}
+	
+	.brandon {
+		height: 110px;
+		background-size: 110px;
+	}
+	
+	.mark {
+		height: 47px;
+		background-size: 190px;
+	}
+	
+	.vlad {
+		height: 110px;
+		background-size: 110px;
+	}
+	
+	.benefits {
+		clear: both;
+		position: relative;
+		width: 100%;
+		top: 88px;
+	}
+	
+	.column-3.priceTable {
+		width: 100%;
+		padding-right: 0;
+	}
+	
+	.pricingTrialButton {
+		position: relative;
+		margin-top: 88px;
+		margin-bottom: 88px;
+	}
+	
+	.column-3.payment {
+		width: 100%;
+		padding-right: 0;
+	}
+	
+	.paymentIntro {
+		width: 100%;
+		padding-bottom: 22px;
+	}
+	
+	.paymentIntro br {
+		display: none;
+	}
+	
+	.paymentCopy {
+		position: relative;
+		clear: both;
+		width: 100%;
+	}
+	
+	.caseStudyMain.column-3 {
+		width: 100%;
+		padding-right: 0;
+	}
+	
+	.caseStudyAside {
+		width: 100%;
+		margin-top: 100px;
+	}
+	
+	.beastLogo, .rygiolLogo, .geraldLogo, .derekLogo, .britneyLogo, .brandonLogo, .markLogo, .vladLogo {
+		display: none;
+	}
+	
+	.plan {
+		font-size: 1.0rem;
+	}
+	
+	.price {
+		font: 1.9rem clarendonLight;
+	}
+	
+	.row .column,
+	.row .feature {
+		font-size: .9em;
+	}
+	
+	.pricingAside {
+		font-size: 0.9em;
+	}
+	
+	
+	.alternatePrice {
+		text-align: center;
+		width: 30%;
+		padding-bottom: 0;
+		padding-top: 0;
+		box-sizing: border-box;
+	}
+	
+	.iPhone {
+		width: 50%;
+		box-sizing: border-box;
+		float: left;
+		position: relative;
+	}
+	
+	.appText {
+		padding-top: 0;
+		padding-bottom: 60px;
+		font-size: 2em;
+	}
+	
+	.phone {
+		width: 100%;
+		float: left;
+	}
+	
+	.storeLogo {
+		width: 87%;
+		float: right;
+		padding-top: 93%;
+	}	
+	
+	.introText {
+		width: 100%;
+		margin-left: 0;
+	}
+	
+	.teamWrapper {
+		display: none;
+	}
+}
+
+/* Custom, iPhone Retina */ 
+@media only screen and (max-width : 320px) {
+	
+}
+
+  
+  
+  
+ 
+/* ==========================================================================
+   Print styles.
+   Inlined to avoid required HTTP connection: h5bp.com/r
+   ========================================================================== */
+
+@media print {
+    * {
+        background: transparent !important;
+        color: #000 !important; /* Black prints faster: h5bp.com/s */
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    /*
+     * Don't show links for images, or javascript/internal links
+     */
+
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group; /* h5bp.com/t */
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    @page {
+        margin: 0.5cm;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}
+
+
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+/*
+ * Image replacement
+ */
+
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    /* IE 6/7 fallback */
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+}
+
+/*
+ * Hide from both screenreaders and browsers: h5bp.com/u
+ */
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+/*
+ * Hide only visually, but have it available for screenreaders: h5bp.com/v
+ */
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+/*
+ * Extends the .visuallyhidden class to allow the element to be focusable
+ * when navigated to via the keyboard: h5bp.com/p
+ */
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+/*
+ * Hide visually and from screenreaders, but maintain layout
+ */
+
+.invisible {
+    visibility: hidden;
+}
+
+/*
+ * Clearfix: contain floats
+ *
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that receive the `clearfix` class.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/*
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+
+.clearfix {
+    *zoom: 1;
+}
