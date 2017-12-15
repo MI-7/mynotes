@@ -1,0 +1,150 @@
+<link rel="stylesheet" href="../homepage/envoy.min.css">
+
+<style>
+	#code {
+    width:900px;
+    margin:0 auto;   
+    /*temporary text styles below*/
+    text-align:left;
+    font-weight:bold;
+    background: rgb(170,204,153);
+  }
+  main {
+    margin-bottom: 200%;
+  }
+  .floating-menu {
+    font-family: sans-serif;
+    background: transparent;
+    padding: 5px;;
+    width: 80px;
+    z-index: 100;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+  }
+  .floating-menu a, 
+  .floating-menu h3 {
+    font-size: 0.9em;
+    display: block;
+    margin: 0 0.5em;
+    color: white;
+  }
+  .floating-menu a:hover{
+    background: yellowgreen;
+  }
+</style>
+
+  <nav class="floating-menu">
+    <a href="../homepage2.html">Home</a>
+    <a href="../bitcoin/0-bitcoinhomepage.html">Bitcoin</a>
+    <a href="../crypto/0-cryptohomepage.html">Crypto</a>
+    <a href="0-pochomepage.html">C</a>
+    <a href="../linearalgebra/0-linearalgebrahomepage.html">Algebra</a>
+  </nav>
+
+<div class="col col-10 px2 js-linksHeight">
+<h3 class="red h2 mt0 mb4 px3">
+Basic Concepts</h3>
+<div class="mbn2 relative">
+<div class="js-active-tab z2" style="pointer-events: none;"></div>
+<ul class="list-style-none z3 js-galleryLinks">
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate blue h2">
+Environments
+</h3>
+<pre>
+<font color=green>translation environments</font>= in which source code is converted into executable machine instructions
+<font color=green>execution environments</font>= in which the code actually runs
+
+translation environment can be different from execution environment.  for example, cross-compilers run on one machine but
+produce executable code that will be run on a different type of machine.
+
+nor is an operating system a requirement.  the standard also discusses freestanding environments, in which there is no operating system.
+</pre>
+
+</li>
+
+<li class="p3 js-animateTab " data-tab="1">
+
+<h3 class="mt0 mb1 slate h5">
+Attacks
+</h3>
+<pre>
+<font color=green>Cryptanalysis</font> = the science of studying attacks against cryptographic schemes
+Attacks usually tries to reveal plaintext from ciphertext.  Or even, recover the key.
+
+Eve may have full information of plaintext or ciphertext.  But may not have the key.
+
+Classifications of Attacks:
+1. Ciphertext-only attack: Eve have <font color=green>ciphertexts</font>.
+One must assume that she can get access to encrypted messages.
+An encryption method that cannot resist a ciphertext-only attack is completely insecure.
+
+2. Known-plaintext attack: Eve have <font color=green>plaintext-ciphertext pairs</font>.
+Using the information from these pairs, she attempts to decrypt a ciphertext for which she does not have the plaintext.
+Messages may be sent in standard formats which Eve knows.
+
+3. Chosen-plaintext attack: Eve has the ability to obtain <font color=green>ciphertexts for plaintexts of her choosing</font>.
+Then she attempts to decrypt a ciphertext for which she does not have the plaintext.
+For example, she may send some interesting information to her intended victim which she is confident
+he will encrypt and send out.
+This type of attack assumes that Eve must first obtain whatever plaintext-ciphertext pairs she wants
+and then do her analysis, without any further interaction.
+This means that she only needs access to the encrypting device once.
+
+4. Adaptively-chosen-plaintext attack.
+This is the same as the previous attack, except that now Eve may do some analysis on the plaintext-ciphertext
+pairs, and subsequently get more pairs.
+She may switch between gathering pairs and performing the analysis as often as she likes.
+This means that she either has lengthy <font color=green>access to the encrypting device</font> or can somehow make repeated use of it.
+
+5. Chosen- and adaptively-chosen-ciphertext attacks.
+These two attacks are similar to the above plaintext attacks.
+Eve can choose ciphertexts and get the corresponding plaintexts. She has access to the decryption device.
+</pre>
+<p/>
+
+</li>
+
+<li class="p3 js-animateTab " data-tab="2">
+<h3 class="mt0 mb1 slate h5">Cryptographic Protocols</h3>
+
+<pre id="code">
+encryption and decryption algorithms
+cryptographic hash functions
+pseudorandom generators
+</pre>
+<pre>
+are the basic building blocks (also called cryptographic primitives) for solving problems
+involving <font color=green>secrecy, authentication or data integrity</font>.
+
+In many cases a single building block is not sufficient to solve the given
+problem: different primitives must be combined. A series of steps must be executed to accomplish a given task.
+
+<font color=green>Cryptographic Protocols</font> = Well-defined series of steps.  e.g.
+1. Bob randomly chooses a ¡°challenge¡± c and sends it to Alice.
+2. Alice signs c with her secret key, s := Sign(sk, c), and sends the ¡°response¡± to Bob.
+3. Bob accepts Alice¡¯s proof of identity if Verify(pk, s, c) = ok.
+
+
+</pre>
+<p/>
+
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="7">
+<h3 class="mt0 mb1 slate h5">AES</h3>
+
+<pre>
+X
+</pre>
+
+</li>
+
+
+</ul>
+</div>
+
+
