@@ -43,7 +43,7 @@
 
 <div class="col col-10 px2 js-linksHeight">
 <h3 class="red h2 mt0 mb4 px3">
-Crypto 101</h3>
+Cryptography 101</h3>
 <div class="mbn2 relative">
 <div class="js-active-tab z2" style="pointer-events: none;"></div>
 <ul class="list-style-none z3 js-galleryLinks">
@@ -323,29 +323,22 @@ B
 
 
 <li class="p3 js-animateTab " data-tab="7">
-<h3 class="mt0 mb1 slate h5">Block Ciphers</h3>
+<h3 class="mt0 mb1 slate h5">AES</h3>
 
 <pre>
-<font color=green>block cipher</font> = algorithm that allows us to encrypt
-blocks of fixed length.  It provides function E to turn plaintext block P
-into ciphertext blocks C, using a secret key k:
-                          C = E(k, P)
+<font color=green>AES</font> = Advanced Encryption Standard
 
-<font color=green>block size</font> = Length(C) = Length(P)
-k is in [keys], which is called keyspace
+<font color=green>AES</font> = Rijndael, Belgian cryptographers Vincent Rijmen + Joan Daemen
 
-Later, the ciphertext block can be decrypted using function D:
-                          P = D(k, C)
+<font color=green>Rijndael</font> = A family of block ciphers, with block sizes and key sizes that could be any multiple of
+32 bits between 128 bits and 256 bits.
 
-<img src="fig1.4-blockcipher.png" width="60%" height="60%"></img>
+When Rijndael becomes AES (FIPS-197), block size = 128 bites, key size = 128 / 192 / 256 bits.
+FIPS = Federal Information Processing Standards
 
+A closer look at AES:
+<a href="2-cryptoaes.html">AES</a>
 
-<font color=green>block cipher</font> = <font color=red>symmetric-key encryption</font> OR <font color=red>secret-key encryption</font> scheme
-Meaning: same key is used for both Encryption and Decryption.
-
-<font color=green>block cipher</font> is also <font color=red>keyed permutation</font>.
-
-{Permutations of P blocks}    <=== maps to === by key ===>    {Permutations of C blocks}
 </pre>
 <p/>
 <p class="m0">

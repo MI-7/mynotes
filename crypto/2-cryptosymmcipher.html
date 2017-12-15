@@ -1,0 +1,239 @@
+<link rel="stylesheet" href="../homepage/envoy.min.css">
+
+<style>
+	#code {
+    width:900px;
+    margin:0 auto;   
+    /*temporary text styles below*/
+    text-align:left;
+    font-weight:bold;
+    background: rgb(170,204,153);
+  }
+  main {
+    margin-bottom: 200%;
+  }
+  .floating-menu {
+    font-family: sans-serif;
+    background: transparent;
+    padding: 5px;;
+    width: 80px;
+    z-index: 100;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+  }
+  .floating-menu a, 
+  .floating-menu h3 {
+    font-size: 0.9em;
+    display: block;
+    margin: 0 0.5em;
+    color: white;
+  }
+  .floating-menu a:hover{
+    background: yellowgreen;
+  }
+</style>
+
+  <nav class="floating-menu">
+    <a href="../homepage2.html">Home</a>
+    <a href="../bitcoin/0-bitcoinhomepage.html">Bitcoin</a>
+    <a href="0-cryptohomepage.html">Crypto</a>
+    <a href="../linearalgebra/0-linearalgebrahomepage.html">Algebra</a>
+  </nav>
+
+<div class="col col-10 px2 js-linksHeight">
+<h3 class="red h2 mt0 mb4 px3">
+Symmetric-Key Encryption</h3>
+<div class="mbn2 relative">
+<div class="js-active-tab z2" style="pointer-events: none;"></div>
+<ul class="list-style-none z3 js-galleryLinks">
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<pre>
+Alice and Bob first agree on a key k. They keep their shared key k secret.
+Before sending a message m to Bob, Alice encrypts m by using the encryption algorithm E and the key k.
+She obtains the ciphertext c = E(k,m) and sends c to Bob.
+By using the decryption algorithm D and the same key k, Bob decrypts c to recover the plaintext m = D(k, c).
+
+Key exchange is another problem solved by using public key method.
+
+<img src="fig1.8-symmkeyencryption.png" width="60%" height="60%"></img>
+
+We also distinguish between <font color=green>block ciphers and stream ciphers</font>.
+The encryption function of a block cipher processes plaintexts of fixed length.
+A stream cipher operates on streams of plaintext. Processing character by character,
+it encrypts plaintext strings of arbitrary length.
+If the plaintext length exceeds the block length of a block cipher, various <font color=green>modes of operation</font> are used.
+</pre>
+</li>
+
+<li class="p3 js-animateTab js-activeLink" data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Stream Ciphers
+</h3>
+<pre>
+<img src="fig1.9-streamciphers.png" width="60%" height="60%"></img>
+Decrypting a ciphertext stream c=c1c2c3... is done character by character by applying the
+decryption map D with the same key stream k = k1k2k3... that was used for encryption.
+
+
+</pre>
+
+<pre>
+<img src="fig1.10-xor.png" height="60%" width="60%"></img>
+
+</pre>
+
+</li>
+
+<li class="p3 js-animateTab " data-tab="1">
+
+<h3 class="mt0 mb1 slate h5">
+Block Ciphers
+</h3>
+<pre>
+<img src="fig1.11-blockciphers.png" height="60%" width="60%"/>
+
+Typical block lengths are 64 (as in DES) or 128 (as in AES).
+Typical key lengths are 56 (as in DES) or 128, 192 and 256 (as in AES).
+
+因为{0, 1}n的排列一共有2的n次方种可能，因此，从{0, 1}n这个set到{0, 1}n之间的排列有(2的n次方)!种可能性
+选取第一个映射有2**n种可能，选取第二个映射有2**n - 1...依次类推，因此总的映射排列组合数量在：
+2**n * (2**n - 1) * (2**n - 2) * .... * 1 = (2**n)!
+
+相对这个数字来讲，由key的长度r决定的{0, 1}r的组合数量：2**r是非常小的，几乎可以忽略不计。
+一旦你选定了一个key，由{0, 1}n到{0, 1}n之间的可选择的映射数量就被极大的压缩了。
+
+之所以要做这种计算，是因为从OTP算法的设计我们得出一个结论，最大程度的随机带来最大程度的安全性。
+所以，理想情况下，key的长度不应该是安全性最大化的阻碍。
+
+而为了得到最大限度的安全性，我们可以为(2**n)!种排列组合编号，为了得到编号，需要以下的数字计算：
+总之，key的长度需要达到2**67（当n=64时），存储这个key就够麻烦了。
+<img src="fig1.12-idealkeysize.png" width="60%" height="60%"></img>
+
+所以现实中我们要选个短一点的key，一般来说56到256个bit。
+尽管如此，block cipher的设计者们还是在努力使加密公式表现得像是随机的从一个很大的组合中选取结果一样。
+</pre>
+
+</li>
+
+<li class="p3 js-animateTab " data-tab="2">
+<h3 class="mt0 mb1 slate h5">DES (Data Encryption Standard, FIPS46, 1977)</h3>
+<pre>
+Main user of DES: Governments, banks, financial companys.
+<img src="fig1.13-desdef.png" width="60%" height="60%"></img>
+DES consists of 16 major steps (rounds)
+Each round, a 48-bit round key ki is used.
+The 16 round keys k1, k2...k16 are computed from the 56-bit key k.
+</pre>
+<pre>
+A
+</pre>
+</li>
+
+<li class="p3 js-animateTab " data-tab="3">
+<h3 class="mt0 mb1 slate h5">One-Time Pads</h3>
+<p class="m0">
+A
+</p>
+<p/>
+
+
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="4">
+<h3 class="mt0 mb1 slate h5">Attacks on One-Time Pads</h3>
+
+<p class="m0">
+R
+</p>
+<p/>
+<p class="m0">
+I
+</p>
+<p/>
+
+<p class="m0">
+S
+</p>
+<p/>
+
+</li>
+
+
+
+
+
+<li class="p3 js-animateTab " data-tab="5">
+<h3 class="mt0 mb1 slate h5">Crib Dragging</h3>
+
+<pre>
+L
+</pre>
+<p/>
+<p class="m0">
+</p>
+<p/>
+
+<p class="m0">
+S
+</p>
+<p/>
+
+</li>
+
+
+
+
+
+<li class="p3 js-animateTab " data-tab="6">
+<h3 class="mt0 mb1 slate h5">Other problems of OTP</h3>
+<pre>
+*
+</pre>
+<p/>
+
+<p class="m0">
+C
+</p>
+<p/>
+
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="7">
+<h3 class="mt0 mb1 slate h5">Block Ciphers</h3>
+
+<pre>
+f
+</pre>
+<p/>
+<p class="m0">
+B
+</p>
+<p/>
+
+</li>
+
+
+<li class="p3 js-animateTab " data-tab="7">
+<h3 class="mt0 mb1 slate h5">AES</h3>
+
+<pre>
+f
+</pre>
+<p/>
+<p class="m0">
+B
+</p>
+<p/>
+
+</li>
+
+
+</ul>
+</div>
