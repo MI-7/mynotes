@@ -100,16 +100,235 @@ Produces an executable program called a.out. An object file called program.o is 
 6. To link several object files:
       <font color="green">cc main.o sort.o lookup.o</font>
 
-
-
-
-
-
-
 </pre>
-<p/>
-
 </li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+Lexical Rules
+</h3>
+<pre>
+The <font color="green">Lexical Rules</font> = govern tokens of the source
+An ANSI C Program = declarations + functions
+<font color="green">functions</font>=define the work to be performed
+<font color="green">declarations</font>=describe the functions and/or the kind of data (sometimes data values themselves) on which the functions operate
+</pre>
+</li>
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Characters
+</h3>
+<pre>
+Standard does not require any specific character set be used in a C environment.
+Standard does require the character set to have:
+* a~z A~Z 0~9
+* ! " # % ' ( ) * + , - . / :
+* ; < > = ? [ ] \ ^ _ { } | ~
+* white space character = newline character + space + tab + vertical tab + form feed
+* trigraphs = sequence of characters that represents another character
+  ??(    [        ??<    {        ??=   #
+  ??)    ]        ??>    }        ??/   \
+  ??!    |        ??'    ^        ??-   ~
+* escape sequences (K&R C defined a few, ANSI C added a few more)
+  \?     Used when writing multiple question marks to prevent them from being interpreted as trigraphs.
+  \*     Used to get quotation marks inside of string literals.
+  \'     Used to write a character literal for the character '.
+  \\     Used when a backslash is needed to prevent its being interpreted as a character escape.
+  \a     Alert character. This rings the terminal bell or produces some other audible or visual signal. <font color="green">(ANSI C)</font>
+  \b     Backspace character.
+  \f     Formfeed character.
+  \n     Newline character.
+  \r     Carriage return character.
+  \t     Horizontal tab character.
+  \v     Vertical tab character. <font color="green">(ANSI C)</font>
+  \ddd   ddd represents from one to three octal digits. This escape represents the character whose representation has the given octal value.
+  \xddd  Like the above, except that the value is specified in hexadecimal. <font color="green">(ANSI C)</font>
+
+<font color=red>Note:</font> Trigraphs are being ignored by compilers now by default.
+For example:
+compiling on mac with clang (cc), printf("\"blunder??!??\""); will print the result "blunder??!??".
+
+if compiling with -std89: cc test.c -std=c89, there is a warning: test.c:4:20: warning: trigraph converted to '|' character [-Wtrigraphs]
+printf("\"blunder??!??\""); will print the result "blunder|??".
+
+checking the __STDC_VERSION__ gives you the default c version used:
+  #ifdef __STDC_VERSION__
+  printf("%d", __STDC_VERSION__);
+  #endif
+will print 201112 on my mac.  The __STDC_VERSION__ is a long value.
+
+But, if I compile with -std=c89 specified.  The macro __STDC_VERSION__ is not defined.
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Comments
+</h3>
+<pre>
+C comments begin with the characters /*, end with the characters */, and may contain anything except */ in between.
+
+Each comment is stripped from the source code by preprocessor and replaced by a single space.
+
+Only the first variable is initialized:
+x1 = 0;        <font color="green">/***********************
+x2 = 0;        ** Initialize the     **
+x3 = 0;        ** counter variables. **
+x4 = 0;        ***********************/</font>
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Free Form Source Code
+</h3>
+<pre>
+there are no rules governing where statements can be written, how many statements may appear on a line,
+where spaces should be put, or how many spaces can occur.  Thus, the following statements are equivalent:
+1: y=x+1;
+2: y = x + 1 ;
+3: y = x
+   +
+   1;
+
+The first three are equivalent, the last one is illegal:
+int x;
+int         x;
+int/*comment*/x;
+intx;
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Identifiers
+</h3>
+<pre>
+<font color="green">identifiers</font>=names for variables, functions, types and so forth.
+<font color="green">identifiers</font>=upper and lowercase letters, digits, and the underscore character (cannot begin with digits)
+
+<font color="green">reserved keywords</font>
+auto         do            goto        signed        unsigned
+break        double        if          sizeof        void
+case         else          int         static        volatile
+char         enum          long        struct        while
+const        extern        register    switch
+continue     float         return      typedef
+default      for           short       union
+
+
+C is <font color="green">case sensitive</font>, meaning abc and ABC are different identifiers.  Standard allows C implementation to ignore characters after first 31.
+It also allows implementation to restrict identifiers for external names to six monocase characters.
+
+Extern Example (<font color=red>// single line comment is not ANSI standard</font>):
+</pre>
+<pre id="code">
+File 1:
+
+  // Explicit definition, this actually allocates
+  // as well as describing
+  int Global_Variable;
+
+  // Function prototype (declaration), assumes 
+  // defined elsewhere, normally from include file.       
+  void SomeFunction(void);        
+
+  int main(void) {
+    Global_Variable = 1;
+    SomeFunction();
+    return 0;
+  }
+File 2:
+
+  // Implicit declaration, this only describes and
+  // assumes allocated elsewhere, normally from include
+  extern int Global_Variable;  
+
+  // Function header (definition)
+  void SomeFunction(void) {       
+    ++Global_Variable;
+  }
+</pre>
+<pre>
+In this example, the variable Global_Variable is defined in File 1. In order to utilize the same variable in File 2,
+it must be declared. Regardless of the number of files, a global variable is only defined once, however,
+it must be declared in any file outside of the one containing the definition.
+
+If the program is in several source files, and a variable is defined in file1 and used in file2 and file3,
+then extern declarations are needed in file2 and file3 to connect the occurrences of the variable.
+The usual practice is to collect extern declarations of variables and functions in a separate file,
+historically called a header, that is included by #include at the front of each source file.
+The suffix .h is conventional for header names.
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+Program Style
+</h3>
+<pre>
+sloppy programs are quick and easy to write but difficult to read and understand later...
+
+e.g. Mystery Program 1:
+#include <stdio.h>
+main(t,_,a)
+char *a;
+{return!0&lt;t?t<3?main(-79,-13,a+main(-87,1-_,
+main(-86, 0, a+1 )+a)):1,t<_?main(t+1, _, a ):3,main ( -94, -27+t, a
+)&&t == 2 ?_<13 ?main ( 2, _+1, "%s %d %d\n" ):9:16:t<0?t<-72?main(_,
+t,"@n'+,#'/*{}w+/w#cdnr/+,{}r/*de}+,/*{*+,/w{%+,/w#q#n+,/#{l,+,/n{n+\
+,/+#n+,/#;#q#n+,/+k#;*+,/'r :'d*'3,}{w+K w'K:'+}e#';dq#'l q#'+d'K#!/\
++k#;q#'r}eKK#}w'r}eKK{nl]'/#;#q#n'){)#}w'){){nl]'/+#n';d}rw' i;# ){n\
+l]!/n{n#'; r{#w'r nc{nl]'/#{l,+'K {rw' iK{;[{nl]'/w#q#\
+n'wk nw' iwk{KK{nl]!/w{%'l##w#' i; :{nl]'/*{q#'ld;r'}{nlwb!/*de}'c \
+;;{nl'-{}rw]'/+,}##'*}#nc,',#nw]'/+kd'+e}+;\
+#'rdq#w! nr'/ ') }+}{rl#'{n' ')# }'+}##(!!/")
+:t<-50?_==*a ?putchar(a[31]):main(-65,_,a+1):main((*a == '/')+t,_,a\
++1 ):0&lt;t?main ( 2, 2 , "%s"):*a=='/'||main(0,main(-61,*a, "!ek;dc \
+i@bK'(q)-[w]*%n+r3#l,{}:\nuwloca-O;m .vpbks,fxntdCeghiry"),a+1);}
+
+What the hell does it do exactly?
+
+Some suggested coding habbits:
+1. A blank line separates statements into logical groups based on their functionality.
+The reader can easily skip an entire group without having to read each line of code to see where the group logically ends
+2. The parentheses in if and related statements are part of the statement, not part of the expression being tested.
+Thus I use spaces to separate the parentheses from the expression so that the expression stands out more clearly.
+The same for function prototypes.
+3. Spaces are used around most operators in order to make expressions more readable. Sometimes I omit spaces in
+complex expressions to show the grouping of the subexpressions.
+4. Statements that are nested within other statements are indented to show this relationship. It is easier to
+line up related statements by using tabs to indent rather than spaces.
+It is important to use a large enough indent to be able to visually be able to visually locate matching parts
+of the program over a page of code. Two or three spaces are not enough.
+Some people avoid tabs because they think tabs indent statements too much. In complex functions with deeply
+nested statements, the large tab indent means that there is little space left on the line to write the statements.
+However if the function is that complex, it would probably benefit from being broken into smaller functions,
+one of which contains the statements that were formerly nested so deeply.
+5. Most comments are written in blocks, which makes them stand out visually form the code.
+They are easier for the reader to find, and easier to skip.
+6. In the definition of a function, the return type appears on a separate line before the function name,
+which appears at the beginning of the next line. To locate the definition of a function, search for
+the function name at the beginning of a line.
+</pre>
+</li>
+
 
 </ul>
 </div>
