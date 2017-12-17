@@ -1,0 +1,213 @@
+<title>Machine Learning - Basics</title>
+
+<link rel="stylesheet" href="../homepage/envoy.min.css">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<style>
+	#code {
+    width:900px;
+    margin:0 auto;   
+    /*temporary text styles below*/
+    text-align:left;
+    font-weight:bold;
+    background: rgb(170,204,153);
+  }
+  main {
+    margin-bottom: 200%;
+  }
+  .floating-menu {
+    font-family: sans-serif;
+    background: transparent;
+    padding: 5px;;
+    width: 80px;
+    z-index: 100;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+  }
+  .floating-menu a, 
+  .floating-menu h3 {
+    font-size: 0.9em;
+    display: block;
+    margin: 0 0.5em;
+    color: white;
+  }
+  .floating-menu a:hover{
+    background: yellowgreen;
+  }
+</style>
+
+  <nav class="floating-menu">
+    <a href="../homepage2.html">Home</a>
+    <a href="../bitcoin/0-bitcoinhomepage.html">Bitcoin</a>
+    <a href="../crypto/0-cryptohomepage.html">Crypto</a>
+    <a href="../pointersonc/0-pochomepage.html">C</a>
+    <a href="0-mlhomepage.html">Machine Learning</a>
+    <a href="../linearalgebra/0-linearalgebrahomepage.html">Algebra</a>
+  </nav>
+
+<div class="col col-10 px2 js-linksHeight">
+<h3 class="red h2 mt0 mb4 px3">
+Basic Concepts</h3>
+<div class="mbn2 relative">
+<div class="js-active-tab z2" style="pointer-events: none;"></div>
+<ul class="list-style-none z3 js-galleryLinks">
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate blue h2">
+Install scikit-learn
+</h3>
+<pre>
+scikit-learn is based on numpy and scipy.  they can be installed separately.  installation has no dependency.
+<font color=green>
+pip3.6 install scikit-learn
+pip3.6 install numpy
+pip3.6 install scipy
+</font>
+</pre>
+</li>
+
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate h5">
+Defining Machine Learning
+</h3>
+<pre>
+machine learning = learn from data in the past; guide next move in the future
+
+task = T; performance measure = P; experience = E
+if a program's performance at task T, as measured by P, improves with experience E
+we say the program <font color=green>learn from experience E</font>
+</pre>
+</li>
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate h5">
+Learning from experience
+</h3>
+<pre>
+supervised learning and unsupervised learning
+supervised learning = program predicts output for an input by learning pairs of labeled inputs and outputs
+unsupervised learning = program does not learn from labeled data, instead it attempts to discover patterns in data
+semi-supervised learning = something in between, something both
+reinforcement learning = closer to supervised learning.  do not learn from labeled pairs.  receive feedback for decisions
+
+we give another name for input and output (<font color=red>supervised</font>):
+input  = features (the phenomena that inputs represent = <font color=blue>explanatory variables</font>)
+output = <font color=blue>response variable</font> (there can be many names, regressands..measured variables..labels....)
+collection of examples that comprise supervised experience = <font color=blue>training set</font>
+collection of examples used to assess performance = <font color=blue>test set</font>
+</pre>
+</li>
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Machine learning tasks
+</h3>
+<pre>
+two most common <font color=red>supervised</font> machine learning tasks = <font color=blue>classification</font> and <font color=blue>regression</font>
+classification task = program learn to predict discrete values for response variables (output) from features (input)
+                                      (predict the most probable category)
+regression task     = program predict values of response variables from features
+
+a common <font color=red>unsupervised</font> learning task = <font color=blue>clustering</font> = discover groups of related observations, called <font color=blue>clusters</font>
+another <font color=red>unsupervised</font> task = <font color=blue>dimensionality reduction</font> = process of discovering features that account for the greatest changes in response variable.
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Training data, testing data and validation data
+</h3>
+<pre>
+training set = collection of observations = experiences to be learned
+test set = used to evaluate performance of the program
+           test set should not be included in training set, otherwise it will be difficult to assess whether the program
+           has learned to <font color=blue>generalize</font> from the training set or has simply <font color=blue>memorized</font> it.
+memorized training set = <font color=blue>overfitting</font>
+reduce overfitting     = <font color=blue>regularization</font>
+
+<font color=red>validation / hold-out set</font> = tune variables called <font color=blue>hyperparameters</font> that control how program learn from training set
+
+complete observations => training set (~75%) + test set (~25%) + validation set (~?%)
+</pre>
+</li>
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Characters
+</h3>
+<pre>
+Standard
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Comments
+</h3>
+<pre>
+C comments
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Free Form Source Code
+</h3>
+<pre>
+there
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Identifiers
+</h3>
+<pre>
+default
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+Program Style
+</h3>
+<pre>
+sloppy
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+Program Style
+</h3>
+<pre>
+
+</pre>
+</li>
+
+
+
+</ul>
+</div>
+

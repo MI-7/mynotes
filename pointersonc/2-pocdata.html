@@ -1,0 +1,352 @@
+<link rel="stylesheet" href="../homepage/envoy.min.css">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<style>
+	#code {
+    width:900px;
+    margin:0 auto;   
+    /*temporary text styles below*/
+    text-align:left;
+    font-weight:bold;
+    background: rgb(170,204,153);
+  }
+  main {
+    margin-bottom: 200%;
+  }
+  .floating-menu {
+    font-family: sans-serif;
+    background: transparent;
+    padding: 5px;;
+    width: 80px;
+    z-index: 100;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+  }
+  .floating-menu a, 
+  .floating-menu h3 {
+    font-size: 0.9em;
+    display: block;
+    margin: 0 0.5em;
+    color: white;
+  }
+  .floating-menu a:hover{
+    background: yellowgreen;
+  }
+</style>
+
+  <nav class="floating-menu">
+    <a href="../homepage2.html">Home</a>
+    <a href="../bitcoin/0-bitcoinhomepage.html">Bitcoin</a>
+    <a href="../crypto/0-cryptohomepage.html">Crypto</a>
+    <a href="0-pochomepage.html">C</a>
+    <a href="../linearalgebra/0-linearalgebrahomepage.html">Algebra</a>
+  </nav>
+
+<div class="col col-10 px2 js-linksHeight">
+<h3 class="red h2 mt0 mb4 px3">
+Data</h3>
+<div class="mbn2 relative">
+<div class="js-active-tab z2" style="pointer-events: none;"></div>
+<ul class="list-style-none z3 js-galleryLinks">
+
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<pre>
+data: <font color=green>data types</font>; <font color=green>how to declare</font>; <font color=green>characterisics</font>;<font color=green>properties (scope, linkage, storage class)</font>
+</pre>
+</li>
+
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate blue h2">
+Basic Data Types
+</h3>
+<pre>
+Four basic data types = <font color=green>integers; floating-point values; pointers; aggregate types</font> such as arrays and structures.
+</pre>
+</li>
+
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate h5">
+The Integer Family
+</h3>
+<pre>
+integer family = <font color=blue>characters, short integers, integers, and long integers</font>.  All have both <font color=green>signed and unsigned</font> versions.
+
+<font color=blue>Long integers are as least as large as integers, which themselves are at least as large as short integers.</font>
+
+Type                      Minimum Range
+___________________________________________________
+char                      0 to 127
+signed char               ‐127 to 127
+unsigned char             0 to 255
+___________________________________________________
+short int                 ‐32767 to 32767
+unsigned short int        0 to 65535
+___________________________________________________
+int                       ‐32767 to 32767
+unsigned int              0 to 65535
+___________________________________________________
+long int                  ‐2147483647 to 2147483647
+unsigned long int         0 to 4294967295
+___________________________________________________
+
+long long is added since <font color=green>C99</font>:
+long long int             [−9,223,372,036,854,775,807, +9,223,372,036,854,775,807]
+unsigned long long int    [0, +18,446,744,073,709,551,615]
+
+Information about the actual properties, such as size, of the basic arithmetic types, is provided via macro constants in two headers:
+<font color=green>&lt;limits.h&gt;</font> header (climits header in C++) defines macros for integer types and
+<font color=green>&lt;float.h&gt;</font> header (cfloat header in C++) defines macros for floating-point types. The actual values depend on the implementation.
+
+Properties of integer types
+CHAR_BIT – size of the char type in bits (at least 8 bits)
+SCHAR_MIN, SHRT_MIN, INT_MIN, LONG_MIN, LLONG_MIN(C99) – minimum possible value of signed integer types: signed char, signed short, signed int, signed long, signed long long
+SCHAR_MAX, SHRT_MAX, INT_MAX, LONG_MAX, LLONG_MAX(C99) – maximum possible value of signed integer types: signed char, signed short, signed int, signed long, signed long long
+UCHAR_MAX, USHRT_MAX, UINT_MAX, ULONG_MAX, ULLONG_MAX(C99) – maximum possible value of unsigned integer types: unsigned char, unsigned short, unsigned int, unsigned long, unsigned long long
+CHAR_MIN – minimum possible value of char
+CHAR_MAX – maximum possible value of char
+MB_LEN_MAX – maximum number of bytes in a multibyte character
+</pre>
+
+<pre id="code">
+The code (%ld for signed long; %lu for unsigned long):
+  printf("schar_min:%d\n",       SCHAR_MIN);
+  printf("schar_max:%d\n",       SCHAR_MAX);
+  printf("uchar_max:%d\n",       UCHAR_MAX);
+  printf("shrt_min:%d\n",        SHRT_MIN);
+  printf("shrt_max:%d\n",        SHRT_MAX);
+  printf("int_min:%d\n",         INT_MIN);
+  printf("int_max:%d\n",         INT_MAX);
+  printf("uint_max:<font color=red>%ld</font>\n",       UINT_MAX);
+  printf("long_min:%ld\n",       LONG_MIN);
+  printf("long_max:%ld\n",       LONG_MAX);
+  printf("ulong_max:<font color=red>%lu</font>\n",      ULONG_MAX);
+  printf("longlong_min:%ld\n",   LLONG_MIN);
+  printf("longlong_max:%ld\n",   LLONG_MAX);
+  printf("char_bit:%ld\n",       CHAR_BIT);
+  printf("char_min:%d\n",        CHAR_MIN);
+  printf("char_max:%d\n",        CHAR_MAX);
+  printf("mb_len_max:%ld\n",     MB_LEN_MAX);
+ 
+Will print the following with -std= C89, C11 or C99:
+  schar_min:     -128
+  schar_max:      127
+  uchar_max:      255
+  shrt_min:      -32768
+  shrt_max:       32767
+  int_min:       -2147483648
+  int_max:        2147483647
+  uint_max:       4294967295
+  long_min:      -9223372036854775808
+  long_max:       9223372036854775807
+  ulong_max:      18446744073709551615
+  longlong_min:  -9223372036854775808
+  longlong_max:   9223372036854775807
+  char_bit:       8
+  char_min:       -128
+  char_max:       127
+  mb_len_max:     6
+</pre>
+
+<pre>
+Portability
+The default char is always either a signed or an unsigned char, but what you get depends on the compiler.
+So the portability of programs that use characters as little integers can be improved by explicitly declaring these variables as
+either signed or unsigned. This practice ensures that their signed—ness is consistent from machine to machine.
+</pre>
+</li>
+
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate h5">
+Integer Literals
+</h3>
+<pre>
+The most natural way to specify decimal integer values, such as these:   123    65535    -275
+Decimal literals are either int, long, or unsigned long. The shortest type that will contain the value is what is used by default.
+
+but the default rules can be overridden for some literals by appending a suffix to the end of the value.
+The characters L and l (that’s an el, not the digit one) cause a literal to be interpreted as a long integer value,
+and the characters U and u specify an unsigned value. A literal may be designated unsigned long by appending ul to it.
+e.g. int c = 100ul;
+
+Integers can be given in octal by starting with the digit zero, or in hexadecimal by starting with 0x, as in
+            0173            0177777           000060
+            0x7b            0xFFFF            0xabcdef00
+
+And then there are character literals. These always have type int; you cannot use the unsigned or long suffixes on them.
+A character literal is a single character (or character escape or trigraph) enclosed in apostrophies, as in
+            'M'         '\n'        \'??('            '\3777'
+
+Multibye character literals such as ʹabcʹ are allowed by the Standard, but their implementation may vary from one environment
+to the next so their use is discouraged.
+
+Finally, wide character literals are written as an L followed by a multibyte character literal, as in:
+L'X'     L'e^'
+These are used when the runtime environment supports a large character set.
+
+History of wide character:
+<a href="https://en.wikipedia.org/wiki/Wide_character">https://en.wikipedia.org/wiki/Wide_character</a>
+<a href="https://en.wikipedia.org/wiki/Universal_Coded_Character_Set">https://en.wikipedia.org/wiki/Universal_Coded_Character_Set</a>
+<a href="https://en.wikipedia.org/wiki/Unicode">https://en.wikipedia.org/wiki/Unicode</a>
+<a href="http://blog.csdn.net/zhangxinrun/article/details/5832260">http://blog.csdn.net/zhangxinrun/article/details/5832260</a>
+<a href="http://www.cnblogs.com/iforever/p/4520692.html">http://www.cnblogs.com/iforever/p/4520692.html</a>
+
+<b>History</b>
+During the 1960s, mainframe and mini-computer manufacturers began to standardize around the 8-bit byte as their smallest datatype.
+The 7-bit ASCII character set became the industry standard method for encoding alphanumeric characters for teletype machines and
+computer terminals. The extra bit was used for parity, to ensure the integrity of data storage and transmission. As a result,
+the 8-bit byte became the de facto datatype for computer systems storing ASCII characters in memory.
+
+Later, computer manufacturers began to make use of the spare bit to extend the ASCII character set beyond its limited set of English
+alphabet characters. 8-bit extensions such as IBM code page 37, PETSCII and ISO 8859 became commonplace, offering terminal support
+for Greek, Cyrillic, and many others. However, such extensions were still limited in that they were region specific and often could
+not be used in tandem. Special conversion routines had to be used to convert from one character set to another, often resulting in
+destructive translation when no equivalent character existed in the target set.
+
+In 1989, the International Organization for Standardization began work on the Universal Character Set (UCS), a multilingual character
+set that could be encoded using either a 16-bit (2-byte) or 32-bit (4-byte) value. These larger values required the use of a datatype
+larger than 8-bits to store the new character values in memory. Thus the term wide character was used to differentiate them from
+traditional 8-bit character datatypes.
+
+<b>Relation to UCS and Unicode</b>
+A wide character refers to the size of the datatype in memory. It does not state how each value in a character set is defined.
+Those values are instead defined using character sets, with UCS and Unicode simply being two common character sets that contain more
+characters than an 8-bit value would allow.
+
+<b>Relation to multibyte characters</b>
+Just as earlier data transmission systems suffered from the lack of an 8-bit clean data path, modern transmission systems often lack
+support for 16-bit or 32-bit data paths for character data. This has led to character encoding systems such as UTF-8 that can use
+multiple bytes to encode a value that is too large for a single 8-bit symbol.
+
+The C standard distinguishes between multibyte encodings of characters, which use a fixed or variable number of bytes to represent
+each character (primarily used in source code and external files), from wide characters, which are run-time representations of
+characters in single objects (typically, greater than 8 bits).
+
+Size of a wide character
+UTF-16 little-endian is the encoding standard at Microsoft (and in the Windows operating system). Yet with surrogate pairs it supports 32-bit as well.[1] The .Net Framework platform supports multiple wide-character implementations including UTF7, UTF8, UTF16 and UTF32.[2]
+
+The Java platform requires that wide character variables be defined as 16-bit values, and that characters be encoded using UTF-16 (due to former use of UCS-2), while modern Unix-like systems generally require UTF-8 in their interfaces.
+
+Programming specifics
+C/C++[edit]
+The C and C++ standard libraries include a number of facilities for dealing with wide characters and strings composed of them. The wide characters are defined using datatype wchar_t, which in the original C90 standard was defined as
+
+"an integral type whose range of values can represent distinct codes for all members of the largest extended character set specified among the supported locales" (ISO 9899:1990 §4.1.5)
+Both C and C++ introduced fixed-size character types char16_t and char32_t in the 2011 revisions of their respective standards to provide unambiguous representation of 16-bit and 32-bit Unicode transformation formats, leaving wchar_t implementation-defined. The ISO/IEC 10646:2003 Unicode standard 4.0 says that:
+
+"The width of wchar_t is compiler-specific and can be as small as 8 bits. Consequently, programs that need to be portable across any C or C++ compiler should not use wchar_t for storing Unicode text. The wchar_t type is intended for storing compiler-defined wide characters, which may be Unicode characters in some compilers."
+Python[edit]
+According to Python's documentation, the language sometimes uses wchar_t as the basis for its character type Py_UNICODE. It depends on whether wchar_t is "compatible with the chosen Python Unicode build variant" on that system.[3]
+</pre>
+</li>
+
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate blue h2">
+Environments
+</h3>
+<pre>
+tran
+</pre>
+</li>
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Translation
+</h3>
+<pre>
+The
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+Lexical Rules
+</h3>
+<pre>
+The
+</pre>
+</li>
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Characters
+</h3>
+<pre>
+Stan
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Comments
+</h3>
+<pre>
+C
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Free Form Source Code
+</h3>
+<pre>
+there
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Identifiers
+</h3>
+<pre>
+auto
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+Program Style
+</h3>
+<pre>
+sloppy
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+Program Style
+</h3>
+<pre>
+
+</pre>
+</li>
+
+
+
+</ul>
+</div>
+
