@@ -1,0 +1,1389 @@
+<title>Bitcoin Core</title>
+
+<link rel="stylesheet" href="../homepage/envoy.min.css">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+
+<style>
+  main {
+    margin-bottom: 200%;
+  }
+  .floating-menu {
+    font-family: sans-serif;
+    background: transparent;
+    padding: 5px;;
+    width: 80px;
+    z-index: 100;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+  }
+  .floating-menu a, 
+  .floating-menu h3 {
+    font-size: 0.9em;
+    display: block;
+    margin: 0 0.5em;
+    color: white;
+  }
+  .floating-menu a:hover{
+    background: yellowgreen;
+  }
+</style>
+
+  <nav class="floating-menu">
+    <a href="../homepage2.html">Home</a>
+    <a href="./0-bitcoinhomepage.html">Bitcoin</a>
+    <a href="../crypto/0-cryptohomepage.html">Crypto</a>
+    <a href="../linearalgebra/0-linearalgebrahomepage.html">Algebra</a>
+  </nav>
+
+
+<div class="col col-10 px2 js-linksHeight">
+<div class="mbn2 relative">
+<div class="js-active-tab z2" style="pointer-events: none;"></div>
+<ul class="list-style-none z3 js-galleryLinks">
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate h1 red">Bitcoin Core Reference Implementation</h3>
+</li>
+
+<li class="p3 js-animateTab " data-tab="1">
+<pre>
+Bitcoin = open source project under MIT license
+Bitcoin Core = reference implementation of bitcoin system
+Bitcoin Core = implements all aspects of bitcoin, including wallets,
+               transaction and block validation engine, and a full network node
+
+<font color=red>BUT</font>, reference impl of wallet should not be used in production.
+Application developers are advised to build wallets using modern standards such as BIP-32 / BIP-39.
+(BIP = Bitcoin Improvement Proposal)
+
+<img src="bitcoincorearch.png"></img>
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate h2 blue">
+Bitcoin Development Environment
+</h3>
+<p class="m0">
+</p>
+<p/>
+</li>
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">Compiling Bitcoin Core source code</h3>
+<pre>
+Download source code from: https://github.com/bitcoin/bitcoin
+
+$ git clone git@github.com:bitcoin/bitcoin.git
+Cloning into 'bitcoin'...
+remote: Counting objects: 105316, done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 105316 (delta 1), reused 0 (delta 0), pack-reused 105313
+Receiving objects: 100% (105316/105316), 88.98 MiB | 539.00 KiB/s, done.
+Resolving deltas: 100% (78358/78358), done.
+</pre>
+</li>
+
+<li class="p3 js-animateTab " data-tab="2">
+<h3 class="mt0 mb1 slate h5">Select a Bitcoin Core Release</h3>
+<pre>
+Check release tags (rc = release candidate):
+
+$ git tag
+v0.1.5
+v0.1.6test1
+v0.10.0
+v0.10.0rc1
+v0.10.0rc2
+v0.10.0rc3
+v0.10.0rc4
+v0.10.1
+v0.10.1rc1
+v0.10.1rc2
+v0.10.1rc3
+v0.10.2
+v0.10.2rc1
+v0.10.3
+v0.10.3rc1
+v0.10.3rc2
+v0.10.4
+v0.10.4rc1
+v0.10.5
+v0.11.0
+v0.11.0rc1
+v0.11.0rc2
+v0.11.0rc3
+v0.11.1
+v0.11.1rc1
+v0.11.1rc2
+v0.11.2
+v0.11.2rc1
+v0.11.3
+v0.12.0
+v0.12.0rc1
+v0.12.0rc2
+v0.12.0rc3
+v0.12.0rc4
+v0.12.0rc5
+v0.12.1
+v0.12.1rc1
+v0.12.1rc2
+v0.13.0
+v0.13.0rc1
+v0.13.0rc2
+v0.13.0rc3
+v0.13.1
+v0.13.1rc1
+v0.13.1rc2
+v0.13.1rc3
+v0.13.2
+v0.13.2rc1
+v0.14.0
+v0.14.0rc1
+v0.14.0rc2
+v0.14.0rc3
+v0.14.1
+v0.14.1rc1
+v0.14.1rc2
+v0.14.2
+v0.14.2rc1
+v0.14.2rc2
+v0.15.0
+v0.15.0.1
+v0.15.0rc1
+v0.15.0rc2
+v0.15.0rc3
+v0.15.1
+v0.15.1rc1
+v0.2.0
+v0.2.10
+v0.2.11
+v0.2.12
+v0.2.13
+v0.2.2
+v0.2.4
+v0.2.5
+v0.2.6
+v0.2.7
+v0.2.8
+v0.2.9
+v0.2rc2
+v0.3.0
+v0.3.1
+v0.3.10
+v0.3.11_notexact
+v0.3.12
+v0.3.13
+v0.3.14
+v0.3.15
+v0.3.17
+v0.3.18
+v0.3.19
+v0.3.1rc1
+v0.3.2
+v0.3.20
+v0.3.20.01_closest
+v0.3.20.2
+v0.3.20.2_closest
+v0.3.21
+v0.3.21rc
+v0.3.22
+v0.3.22rc1
+v0.3.22rc2
+v0.3.22rc3
+v0.3.22rc4
+v0.3.22rc5
+v0.3.22rc6
+v0.3.23
+v0.3.23rc1
+v0.3.24
+v0.3.24rc1
+v0.3.24rc2
+v0.3.24rc3
+v0.3.3
+v0.3.6
+v0.3.7
+v0.3.8
+v0.3rc1
+v0.3rc2
+v0.3rc4
+v0.4.0
+v0.4.00rc1
+v0.4.00rc2
+v0.5.0
+v0.5.0rc1
+v0.5.0rc2
+v0.5.0rc3
+v0.5.0rc4
+v0.5.0rc5
+v0.5.0rc6
+v0.5.0rc7
+v0.5.1
+v0.5.1rc1
+v0.5.1rc2
+v0.5.2
+v0.5.3
+v0.5.3rc4
+v0.6.0
+v0.6.0rc1
+v0.6.0rc2
+v0.6.0rc3
+v0.6.0rc4
+v0.6.0rc5
+v0.6.0rc6
+v0.6.1
+v0.6.1rc1
+v0.6.1rc2
+v0.6.2
+v0.6.2.1
+v0.6.2.2
+v0.6.3
+v0.6.3rc1
+v0.7.0
+v0.7.0rc1
+v0.7.0rc2
+v0.7.0rc3
+v0.7.1
+v0.7.1rc1
+v0.7.2
+v0.7.2rc2
+v0.8.0
+v0.8.0rc1
+v0.8.1
+v0.8.2
+v0.8.2rc1
+v0.8.2rc2
+v0.8.2rc3
+v0.8.3
+v0.8.4
+v0.8.4rc2
+v0.8.5
+v0.8.6
+v0.8.6rc1
+v0.9.0
+v0.9.0rc1
+v0.9.0rc2
+v0.9.0rc3
+v0.9.1
+v0.9.2
+v0.9.2.1
+v0.9.2rc1
+v0.9.2rc2
+v0.9.3
+v0.9.3rc1
+v0.9.3rc2
+v0.9.4
+v0.9.5
+v0.9.5rc1
+v0.9.5rc2
+
+
+Select the stable release with highest version:
+
+$ git checkout v0.15.1
+Note: checking out 'v0.15.1'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at 7b57bc998... Merge #11610: [0.15] Update release notes for 0.15.1
+
+$ git status
+HEAD detached at v0.15.1
+nothing to commit, working tree clean
+</pre>
+</li>
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">Configuring Bitcoin Core Build</h3>
+<pre>
+<font color=red>From the README.md:</font>
+
+https://bitcoincore.org
+
+What is Bitcoin?
+----------------
+
+Bitcoin is an experimental digital currency that enables instant payments to
+anyone, anywhere in the world. Bitcoin uses peer-to-peer technology to operate
+with no central authority: managing transactions and issuing money are carried
+out collectively by the network. Bitcoin Core is the name of open source
+software which enables the use of this currency.
+
+For more information, as well as an immediately useable, binary version of
+the Bitcoin Core software, see https://bitcoin.org/en/download, or read the
+[original whitepaper](https://bitcoincore.org/bitcoin.pdf).
+
+License
+-------
+
+Bitcoin Core is released under the terms of the MIT license. See [COPYING](COPYING) for more
+information or see https://opensource.org/licenses/MIT.
+
+Development Process
+-------------------
+
+The `master` branch is regularly built and tested, but is not guaranteed to be
+completely stable. [Tags](https://github.com/bitcoin/bitcoin/tags) are created
+regularly to indicate new official, stable release versions of Bitcoin Core.
+
+The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md).
+
+The developer [mailing list](https://lists.linuxfoundation.org/mailman/listinfo/bitcoin-dev)
+should be used to discuss complicated or controversial changes before working
+on a patch set.
+
+<font color=red>build on mac / windows (doc/build-osx.md / doc/build-windows.md):</font>
+
+Preparation
+-----------
+Install the OS X command line tools:
+
+`xcode-select --install`
+
+When the popup appears, click `Install`.
+
+Then install [Homebrew](https://brew.sh):
+
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+Dependencies
+----------------------
+
+    brew install automake berkeley-db4 libtool boost --c++11 miniupnpc openssl pkg-config protobuf qt libevent
+    <font color=green>$ brew install automake berkeley-db4 libtool boost --c++11 miniupnpc openssl pkg-config protobuf qt libevent
+    Error: Your Xcode (8.3.3) is too outdated.
+    Please update to Xcode 9.2 (or delete it).
+    Xcode can be updated from the App Store.</font>
+    
+    <font color=blue>after updating xcode:
+    $ brew install automake berkeley-db4 libtool boost --c++11 miniupnpc openssl pkg-config protobuf qt libevent
+    Error: You have not agreed to the Xcode license. Please resolve this by running:
+      sudo xcodebuild -license accept
+    $ sudo xcodebuild -license accept
+    Password:</font>
+    
+    <font color=green>now try again (i didn't include qt in the list cause i installed qt5 separately from qt.io)
+    but interestingly ./configure didn't recognize the qt5.9 that i installed, so i end up installing qt again using brew later:
+    $ brew install automake berkeley-db4 libtool boost --c++11 miniupnpc openssl pkg-config protobuf libevent
+    Updating Homebrew...
+    ==> Installing dependencies for automake: autoconf
+    ==> Installing automake dependency: autoconf
+    ==> Downloading https://homebrew.bintray.com/bottles/autoconf-2.69.high_sierra.bottle.4.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring autoconf-2.69.high_sierra.bottle.4.tar.gz
+    ==> Caveats
+    Emacs Lisp files have been installed to:
+      /usr/local/share/emacs/site-lisp/autoconf
+    ==> Summary
+    🍺  /usr/local/Cellar/autoconf/2.69: 71 files, 3.0MB
+    Warning: automake: this formula has no --c++11 option so it will be ignored!
+    ==> Installing automake
+    ==> Downloading https://homebrew.bintray.com/bottles/automake-1.15.1.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring automake-1.15.1.high_sierra.bottle.tar.gz
+    🍺  /usr/local/Cellar/automake/1.15.1: 131 files, 3.0MB
+    Warning: berkeley-db@4: this formula has no --c++11 option so it will be ignored!
+    ==> Downloading https://homebrew.bintray.com/bottles/berkeley-db@4-4.8.30.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring berkeley-db@4-4.8.30.high_sierra.bottle.tar.gz
+    ==> Caveats
+    This formula is keg-only, which means it was not symlinked into /usr/local,
+    because this is an alternate version of another formula.
+    
+    If you need to have this software first in your PATH run:
+      echo 'export PATH="/usr/local/opt/berkeley-db@4/bin:$PATH"' >> ~/.bash_profile
+    
+    For compilers to find this software you may need to set:
+        LDFLAGS:  -L/usr/local/opt/berkeley-db@4/lib
+        CPPFLAGS: -I/usr/local/opt/berkeley-db@4/include
+    
+    ==> Summary
+    🍺  /usr/local/Cellar/berkeley-db@4/4.8.30: 4,596 files, 77.8MB
+    Warning: libtool: this formula has no --c++11 option so it will be ignored!
+    ==> Downloading https://homebrew.bintray.com/bottles/libtool-2.4.6_1.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring libtool-2.4.6_1.high_sierra.bottle.tar.gz
+    ==> Caveats
+    In order to prevent conflicts with Apple's own libtool we have prepended a "g"
+    so, you have instead: glibtool and glibtoolize.
+    ==> Summary
+    🍺  /usr/local/Cellar/libtool/2.4.6_1: 71 files, 3.7MB
+    Warning: boost: this formula has no --c++11 option so it will be ignored!
+    ==> Downloading https://homebrew.bintray.com/bottles/boost-1.65.1_1.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring boost-1.65.1_1.high_sierra.bottle.tar.gz
+    🍺  /usr/local/Cellar/boost/1.65.1_1: 12,681 files, 431.8MB
+    Warning: miniupnpc: this formula has no --c++11 option so it will be ignored!
+    ==> Downloading https://homebrew.bintray.com/bottles/miniupnpc-2.0.20171102.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring miniupnpc-2.0.20171102.high_sierra.bottle.tar.gz
+    🍺  /usr/local/Cellar/miniupnpc/2.0.20171102: 21 files, 182.6KB
+    Warning: openssl: this formula has no --c++11 option so it will be ignored!
+    ==> Downloading https://homebrew.bintray.com/bottles/openssl-1.0.2n.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring openssl-1.0.2n.high_sierra.bottle.tar.gz
+    ==> Caveats
+    A CA file has been bootstrapped using certificates from the SystemRoots
+    keychain. To add additional certificates (e.g. the certificates added in
+    the System keychain), place .pem files in
+      /usr/local/etc/openssl/certs
+    
+    and run
+      /usr/local/opt/openssl/bin/c_rehash
+    
+    This formula is keg-only, which means it was not symlinked into /usr/local,
+    because Apple has deprecated use of OpenSSL in favor of its own TLS and crypto libraries.
+    
+    If you need to have this software first in your PATH run:
+      echo 'export PATH="/usr/local/opt/openssl/bin:$PATH"' >> ~/.bash_profile
+    
+    For compilers to find this software you may need to set:
+        LDFLAGS:  -L/usr/local/opt/openssl/lib
+        CPPFLAGS: -I/usr/local/opt/openssl/include
+    
+    ==> Summary
+    🍺  /usr/local/Cellar/openssl/1.0.2n: 1,792 files, 12.3MB
+    Warning: pkg-config: this formula has no --c++11 option so it will be ignored!
+    ==> Downloading https://homebrew.bintray.com/bottles/pkg-config-0.29.2.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring pkg-config-0.29.2.high_sierra.bottle.tar.gz
+    🍺  /usr/local/Cellar/pkg-config/0.29.2: 11 files, 627.3KB
+    Warning: protobuf: this formula has no --c++11 option so it will be ignored!
+    ==> Downloading https://homebrew.bintray.com/bottles/protobuf-3.5.0.1.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring protobuf-3.5.0.1.high_sierra.bottle.tar.gz
+    ==> Caveats
+    Editor support and examples have been installed to:
+      /usr/local/opt/protobuf/share/doc/protobuf
+    
+    Python modules have been installed and Homebrew's site-packages is not
+    in your Python sys.path, so you will not be able to import the modules
+    this formula installed. If you plan to develop with these modules,
+    please run:
+      mkdir -p /Users/chenliang/Library/Python/2.7/lib/python/site-packages
+      echo 'import site; site.addsitedir("/usr/local/lib/python2.7/site-packages")' >> /Users/chenliang/Library/Python/2.7/lib/python/site-packages/homebrew.pth
+    ==> Summary
+    🍺  /usr/local/Cellar/protobuf/3.5.0.1: 267 files, 18.0MB
+    Warning: libevent: this formula has no --c++11 option so it will be ignored!
+    ==> Downloading https://homebrew.bintray.com/bottles/libevent-2.1.8.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring libevent-2.1.8.high_sierra.bottle.tar.gz
+    🍺  /usr/local/Cellar/libevent/2.1.8: 847 files, 2.2MB</font>
+
+If you want to build the disk image with `make deploy` (.dmg / optional), you need RSVG
+
+    brew install librsvg
+    <font color=red>this is a little unexpected...but this lib has so many dependencies...
+    $ brew install librsvg
+    Updating Homebrew...
+    ==> Installing dependencies for librsvg: libpng, freetype, fontconfig, pixman, gettext, libffi, pcre, glib, cairo, jpeg, libtiff, gobject-introspection, gdk-pixbuf, libcroco, graphite2, icu4c, harfbuzz, pango
+    ==> Installing librsvg dependency: libpng
+    ==> Downloading https://homebrew.bintray.com/bottles/libpng-1.6.34.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring libpng-1.6.34.high_sierra.bottle.tar.gz
+    🍺  /usr/local/Cellar/libpng/1.6.34: 26 files, 1.2MB
+    ==> Installing librsvg dependency: freetype
+    ==> Downloading https://homebrew.bintray.com/bottles/freetype-2.8.1.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring freetype-2.8.1.high_sierra.bottle.tar.gz
+    🍺  /usr/local/Cellar/freetype/2.8.1: 63 files, 2.6MB
+    ==> Installing librsvg dependency: fontconfig
+    ==> Downloading https://homebrew.bintray.com/bottles/fontconfig-2.12.6.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring fontconfig-2.12.6.high_sierra.bottle.tar.gz
+    ==> Regenerating font cache, this may take a while
+    ==> /usr/local/Cellar/fontconfig/2.12.6/bin/fc-cache -frv
+    🍺  /usr/local/Cellar/fontconfig/2.12.6: 493 files, 3.2MB
+    ==> Installing librsvg dependency: pixman
+    ==> Downloading https://homebrew.bintray.com/bottles/pixman-0.34.0_1.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring pixman-0.34.0_1.high_sierra.bottle.tar.gz
+    🍺  /usr/local/Cellar/pixman/0.34.0_1: 13 files, 1.3MB
+    ==> Installing librsvg dependency: gettext
+    ==> Downloading https://homebrew.bintray.com/bottles/gettext-0.19.8.1.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring gettext-0.19.8.1.high_sierra.bottle.tar.gz
+    ==> Caveats
+    This formula is keg-only, which means it was not symlinked into /usr/local,
+    because macOS provides the BSD gettext library & some software gets confused if both are in the library path.
+    
+    If you need to have this software first in your PATH run:
+      echo 'export PATH="/usr/local/opt/gettext/bin:$PATH"' >> ~/.bash_profile
+    
+    For compilers to find this software you may need to set:
+        LDFLAGS:  -L/usr/local/opt/gettext/lib
+        CPPFLAGS: -I/usr/local/opt/gettext/include
+    
+    ==> Summary
+    🍺  /usr/local/Cellar/gettext/0.19.8.1: 1,935 files, 16.9MB
+    ==> Installing librsvg dependency: libffi
+    ==> Downloading https://homebrew.bintray.com/bottles/libffi-3.2.1.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring libffi-3.2.1.high_sierra.bottle.tar.gz
+    ==> Caveats
+    This formula is keg-only, which means it was not symlinked into /usr/local,
+    because some formulae require a newer version of libffi.
+    
+    For compilers to find this software you may need to set:
+        LDFLAGS:  -L/usr/local/opt/libffi/lib
+    For pkg-config to find this software you may need to set:
+        PKG_CONFIG_PATH: /usr/local/opt/libffi/lib/pkgconfig
+    
+    ==> Summary
+    🍺  /usr/local/Cellar/libffi/3.2.1: 16 files, 297KB
+    ==> Installing librsvg dependency: pcre
+    ==> Downloading https://homebrew.bintray.com/bottles/pcre-8.41.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring pcre-8.41.high_sierra.bottle.tar.gz
+    🍺  /usr/local/Cellar/pcre/8.41: 204 files, 5.3MB
+    ==> Installing librsvg dependency: glib
+    ==> Downloading https://homebrew.bintray.com/bottles/glib-2.54.2.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring glib-2.54.2.high_sierra.bottle.tar.gz
+    🍺  /usr/local/Cellar/glib/2.54.2: 430 files, 23MB
+    ==> Installing librsvg dependency: cairo
+    ==> Downloading https://homebrew.bintray.com/bottles/cairo-1.14.12.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring cairo-1.14.12.high_sierra.bottle.tar.gz
+    🍺  /usr/local/Cellar/cairo/1.14.12: 118 files, 5.8MB
+    ==> Installing librsvg dependency: jpeg
+    ==> Downloading https://homebrew.bintray.com/bottles/jpeg-9b.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring jpeg-9b.high_sierra.bottle.tar.gz
+    🍺  /usr/local/Cellar/jpeg/9b: 20 files, 723.9KB
+    ==> Installing librsvg dependency: libtiff
+    ==> Downloading https://homebrew.bintray.com/bottles/libtiff-4.0.9.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring libtiff-4.0.9.high_sierra.bottle.tar.gz
+    🍺  /usr/local/Cellar/libtiff/4.0.9: 246 files, 3.5MB
+    ==> Installing librsvg dependency: gobject-introspection
+    ==> Downloading https://homebrew.bintray.com/bottles/gobject-introspection-1.54.1.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring gobject-introspection-1.54.1.high_sierra.bottle.tar.gz
+    🍺  /usr/local/Cellar/gobject-introspection/1.54.1: 173 files, 9.7MB
+    ==> Installing librsvg dependency: gdk-pixbuf
+    ==> Downloading https://homebrew.bintray.com/bottles/gdk-pixbuf-2.36.11.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring gdk-pixbuf-2.36.11.high_sierra.bottle.tar.gz
+    ==> /usr/local/Cellar/gdk-pixbuf/2.36.11/bin/gdk-pixbuf-query-loaders --update-cache
+    🍺  /usr/local/Cellar/gdk-pixbuf/2.36.11: 200 files, 4.4MB
+    ==> Installing librsvg dependency: libcroco
+    ==> Downloading https://homebrew.bintray.com/bottles/libcroco-0.6.12.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring libcroco-0.6.12.high_sierra.bottle.tar.gz
+    🍺  /usr/local/Cellar/libcroco/0.6.12: 80 files, 1.7MB
+    ==> Installing librsvg dependency: graphite2
+    ==> Downloading https://homebrew.bintray.com/bottles/graphite2-1.3.10.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring graphite2-1.3.10.high_sierra.bottle.tar.gz
+    🍺  /usr/local/Cellar/graphite2/1.3.10: 18 files, 259.2KB
+    ==> Installing librsvg dependency: icu4c
+    ==> Downloading https://homebrew.bintray.com/bottles/icu4c-60.2.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring icu4c-60.2.high_sierra.bottle.tar.gz
+    ==> Caveats
+    This formula is keg-only, which means it was not symlinked into /usr/local,
+    because macOS provides libicucore.dylib (but nothing else).
+    
+    If you need to have this software first in your PATH run:
+      echo 'export PATH="/usr/local/opt/icu4c/bin:$PATH"' >> ~/.bash_profile
+      echo 'export PATH="/usr/local/opt/icu4c/sbin:$PATH"' >> ~/.bash_profile
+    
+    For compilers to find this software you may need to set:
+        LDFLAGS:  -L/usr/local/opt/icu4c/lib
+        CPPFLAGS: -I/usr/local/opt/icu4c/include
+    For pkg-config to find this software you may need to set:
+        PKG_CONFIG_PATH: /usr/local/opt/icu4c/lib/pkgconfig
+    
+    ==> Summary
+    🍺  /usr/local/Cellar/icu4c/60.2: 249 files, 67MB
+    ==> Installing librsvg dependency: harfbuzz
+    ==> Downloading https://homebrew.bintray.com/bottles/harfbuzz-1.7.3.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring harfbuzz-1.7.3.high_sierra.bottle.tar.gz
+    🍺  /usr/local/Cellar/harfbuzz/1.7.3: 139 files, 5.3MB
+    ==> Installing librsvg dependency: pango
+    ==> Downloading https://homebrew.bintray.com/bottles/pango-1.40.14.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring pango-1.40.14.high_sierra.bottle.tar.gz
+    🍺  /usr/local/Cellar/pango/1.40.14: 105 files, 4.5MB
+    ==> Installing librsvg
+    ==> Downloading https://homebrew.bintray.com/bottles/librsvg-2.40.20.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring librsvg-2.40.20.high_sierra.bottle.tar.gz
+    ==> /usr/local/opt/gdk-pixbuf/bin/gdk-pixbuf-query-loaders --update-cache
+    🍺  /usr/local/Cellar/librsvg/2.40.20: 50 files, 1.6MB
+    </font>
+    
+    <font color=green>$ brew search qt
+    ==> Searching local taps...
+    pyqt                qt                  qt@5.5              qt@5.7              qtads               qtfaststart         sqtop
+    ==> Searching taps on GitHub...
+    caskroom/cask/qt-creator                                                 caskroom/versions/qt-creator-dev
+    ==> Searching blacklisted, migrated and deleted formulae...
+    chenliangdeiMac:~ chenliang$ brew install qt
+    Updating Homebrew...
+    ==> Downloading https://homebrew.bintray.com/bottles/qt-5.10.0.high_sierra.bottle.tar.gz
+    ######################################################################## 100.0%
+    ==> Pouring qt-5.10.0.high_sierra.bottle.tar.gz
+    ==> Caveats
+    We agreed to the Qt opensource license for you.
+    If this is unacceptable you should uninstall.
+    
+    This formula is keg-only, which means it was not symlinked into /usr/local,
+    because Qt 5 has CMake issues when linked.
+    
+    If you need to have this software first in your PATH run:
+      echo 'export PATH="/usr/local/opt/qt/bin:$PATH"' >> ~/.bash_profile
+    
+    For compilers to find this software you may need to set:
+        LDFLAGS:  -L/usr/local/opt/qt/lib
+        CPPFLAGS: -I/usr/local/opt/qt/include
+    For pkg-config to find this software you may need to set:
+        PKG_CONFIG_PATH: /usr/local/opt/qt/lib/pkgconfig
+    
+    ==> Summary
+    🍺  /usr/local/Cellar/qt/5.10.0: 9,351 files, 290MB</font>
+
+NOTE: Building with Qt4 is still supported, however, could result in a broken UI. Building with <font color=red>Qt5</font> is recommended.
+
+
+Build Bitcoin Core
+------------------------
+
+1. Clone the bitcoin source code and cd into `bitcoin`
+
+        git clone https://github.com/bitcoin/bitcoin
+        cd bitcoin
+
+2.  Build bitcoin-core:
+
+    Configure and build the headless bitcoin binaries as well as the GUI (if Qt is found).
+
+    You can disable the GUI build by passing `--without-gui` to configure.
+
+        ./autogen.sh
+        <font color=green>$ ./autogen.sh
+        glibtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'build-aux'.
+        glibtoolize: copying file 'build-aux/ltmain.sh'
+        glibtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'build-aux/m4'.
+        glibtoolize: copying file 'build-aux/m4/libtool.m4'
+        glibtoolize: copying file 'build-aux/m4/ltoptions.m4'
+        glibtoolize: copying file 'build-aux/m4/ltsugar.m4'
+        glibtoolize: copying file 'build-aux/m4/ltversion.m4'
+        glibtoolize: copying file 'build-aux/m4/lt~obsolete.m4'
+        configure.ac:45: installing 'build-aux/compile'
+        configure.ac:45: installing 'build-aux/config.guess'
+        configure.ac:45: installing 'build-aux/config.sub'
+        configure.ac:28: installing 'build-aux/install-sh'
+        configure.ac:28: installing 'build-aux/missing'
+        Makefile.am: installing 'build-aux/depcomp'
+        parallel-tests: installing 'build-aux/test-driver'
+        glibtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'build-aux'.
+        glibtoolize: copying file 'build-aux/ltmain.sh'
+        glibtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'build-aux/m4'.
+        glibtoolize: copying file 'build-aux/m4/libtool.m4'
+        glibtoolize: copying file 'build-aux/m4/ltoptions.m4'
+        glibtoolize: copying file 'build-aux/m4/ltsugar.m4'
+        glibtoolize: copying file 'build-aux/m4/ltversion.m4'
+        glibtoolize: copying file 'build-aux/m4/lt~obsolete.m4'
+        configure.ac:10: installing 'build-aux/compile'
+        configure.ac:5: installing 'build-aux/config.guess'
+        configure.ac:5: installing 'build-aux/config.sub'
+        configure.ac:9: installing 'build-aux/install-sh'
+        configure.ac:9: installing 'build-aux/missing'
+        Makefile.am: installing 'build-aux/depcomp'
+        parallel-tests: installing 'build-aux/test-driver'
+        glibtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'build-aux'.
+        glibtoolize: copying file 'build-aux/ltmain.sh'
+        glibtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'build-aux/m4'.
+        glibtoolize: copying file 'build-aux/m4/libtool.m4'
+        glibtoolize: copying file 'build-aux/m4/ltoptions.m4'
+        glibtoolize: copying file 'build-aux/m4/ltsugar.m4'
+        glibtoolize: copying file 'build-aux/m4/ltversion.m4'
+        glibtoolize: copying file 'build-aux/m4/lt~obsolete.m4'
+        configure.ac:78: installing 'build-aux/compile'
+        configure.ac:28: installing 'build-aux/config.guess'
+        configure.ac:28: installing 'build-aux/config.sub'
+        configure.ac:38: installing 'build-aux/install-sh'
+        configure.ac:38: installing 'build-aux/missing'
+        Makefile.am:12: warning: user variable 'GZIP_ENV' defined here ...
+        /usr/local/Cellar/automake/1.15.1/share/automake-1.15/am/distdir.am: ... overrides Automake variable 'GZIP_ENV' defined here
+        src/Makefile.am: installing 'build-aux/depcomp'
+        src/Makefile.am:497: warning: user target '.mm.o' defined here ...
+        /usr/local/Cellar/automake/1.15.1/share/automake-1.15/am/depend2.am: ... overrides Automake target '.mm.o' defined here
+        parallel-tests: installing 'build-aux/test-driver'</font>
+        
+        
+        
+        ./configure
+        <font color=blue>$ ./configure
+        checking build system type... x86_64-apple-darwin17.2.0
+        checking host system type... x86_64-apple-darwin17.2.0
+        checking for a BSD-compatible install... /usr/bin/install -c
+        checking whether build environment is sane... yes
+        checking for a thread-safe mkdir -p... build-aux/install-sh -c -d
+        checking for gawk... no
+        checking for mawk... no
+        checking for nawk... no
+        checking for awk... awk
+        checking whether make sets $(MAKE)... yes
+        checking whether make supports nested variables... yes
+        checking whether to enable maintainer-specific portions of Makefiles... yes
+        checking whether make supports nested variables... (cached) yes
+        checking for g++... g++
+        checking whether the C++ compiler works... yes
+        checking for C++ compiler default output file name... a.out
+        checking for suffix of executables... 
+        checking whether we are cross compiling... no
+        checking for suffix of object files... o
+        checking whether we are using the GNU C++ compiler... yes
+        checking whether g++ accepts -g... yes
+        checking for style of include used by make... GNU
+        checking dependency style of g++... gcc3
+        checking whether g++ supports C++11 features with -std=c++11... yes
+        checking whether std::atomic can be used without link library... yes
+        checking whether we are using the GNU Objective C++ compiler... yes
+        checking whether g++ -std=c++11 accepts -g... yes
+        checking dependency style of g++ -std=c++11... gcc3
+        checking how to print strings... printf
+        checking for gcc... gcc
+        checking whether we are using the GNU C compiler... yes
+        checking whether gcc accepts -g... yes
+        checking for gcc option to accept ISO C89... none needed
+        checking whether gcc understands -c and -o together... yes
+        checking dependency style of gcc... gcc3
+        checking for a sed that does not truncate output... /usr/bin/sed
+        checking for grep that handles long lines and -e... /usr/bin/grep
+        checking for egrep... /usr/bin/grep -E
+        checking for fgrep... /usr/bin/grep -F
+        checking for ld used by gcc... /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld
+        checking if the linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) is GNU ld... no
+        checking for BSD- or MS-compatible name lister (nm)... /usr/bin/nm -B
+        checking the name lister (/usr/bin/nm -B) interface... BSD nm
+        checking whether ln -s works... yes
+        checking the maximum length of command line arguments... 196608
+        checking how to convert x86_64-apple-darwin17.2.0 file names to x86_64-apple-darwin17.2.0 format... func_convert_file_noop
+        checking how to convert x86_64-apple-darwin17.2.0 file names to toolchain format... func_convert_file_noop
+        checking for /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld option to reload object files... -r
+        checking for objdump... objdump
+        checking how to recognize dependent libraries... pass_all
+        checking for dlltool... no
+        checking how to associate runtime and link libraries... printf %s\n
+        checking for ar... ar
+        checking for archiver @FILE support... no
+        checking for strip... strip
+        checking for ranlib... ranlib
+        checking command to parse /usr/bin/nm -B output from gcc object... ok
+        checking for sysroot... no
+        checking for a working dd... /bin/dd
+        checking how to truncate binary pipes... /bin/dd bs=4096 count=1
+        checking for mt... no
+        checking if : is a manifest tool... no
+        checking for dsymutil... dsymutil
+        checking for nmedit... nmedit
+        checking for lipo... lipo
+        checking for otool... otool
+        checking for otool64... no
+        checking for -single_module linker flag... yes
+        checking for -exported_symbols_list linker flag... yes
+        checking for -force_load linker flag... yes
+        checking how to run the C preprocessor... gcc -E
+        checking for ANSI C header files... yes
+        checking for sys/types.h... yes
+        checking for sys/stat.h... yes
+        checking for stdlib.h... yes
+        checking for string.h... yes
+        checking for memory.h... yes
+        checking for strings.h... yes
+        checking for inttypes.h... yes
+        checking for stdint.h... yes
+        checking for unistd.h... yes
+        checking for dlfcn.h... yes
+        checking for objdir... .libs
+        checking if gcc supports -fno-rtti -fno-exceptions... yes
+        checking for gcc option to produce PIC... -fno-common -DPIC
+        checking if gcc PIC flag -fno-common -DPIC works... yes
+        checking if gcc static flag -static works... no
+        checking if gcc supports -c -o file.o... yes
+        checking if gcc supports -c -o file.o... (cached) yes
+        checking whether the gcc linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) supports shared libraries... yes
+        checking dynamic linker characteristics... darwin17.2.0 dyld
+        checking how to hardcode library paths into programs... immediate
+        checking whether stripping libraries is possible... yes
+        checking if libtool supports shared libraries... yes
+        checking whether to build shared libraries... yes
+        checking whether to build static libraries... yes
+        checking how to run the C++ preprocessor... g++ -std=c++11 -E
+        checking for ld used by g++ -std=c++11... /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld
+        checking if the linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) is GNU ld... no
+        checking whether the g++ -std=c++11 linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) supports shared libraries... yes
+        checking for g++ -std=c++11 option to produce PIC... -fno-common -DPIC
+        checking if g++ -std=c++11 PIC flag -fno-common -DPIC works... yes
+        checking if g++ -std=c++11 static flag -static works... no
+        checking if g++ -std=c++11 supports -c -o file.o... yes
+        checking if g++ -std=c++11 supports -c -o file.o... (cached) yes
+        checking whether the g++ -std=c++11 linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) supports shared libraries... yes
+        checking dynamic linker characteristics... darwin17.2.0 dyld
+        checking how to hardcode library paths into programs... immediate
+        checking for ar... /usr/bin/ar
+        checking for ranlib... /usr/bin/ranlib
+        checking for strip... /usr/bin/strip
+        checking for gcov... /usr/bin/gcov
+        checking for lcov... no
+        checking for python3.6... /Library/Frameworks/Python.framework/Versions/3.6/bin/python3.6
+        checking for genhtml... no
+        checking for git... /usr/bin/git
+        checking for ccache... no
+        checking for xgettext... no
+        checking for hexdump... /usr/bin/hexdump
+        checking for readelf... no
+        checking for c++filt... /usr/bin/c++filt
+        checking for objcopy... no
+        checking whether C++ compiler accepts -Werror... yes
+        checking whether C++ compiler accepts -Wall... yes
+        checking whether C++ compiler accepts -Wextra... yes
+        checking whether C++ compiler accepts -Wformat... yes
+        checking whether C++ compiler accepts -Wvla... yes
+        checking whether C++ compiler accepts -Wformat-security... yes
+        checking whether C++ compiler accepts -Wunused-parameter... yes
+        checking whether C++ compiler accepts -Wself-assign... yes
+        checking whether C++ compiler accepts -Wunused-local-typedef... yes
+        checking whether C++ compiler accepts -Wdeprecated-register... yes
+        checking whether C++ compiler accepts -Wimplicit-fallthrough... yes
+        checking whether C++ compiler accepts -msse4.2... yes
+        checking for assembler crc32 support... yes
+        checking for port... no
+        checking for rsvg-convert... /usr/local/bin/rsvg-convert
+        checking for brew... brew
+        checking whether the linker accepts -Wl,-headerpad_max_install_names... yes
+        checking for pkg-config... /usr/local/bin/pkg-config
+        checking pkg-config is at least version 0.9.0... yes
+        checking whether byte ordering is bigendian... no
+        checking whether gcc is Clang... yes
+        checking whether Clang needs flag to prevent "argument unused" warning when linking with -pthread... -Qunused-arguments
+        checking for joinable pthread attribute... PTHREAD_CREATE_JOINABLE
+        checking whether more special flags are required for pthreads... no
+        checking for PTHREAD_PRIO_INHERIT... yes
+        checking for special C compiler options needed for large files... no
+        checking for _FILE_OFFSET_BITS value needed for large files... no
+        checking whether strerror_r is declared... yes
+        checking for strerror_r... yes
+        checking whether strerror_r returns char *... no
+        checking whether the linker accepts -Wl,--large-address-aware... no
+        checking for __attribute__((visibility))... no
+        checking for __attribute__((dllexport))... no
+        checking for __attribute__((dllimport))... no
+        checking for library containing clock_gettime... none required
+        checking whether C++ compiler accepts -fPIC... yes
+        checking whether C++ compiler accepts -Wstack-protector... yes
+        checking whether C++ compiler accepts -fstack-protector-all... yes
+        checking whether C++ preprocessor accepts -D_FORTIFY_SOURCE=2... yes
+        checking whether C++ preprocessor accepts -U_FORTIFY_SOURCE... yes
+        checking whether the linker accepts -Wl,--dynamicbase... no
+        checking whether the linker accepts -Wl,--nxcompat... no
+        checking whether the linker accepts -Wl,--high-entropy-va... no
+        checking whether the linker accepts -Wl,-z,relro... no
+        checking whether the linker accepts -Wl,-z,now... no
+        checking whether C++ compiler accepts -fPIE... yes
+        checking whether the linker accepts -pie... yes
+        checking whether the linker accepts -Wl,-dead_strip... yes
+        checking endian.h usability... no
+        checking endian.h presence... no
+        checking for endian.h... no
+        checking sys/endian.h usability... no
+        checking sys/endian.h presence... no
+        checking for sys/endian.h... no
+        checking byteswap.h usability... no
+        checking byteswap.h presence... no
+        checking for byteswap.h... no
+        checking stdio.h usability... yes
+        checking stdio.h presence... yes
+        checking for stdio.h... yes
+        checking for stdlib.h... (cached) yes
+        checking for unistd.h... (cached) yes
+        checking for strings.h... (cached) yes
+        checking for sys/types.h... (cached) yes
+        checking for sys/stat.h... (cached) yes
+        checking sys/select.h usability... yes
+        checking sys/select.h presence... yes
+        checking for sys/select.h... yes
+        checking sys/prctl.h usability... no
+        checking sys/prctl.h presence... no
+        checking for sys/prctl.h... no
+        checking whether strnlen is declared... yes
+        checking whether daemon is declared... yes
+        checking whether le16toh is declared... no
+        checking whether le32toh is declared... no
+        checking whether le64toh is declared... no
+        checking whether htole16 is declared... no
+        checking whether htole32 is declared... no
+        checking whether htole64 is declared... no
+        checking whether be16toh is declared... no
+        checking whether be32toh is declared... no
+        checking whether be64toh is declared... no
+        checking whether htobe16 is declared... no
+        checking whether htobe32 is declared... no
+        checking whether htobe64 is declared... no
+        checking whether bswap_16 is declared... no
+        checking whether bswap_32 is declared... no
+        checking whether bswap_64 is declared... no
+        checking whether __builtin_clz is declared... no
+        checking whether __builtin_clzl is declared... no
+        checking whether __builtin_clzll is declared... no
+        checking for MSG_NOSIGNAL... no
+        checking for MSG_DONTWAIT... yes
+        checking for getmemoryinfo... no
+        checking for mallopt M_ARENA_MAX... no
+        checking for visibility attribute... yes
+        checking for Linux getrandom syscall... no
+        checking for getentropy... no
+        checking for getentropy via random.h... yes
+        checking for sysctl KERN_ARND... no
+        checking for Berkeley DB C++ headers... default
+        checking for main in -ldb_cxx-4.8... yes
+        checking miniupnpc/miniwget.h usability... yes
+        checking miniupnpc/miniwget.h presence... yes
+        checking for miniupnpc/miniwget.h... yes
+        checking for main in -lminiupnpc... yes
+        checking miniupnpc/miniupnpc.h usability... yes
+        checking miniupnpc/miniupnpc.h presence... yes
+        checking for miniupnpc/miniupnpc.h... yes
+        checking for main in -lminiupnpc... (cached) yes
+        checking miniupnpc/upnpcommands.h usability... yes
+        checking miniupnpc/upnpcommands.h presence... yes
+        checking for miniupnpc/upnpcommands.h... yes
+        checking for main in -lminiupnpc... (cached) yes
+        checking miniupnpc/upnperrors.h usability... yes
+        checking miniupnpc/upnperrors.h presence... yes
+        checking for miniupnpc/upnperrors.h... yes
+        checking for main in -lminiupnpc... (cached) yes
+        checking for Qt5Core Qt5Gui Qt5Network Qt5Widgets... yes
+        checking for Qt5Test... yes
+        checking for Qt5DBus... yes
+        checking for static Qt... no
+        checking whether -fPIE can be used with this Qt config... yes
+        checking for moc-qt5... no
+        checking for moc5... no
+        checking for moc... /usr/local/Cellar/qt/5.10.0/bin/moc
+        checking for uic-qt5... no
+        checking for uic5... no
+        checking for uic... /usr/local/Cellar/qt/5.10.0/bin/uic
+        checking for rcc-qt5... no
+        checking for rcc5... no
+        checking for rcc... /usr/local/Cellar/qt/5.10.0/bin/rcc
+        checking for lrelease-qt5... no
+        checking for lrelease5... no
+        checking for lrelease... /usr/local/Cellar/qt/5.10.0/bin/lrelease
+        checking for lupdate-qt5... no
+        checking for lupdate5... no
+        checking for lupdate... /usr/local/Cellar/qt/5.10.0/bin/lupdate
+        checking whether the linker accepts -framework Foundation -framework ApplicationServices -framework AppKit... yes
+        checking whether to build Bitcoin Core GUI... yes (Qt5)
+        checking for boostlib >= 1.47.0... yes
+        checking whether the Boost::System library is available... yes
+        checking for exit in -lboost_system... yes
+        checking whether the Boost::Filesystem library is available... yes
+        checking for exit in -lboost_filesystem... yes
+        checking whether the Boost::Program_Options library is available... yes
+        checking for exit in -lboost_program_options-mt... yes
+        checking whether the Boost::Thread library is available... yes
+        checking for exit in -lboost_thread-mt... yes
+        checking whether the Boost::Chrono library is available... yes
+        checking for exit in -lboost_chrono-mt... yes
+        checking whether the Boost::Unit_Test_Framework library is available... yes
+        checking for dynamic linked boost test... yes
+        checking for mismatched boost c++11 scoped enums... ok
+        checking for libssl... yes
+        checking for libcrypto... yes
+        checking for protobuf... yes
+        checking for libqrencode... no
+        checking for libevent... yes
+        checking for libevent_pthreads... yes
+        checking for libzmq >= 4... no
+        configure: WARNING: libzmq version 4.x or greater not found, disabling
+        checking whether EVP_MD_CTX_new is declared... no
+        checking for protoc... /usr/local/bin/protoc
+        checking whether to build bitcoind... yes
+        checking whether to build utils (bitcoin-cli bitcoin-tx)... yes
+        checking whether to build libraries... yes
+        checking if ccache should be used... no
+        checking if wallet should be enabled... yes
+        checking whether to build with support for UPnP... yes
+        checking whether to build with UPnP enabled by default... no
+        checking whether to build GUI with support for D-Bus... yes
+        checking whether to build GUI with support for QR codes... no
+        configure: WARNING: "xgettext is required to update qt translations"
+        checking whether to build test_bitcoin-qt... yes
+        checking whether to build test_bitcoin... yes
+        checking whether to reduce exports... no
+        checking that generated files are newer than configure... done
+        configure: creating ./config.status
+        config.status: creating libbitcoinconsensus.pc
+        config.status: creating Makefile
+        config.status: creating src/Makefile
+        config.status: creating doc/man/Makefile
+        config.status: creating share/setup.nsi
+        config.status: creating share/qt/Info.plist
+        config.status: creating test/config.ini
+        config.status: creating contrib/devtools/split-debug.sh
+        config.status: creating doc/Doxyfile
+        config.status: creating src/config/bitcoin-config.h
+        config.status: executing depfiles commands
+        config.status: executing libtool commands
+        === configuring in src/univalue (/Users/chenliang/Documents/mycode/bitcoin/src/univalue)
+        configure: running /bin/sh ./configure --disable-option-checking '--prefix=/usr/local'  '--disable-shared' '--with-pic' '--with-bignum=no' '--enable-module-recovery' '--disable-jni' --cache-file=/dev/null --srcdir=.
+        checking whether make supports nested variables... yes
+        checking for a BSD-compatible install... /usr/bin/install -c
+        checking whether build environment is sane... yes
+        checking for a thread-safe mkdir -p... build-aux/install-sh -c -d
+        checking for gawk... no
+        checking for mawk... no
+        checking for nawk... no
+        checking for awk... awk
+        checking whether make sets $(MAKE)... yes
+        checking build system type... x86_64-apple-darwin17.2.0
+        checking host system type... x86_64-apple-darwin17.2.0
+        checking how to print strings... printf
+        checking for style of include used by make... GNU
+        checking for gcc... gcc
+        checking whether the C compiler works... yes
+        checking for C compiler default output file name... a.out
+        checking for suffix of executables... 
+        checking whether we are cross compiling... no
+        checking for suffix of object files... o
+        checking whether we are using the GNU C compiler... yes
+        checking whether gcc accepts -g... yes
+        checking for gcc option to accept ISO C89... none needed
+        checking whether gcc understands -c and -o together... yes
+        checking dependency style of gcc... gcc3
+        checking for a sed that does not truncate output... /usr/bin/sed
+        checking for grep that handles long lines and -e... /usr/bin/grep
+        checking for egrep... /usr/bin/grep -E
+        checking for fgrep... /usr/bin/grep -F
+        checking for ld used by gcc... /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld
+        checking if the linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) is GNU ld... no
+        checking for BSD- or MS-compatible name lister (nm)... /usr/bin/nm -B
+        checking the name lister (/usr/bin/nm -B) interface... BSD nm
+        checking whether ln -s works... yes
+        checking the maximum length of command line arguments... 196608
+        checking how to convert x86_64-apple-darwin17.2.0 file names to x86_64-apple-darwin17.2.0 format... func_convert_file_noop
+        checking how to convert x86_64-apple-darwin17.2.0 file names to toolchain format... func_convert_file_noop
+        checking for /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld option to reload object files... -r
+        checking for objdump... objdump
+        checking how to recognize dependent libraries... pass_all
+        checking for dlltool... no
+        checking how to associate runtime and link libraries... printf %s\n
+        checking for ar... ar
+        checking for archiver @FILE support... no
+        checking for strip... strip
+        checking for ranlib... ranlib
+        checking command to parse /usr/bin/nm -B output from gcc object... ok
+        checking for sysroot... no
+        checking for a working dd... /bin/dd
+        checking how to truncate binary pipes... /bin/dd bs=4096 count=1
+        checking for mt... no
+        checking if : is a manifest tool... no
+        checking for dsymutil... dsymutil
+        checking for nmedit... nmedit
+        checking for lipo... lipo
+        checking for otool... otool
+        checking for otool64... no
+        checking for -single_module linker flag... yes
+        checking for -exported_symbols_list linker flag... yes
+        checking for -force_load linker flag... yes
+        checking how to run the C preprocessor... gcc -E
+        checking for ANSI C header files... yes
+        checking for sys/types.h... yes
+        checking for sys/stat.h... yes
+        checking for stdlib.h... yes
+        checking for string.h... yes
+        checking for memory.h... yes
+        checking for strings.h... yes
+        checking for inttypes.h... yes
+        checking for stdint.h... yes
+        checking for unistd.h... yes
+        checking for dlfcn.h... yes
+        checking for objdir... .libs
+        checking if gcc supports -fno-rtti -fno-exceptions... yes
+        checking for gcc option to produce PIC... -fno-common -DPIC
+        checking if gcc PIC flag -fno-common -DPIC works... yes
+        checking if gcc static flag -static works... no
+        checking if gcc supports -c -o file.o... yes
+        checking if gcc supports -c -o file.o... (cached) yes
+        checking whether the gcc linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) supports shared libraries... yes
+        checking dynamic linker characteristics... darwin17.2.0 dyld
+        checking how to hardcode library paths into programs... immediate
+        checking whether stripping libraries is possible... yes
+        checking if libtool supports shared libraries... yes
+        checking whether to build shared libraries... no
+        checking whether to build static libraries... yes
+        checking for g++... g++
+        checking whether we are using the GNU C++ compiler... yes
+        checking whether g++ accepts -g... yes
+        checking dependency style of g++... gcc3
+        checking how to run the C++ preprocessor... g++ -E
+        checking for ld used by g++... /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld
+        checking if the linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) is GNU ld... no
+        checking whether the g++ linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) supports shared libraries... yes
+        checking for g++ option to produce PIC... -fno-common -DPIC
+        checking if g++ PIC flag -fno-common -DPIC works... yes
+        checking if g++ static flag -static works... no
+        checking if g++ supports -c -o file.o... yes
+        checking if g++ supports -c -o file.o... (cached) yes
+        checking whether the g++ linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) supports shared libraries... yes
+        checking dynamic linker characteristics... darwin17.2.0 dyld
+        checking how to hardcode library paths into programs... immediate
+        checking that generated files are newer than configure... done
+        configure: creating ./config.status
+        config.status: creating Makefile
+        config.status: creating pc/libunivalue.pc
+        config.status: creating pc/libunivalue-uninstalled.pc
+        config.status: creating univalue-config.h
+        config.status: univalue-config.h is unchanged
+        config.status: executing depfiles commands
+        config.status: executing libtool commands
+        === configuring in src/secp256k1 (/Users/chenliang/Documents/mycode/bitcoin/src/secp256k1)
+        configure: running /bin/sh ./configure --disable-option-checking '--prefix=/usr/local'  '--disable-shared' '--with-pic' '--with-bignum=no' '--enable-module-recovery' '--disable-jni' --cache-file=/dev/null --srcdir=.
+        checking build system type... x86_64-apple-darwin17.2.0
+        checking host system type... x86_64-apple-darwin17.2.0
+        checking for a BSD-compatible install... /usr/bin/install -c
+        checking whether build environment is sane... yes
+        checking for a thread-safe mkdir -p... build-aux/install-sh -c -d
+        checking for gawk... no
+        checking for mawk... no
+        checking for nawk... no
+        checking for awk... awk
+        checking whether make sets $(MAKE)... yes
+        checking whether make supports nested variables... yes
+        checking how to print strings... printf
+        checking for style of include used by make... GNU
+        checking for gcc... gcc
+        checking whether the C compiler works... yes
+        checking for C compiler default output file name... a.out
+        checking for suffix of executables... 
+        checking whether we are cross compiling... no
+        checking for suffix of object files... o
+        checking whether we are using the GNU C compiler... yes
+        checking whether gcc accepts -g... yes
+        checking for gcc option to accept ISO C89... none needed
+        checking whether gcc understands -c and -o together... yes
+        checking dependency style of gcc... gcc3
+        checking for a sed that does not truncate output... /usr/bin/sed
+        checking for grep that handles long lines and -e... /usr/bin/grep
+        checking for egrep... /usr/bin/grep -E
+        checking for fgrep... /usr/bin/grep -F
+        checking for ld used by gcc... /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld
+        checking if the linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) is GNU ld... no
+        checking for BSD- or MS-compatible name lister (nm)... /usr/bin/nm -B
+        checking the name lister (/usr/bin/nm -B) interface... BSD nm
+        checking whether ln -s works... yes
+        checking the maximum length of command line arguments... 196608
+        checking how to convert x86_64-apple-darwin17.2.0 file names to x86_64-apple-darwin17.2.0 format... func_convert_file_noop
+        checking how to convert x86_64-apple-darwin17.2.0 file names to toolchain format... func_convert_file_noop
+        checking for /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld option to reload object files... -r
+        checking for objdump... objdump
+        checking how to recognize dependent libraries... pass_all
+        checking for dlltool... no
+        checking how to associate runtime and link libraries... printf %s\n
+        checking for ar... ar
+        checking for archiver @FILE support... no
+        checking for strip... strip
+        checking for ranlib... ranlib
+        checking command to parse /usr/bin/nm -B output from gcc object... ok
+        checking for sysroot... no
+        checking for a working dd... /bin/dd
+        checking how to truncate binary pipes... /bin/dd bs=4096 count=1
+        checking for mt... no
+        checking if : is a manifest tool... no
+        checking for dsymutil... dsymutil
+        checking for nmedit... nmedit
+        checking for lipo... lipo
+        checking for otool... otool
+        checking for otool64... no
+        checking for -single_module linker flag... yes
+        checking for -exported_symbols_list linker flag... yes
+        checking for -force_load linker flag... yes
+        checking how to run the C preprocessor... gcc -E
+        checking for ANSI C header files... yes
+        checking for sys/types.h... yes
+        checking for sys/stat.h... yes
+        checking for stdlib.h... yes
+        checking for string.h... yes
+        checking for memory.h... yes
+        checking for strings.h... yes
+        checking for inttypes.h... yes
+        checking for stdint.h... yes
+        checking for unistd.h... yes
+        checking for dlfcn.h... yes
+        checking for objdir... .libs
+        checking if gcc supports -fno-rtti -fno-exceptions... yes
+        checking for gcc option to produce PIC... -fno-common -DPIC
+        checking if gcc PIC flag -fno-common -DPIC works... yes
+        checking if gcc static flag -static works... no
+        checking if gcc supports -c -o file.o... yes
+        checking if gcc supports -c -o file.o... (cached) yes
+        checking whether the gcc linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) supports shared libraries... yes
+        checking dynamic linker characteristics... darwin17.2.0 dyld
+        checking how to hardcode library paths into programs... immediate
+        checking whether stripping libraries is possible... yes
+        checking if libtool supports shared libraries... yes
+        checking whether to build shared libraries... no
+        checking whether to build static libraries... yes
+        checking whether make supports nested variables... (cached) yes
+        checking for pkg-config... /usr/local/bin/pkg-config
+        checking pkg-config is at least version 0.9.0... yes
+        checking for ar... /usr/bin/ar
+        checking for ranlib... /usr/bin/ranlib
+        checking for strip... /usr/bin/strip
+        checking for gcc... gcc
+        checking whether we are using the GNU C compiler... (cached) yes
+        checking whether gcc accepts -g... yes
+        checking for gcc option to accept ISO C89... (cached) none needed
+        checking whether gcc understands -c and -o together... (cached) yes
+        checking dependency style of gcc... (cached) gcc3
+        checking how to run the C preprocessor... gcc -E
+        checking for gcc option to accept ISO C89... (cached) none needed
+        checking dependency style of gcc... gcc3
+        checking for brew... /usr/local/bin/brew
+        checking if gcc supports -std=c89 -pedantic -Wall -Wextra -Wcast-align -Wnested-externs -Wshadow -Wstrict-prototypes -Wno-unused-function -Wno-long-long -Wno-overlength-strings... yes
+        checking if gcc supports -fvisibility=hidden... yes
+        checking for __int128... yes
+        checking for __builtin_expect... yes
+        checking native compiler: gcc... ok
+        checking for x86_64 assembly availability... yes
+        checking for libcrypto... yes
+        checking for main in -lcrypto... yes
+        checking for EC functions in libcrypto... no
+        checking whether byte ordering is bigendian... no
+        configure: Using static precomputation: yes
+        configure: Using assembly optimizations: x86_64
+        configure: Using field implementation: 64bit
+        configure: Using bignum implementation: no
+        configure: Using scalar implementation: 64bit
+        configure: Using endomorphism optimizations: no
+        configure: Building for coverage analysis: no
+        configure: Building ECDH module: no
+        configure: Building ECDSA pubkey recovery module: yes
+        configure: Using jni: no
+        checking that generated files are newer than configure... done
+        configure: creating ./config.status
+        config.status: creating Makefile
+        config.status: creating libsecp256k1.pc
+        config.status: creating src/libsecp256k1-config.h
+        config.status: src/libsecp256k1-config.h is unchanged
+        config.status: executing depfiles commands
+        config.status: executing libtool commands
+        
+        Options used to compile and link:
+          with wallet   = yes
+          with gui / qt = yes
+            qt version  = 5
+            with qr     = auto
+          with zmq      = no
+          with test     = yes
+          with bench    = yes
+          with upnp     = yes
+          debug enabled = no
+          werror        = no
+        
+          target os     = darwin
+          build os      = darwin
+        
+          CC            = gcc
+          CFLAGS        = -g -O2
+          CPPFLAGS      =  -DHAVE_BUILD_INFO -D__STDC_FORMAT_MACROS -I/usr/local/opt/berkeley-db@4/include -DMAC_OSX
+          CXX           = g++ -std=c++11
+          CXXFLAGS      = -g -O2 -Wall -Wextra -Wformat -Wvla -Wformat-security -Wno-unused-parameter -Wno-self-assign -Wno-unused-local-typedef -Wno-deprecated-register -Wno-implicit-fallthrough
+          LDFLAGS       =  -Wl,-headerpad_max_install_names -Wl,-dead_strip
+          ARFLAGS       = cr</font>
+        
+        
+        
+        make
+        <font color=red></font>
+
+3.  It is recommended to build and run the unit tests:
+
+        make check
+
+4.  You can also create a .dmg that contains the .app bundle (optional):
+
+        make deploy
+
+
+Running
+-------
+
+Bitcoin Core is now available at `./src/bitcoind`
+
+Before running, it's recommended you create an RPC configuration file.
+
+    echo -e "rpcuser=bitcoinrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/Bitcoin/bitcoin.conf"
+
+    chmod 600 "/Users/${USER}/Library/Application Support/Bitcoin/bitcoin.conf"
+
+The first time you run bitcoind, it will start downloading the blockchain. This process could take several hours.
+
+You can monitor the download process by looking at the debug.log file:
+
+    tail -f $HOME/Library/Application\ Support/Bitcoin/debug.log
+</pre>
+
+</li>
+
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">Creating the outputs</h3>
+<pre>
+A t
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">Adding Transaction to the Ledger</h3>
+
+<pre>
+transaoin
+</pre>
+</li>
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">Bitcoin Mining</h3>
+<pre>
+Alice's
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">Mining Transactions in Blocks</h3>
+<pre>
+New 
+</pre>
+</li>
+
+
+
+</ul>
+</div>
