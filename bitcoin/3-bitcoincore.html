@@ -1399,7 +1399,9 @@ Build Bitcoin Core
          <font color=blue>$ which bitcoind
         /usr/local/bin/bitcoind
         $ which bitcoin-cli
-        /usr/local/bin/bitcoin-cli</font>
+        /usr/local/bin/bitcoin-cli
+        $ which bitcoin-qt
+        /usr/local/bin/bitcoin-qt</font>
 
 Running
 -------
@@ -1411,12 +1413,48 @@ Before running, it's recommended you create an RPC configuration file.
     echo -e "rpcuser=bitcoinrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/Bitcoin/bitcoin.conf"
 
     chmod 600 "/Users/${USER}/Library/Application Support/Bitcoin/bitcoin.conf"
+    
+    <font color=red>
+    $ echo -e "rpcuser=bitcoinrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/Bitcoin/bitcoin.conf"
+    $ cat bitcoin.conf 
+    rpcuser=bitcoinrpc
+    rpcpassword=c6dfa0bf5aead6eeb3348223cd9f50f9</font>
 
 The first time you run bitcoind, it will start downloading the blockchain. This process could take several hours.
 
 You can monitor the download process by looking at the debug.log file:
 
     tail -f $HOME/Library/Application\ Support/Bitcoin/debug.log
+    <font color=green>$ ls -al
+    total 3592
+    drwxr-xr-x  15 chenliang  staff      510 12 20 21:36 .
+    drwx------+ 40 chenliang  staff     1360 12 20 21:32 ..
+    -rw-------   1 chenliang  staff        0 12 20 21:35 .lock
+    -rw-------   1 chenliang  staff       37 12 20 21:36 banlist.dat
+    -rw-------   1 chenliang  staff       64 12 20 21:33 bitcoin.conf
+    -rw-------   1 chenliang  staff        4 12 20 21:36 bitcoind.pid
+    drwx------   5 chenliang  staff      170 12 20 21:36 blocks
+    drwx------   7 chenliang  staff      238 12 20 21:36 chainstate
+    drwx------   3 chenliang  staff      102 12 20 21:36 database
+    -rw-------   1 chenliang  staff        0 12 20 21:35 db.log
+    -rw-------   1 chenliang  staff    14164 12 20 21:38 debug.log
+    -rw-------   1 chenliang  staff   247985 12 20 21:36 fee_estimates.dat
+    -rw-------   1 chenliang  staff       17 12 20 21:36 mempool.dat
+    -rw-------   1 chenliang  staff   185938 12 20 21:36 peers.dat
+    -rw-------   1 chenliang  staff  1368064 12 20 21:36 wallet.dat
+    chenliangdeiMac:Bitcoin chenliang$ tail -f debug.log
+    2017-12-20 13:38:53 UpdateTip: new best=0000000071966c2b1d065fd446b1e485b2c9d9594acd2007ccbd5441cfc89444 height=7 version=0x00000001 log2_work=35.000022 tx=8 date='2009-01-09 03:39:29' progress=0.000000 cache=0.0MiB(7txo)
+    2017-12-20 13:38:53 UpdateTip: new best=00000000408c48f847aa786c2268fc3e6ec2af68e8468a34a28c61b7f1de0dc6 height=8 version=0x00000001 log2_work=35.169947 tx=9 date='2009-01-09 03:45:43' progress=0.000000 cache=0.0MiB(8txo)
+    2017-12-20 13:38:53 UpdateTip: new best=000000008d9dc510f23c2657fc4f67bea30078cc05a90eb89e84cc475c080805 height=9 version=0x00000001 log2_work=35.32195 tx=10 date='2009-01-09 03:54:39' progress=0.000000 cache=0.0MiB(9txo)
+    2017-12-20 13:38:53 UpdateTip: new best=000000002c05cc2e78923c34df87fd108b22221ac6076c18f3ade378a4d915e9 height=10 version=0x00000001 log2_work=35.459454 tx=11 date='2009-01-09 04:05:52' progress=0.000000 cache=0.0MiB(10txo)
+    2017-12-20 13:38:53 UpdateTip: new best=0000000097be56d606cdd9c54b04d4747e957d3608abe69198c661f2add73073 height=11 version=0x00000001 log2_work=35.584985 tx=12 date='2009-01-09 04:12:40' progress=0.000000 cache=0.0MiB(11txo)
+    2017-12-20 13:38:53 UpdateTip: new best=0000000027c2488e2510d1acf4369787784fa20ee084c258b58d9fbd43802b5e height=12 version=0x00000001 log2_work=35.700462 tx=13 date='2009-01-09 04:21:28' progress=0.000000 cache=0.0MiB(12txo)
+    2017-12-20 13:38:53 UpdateTip: new best=000000005c51de2031a895adc145ee2242e919a01c6d61fb222a54a54b4d3089 height=13 version=0x00000001 log2_work=35.807377 tx=14 date='2009-01-09 04:23:40' progress=0.000000 cache=0.0MiB(13txo)
+    2017-12-20 13:38:53 UpdateTip: new best=0000000080f17a0c5a67f663a9bc9969eb37e81666d9321125f0e293656f8a37 height=14 version=0x00000001 log2_work=35.906913 tx=15 date='2009-01-09 04:33:09' progress=0.000000 cache=0.0MiB(14txo)
+    2017-12-20 13:38:53 UpdateTip: new best=00000000b3322c8c3ef7d2cf6da009a776e6a99ee65ec5a32f3f345712238473 height=15 version=0x00000001 log2_work=36.000022 tx=16 date='2009-01-10 04:45:46' progress=0.000000 cache=0.0MiB(15txo)
+    2017-12-20 13:38:53 UpdateTip: new best=00000000174a25bb399b009cc8deff1c4b3ea84df7e93affaaf60dc3416cc4f5 height=16 version=0x00000001 log2_work=36.087485 tx=17 date='2009-01-10 04:45:58' progress=0.000000 cache=0.0MiB(16txo)
+    2017-12-20 13:39:02 UpdateTip: new best=000000003ff1d0d70147acfbef5d6a87460ff5bcfce807c2d5b6f0a66bfdf809 height=17 version=0x00000001 log2_work=36.169947 tx=18 date='2009-01-10 05:03:11' progress=0.000000 cache=0.0MiB(17txo)
+    </font>
 </pre>
 
 </li>
@@ -1435,22 +1473,187 @@ with every transaction that has ever occurred on the bitcoin network since its i
 <li class="p3 js-animateTab " data-tab="1">
 <h3 class="mt0 mb1 slate h5">Running Bitcoin Core for the first time</h3>
 <pre>
-A t
+Run the GUI with:            bitcoin-qt
+Run the command line with:   bitcoind
+To show logs:                bitcoind -printtoconsole
+To stop bitcoind:            ctrl + c
+To run in background:        bitcoind -daemon
+
+To check status of the bitcoin node:      bitcoin-cli getinfo
+$ bitcoin-cli getinfo
+{
+  "deprecation-warning": "WARNING: getinfo is deprecated and will be fully removed in 0.16. Projects should transition to using getblockchaininfo, getnetworkinfo, and getwalletinfo before upgrading to 0.16",
+  "version": 150100,
+  "protocolversion": 70015,
+  "walletversion": 139900,
+  "balance": 0.00000000,
+  "blocks": 56796,
+  "timeoffset": 0,
+  "connections": 5,
+  "proxy": "",
+  "difficulty": 11.84622814970471,
+  "testnet": false,
+  "keypoololdest": 1513776957,
+  "keypoolsize": 2000,
+  "paytxfee": 0.00000000,
+  "relayfee": 0.00010000,
+  "errors": ""
+}
+
+When you first run it, it will start to cache all the transactions.
 </pre>
 </li>
 
 
 <li class="p3 js-animateTab " data-tab="1">
-<h3 class="mt0 mb1 slate blue h2">Mining Transactions in Blocks</h3>
+<h3 class="mt0 mb1 slate blue h2">Bitcoin Core API</h3>
 <pre>
-New 
+bitcoin-cli = Bitcoin Core client = JSON-RPC interface
+<font color=red>To get all available commands:
+$ bitcoin-cli help</font>
+== Blockchain ==
+getbestblockhash
+getblock "blockhash" ( verbosity ) 
+getblockchaininfo
+getblockcount
+getblockhash height
+getblockheader "hash" ( verbose )
+getchaintips
+getchaintxstats ( nblocks blockhash )
+getdifficulty
+getmempoolancestors txid (verbose)
+getmempooldescendants txid (verbose)
+getmempoolentry txid
+getmempoolinfo
+getrawmempool ( verbose )
+gettxout "txid" n ( include_mempool )
+gettxoutproof ["txid",...] ( blockhash )
+gettxoutsetinfo
+preciousblock "blockhash"
+pruneblockchain
+verifychain ( checklevel nblocks )
+verifytxoutproof "proof"
+
+== Control ==
+getinfo
+getmemoryinfo ("mode")
+help ( "command" )
+stop
+uptime
+
+== Generating ==
+generate nblocks ( maxtries )
+generatetoaddress nblocks address (maxtries)
+
+== Mining ==
+getblocktemplate ( TemplateRequest )
+getmininginfo
+getnetworkhashps ( nblocks height )
+prioritisetransaction <txid> <dummy value> <fee delta>
+submitblock "hexdata"  ( "dummy" )
+
+== Network ==
+addnode "node" "add|remove|onetry"
+clearbanned
+disconnectnode "[address]" [nodeid]
+getaddednodeinfo ( "node" )
+getconnectioncount
+getnettotals
+getnetworkinfo
+getpeerinfo
+listbanned
+ping
+setban "subnet" "add|remove" (bantime) (absolute)
+setnetworkactive true|false
+
+== Rawtransactions ==
+combinerawtransaction ["hexstring",...]
+createrawtransaction [{"txid":"id","vout":n},...] {"address":amount,"data":"hex",...} ( locktime ) ( replaceable )
+decoderawtransaction "hexstring"
+decodescript "hexstring"
+fundrawtransaction "hexstring" ( options )
+getrawtransaction "txid" ( verbose )
+sendrawtransaction "hexstring" ( allowhighfees )
+signrawtransaction "hexstring" ( [{"txid":"id","vout":n,"scriptPubKey":"hex","redeemScript":"hex"},...] ["privatekey1",...] sighashtype )
+
+== Util ==
+createmultisig nrequired ["key",...]
+estimatefee nblocks
+estimatesmartfee conf_target ("estimate_mode")
+signmessagewithprivkey "privkey" "message"
+validateaddress "address"
+verifymessage "address" "signature" "message"
+
+== Wallet ==
+abandontransaction "txid"
+abortrescan
+addmultisigaddress nrequired ["key",...] ( "account" )
+addwitnessaddress "address"
+backupwallet "destination"
+bumpfee "txid" ( options ) 
+dumpprivkey "address"
+dumpwallet "filename"
+encryptwallet "passphrase"
+getaccount "address"
+getaccountaddress "account"
+getaddressesbyaccount "account"
+getbalance ( "account" minconf include_watchonly )
+getnewaddress ( "account" )
+getrawchangeaddress
+getreceivedbyaccount "account" ( minconf )
+getreceivedbyaddress "address" ( minconf )
+gettransaction "txid" ( include_watchonly )
+getunconfirmedbalance
+getwalletinfo
+importaddress "address" ( "label" rescan p2sh )
+importmulti "requests" ( "options" )
+importprivkey "privkey" ( "label" ) ( rescan )
+importprunedfunds
+importpubkey "pubkey" ( "label" rescan )
+importwallet "filename"
+keypoolrefill ( newsize )
+listaccounts ( minconf include_watchonly)
+listaddressgroupings
+listlockunspent
+listreceivedbyaccount ( minconf include_empty include_watchonly)
+listreceivedbyaddress ( minconf include_empty include_watchonly)
+listsinceblock ( "blockhash" target_confirmations include_watchonly include_removed )
+listtransactions ( "account" count skip include_watchonly)
+listunspent ( minconf maxconf  ["addresses",...] [include_unsafe] [query_options])
+listwallets
+lockunspent unlock ([{"txid":"txid","vout":n},...])
+move "fromaccount" "toaccount" amount ( minconf "comment" )
+removeprunedfunds "txid"
+sendfrom "fromaccount" "toaddress" amount ( minconf "comment" "comment_to" )
+sendmany "fromaccount" {"address":amount,...} ( minconf "comment" ["address",...] replaceable conf_target "estimate_mode")
+sendtoaddress "address" amount ( "comment" "comment_to" subtractfeefromamount replaceable conf_target "estimate_mode")
+setaccount "address" "account"
+settxfee amount
+signmessage "address" "message"
+
+<font color=red>To get further help on one command:
+$ bitcoin-cli help getblockhash</font>
+getblockhash height
+
+Returns hash of block in best-block-chain at height provided.
+
+Arguments:
+1. height         (numeric, required) The height index
+
+Result:
+"hash"         (string) The block hash
+
+Examples:
+> bitcoin-cli getblockhash 1000
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockhash", "params": [1000] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 </pre>
 </li>
 
 
 <li class="p3 js-animateTab " data-tab="1">
-<h3 class="mt0 mb1 slate h5">Adding Transaction to the Ledger</h3>
-
+<h3 class="mt0 mb1 slate h5">Exploring and Decoding Transactions</h3>
+Previously Alice bought a cup of coffee from Bob's Cafe.  We can get the transaction by:
+$ bitcoin-cli getrawtransaction 0627052b6f28912f2703066a912ea577f2ce4da4caa5a5fbd8a57286c345c2f2
 <pre>
 transaoin
 </pre>

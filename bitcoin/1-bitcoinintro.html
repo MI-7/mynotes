@@ -1,5 +1,8 @@
+<title>Bitcoin Basics</title>
+
 <link rel="stylesheet" href="../homepage/envoy.min.css">
 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <style>
   main {
@@ -70,16 +73,16 @@ of computing devices, including laptops and smartphones</p>
 BitCoin Generation
 </h3>
 <p class="m0">
-Bitcoin is a distributed, peer-to-peer system. There is no ¡°central¡±
+Bitcoin is a distributed, peer-to-peer system. There is no ï¿½ï¿½centralï¿½ï¿½
 server or point of control. 
 </p>
 <p/>
 <p class="m0">
 Bitcoin are created through a process called
-¡°mining,¡± which involves competing to find solutions to a mathematical
+ï¿½ï¿½mining,ï¿½ï¿½ which involves competing to find solutions to a mathematical
 problem while processing bitcoin transactions. Any participant in the bitcoin
 network (i.e., anyone using a device running the full bitcoin protocol stack)
-may operate as a miner, using their computer¡¯s processing power to verify and
+may operate as a miner, using their computerï¿½ï¿½s processing power to verify and
 record transactions. Every 10 minutes, on average, someone is able to validate
 the transactions of the past 10 minutes and is rewarded with brand new bitcoin.
 Essentially, bitcoin mining decentralizes the currency-issuance and clearing
@@ -95,9 +98,9 @@ are competing at any moment. The protocol also halves the rate at which new
 bitcoin are created every 4 years, and limits the total number of bitcoin that
 will be created to a fixed total just below 21 million coins. The result is that
 the number of bitcoin in circulation closely follows an easily predictable curve
-that approaches 21 million by the year 2140. Due to bitcoin¡¯s diminishing rate
+that approaches 21 million by the year 2140. Due to bitcoinï¿½ï¿½s diminishing rate
 of issuance, over the long term, the bitcoin currency is deflationary.
-Furthermore, bitcoin cannot be inflated by ¡°printing¡± new money above and
+Furthermore, bitcoin cannot be inflated by ï¿½ï¿½printingï¿½ï¿½ new money above and
 beyond the expected issuance rate.
 </p>
 <p/>
@@ -116,14 +119,14 @@ Bitcoin consists of:<p/>
 <h3 class="mt0 mb1 slate h5">History of Bitcoin</h3>
 
 <p class="m0">
-Bitcoin was invented in 2008 with the publication of a paper titled ¡°Bitcoin: A
-Peer-to-Peer Electronic Cash System,¡±1 written under the alias of Satoshi
+Bitcoin was invented in 2008 with the publication of a paper titled ï¿½ï¿½Bitcoin: A
+Peer-to-Peer Electronic Cash System,ï¿½ï¿½1 written under the alias of Satoshi
 Nakamoto (see Appendix A). Nakamoto combined several prior inventions
 such as b-money and HashCash to create a completely decentralized electronic
 cash system that does not rely on a central authority for currency issuance or
 settlement and validation of transactions. The key innovation was to use a
-distributed computation system (called a ¡°Proof-of-Work¡± algorithm) to
-conduct a global ¡°election¡± every 10 minutes, allowing the decentralized
+distributed computation system (called a ï¿½ï¿½Proof-of-Workï¿½ï¿½ algorithm) to
+conduct a global ï¿½ï¿½electionï¿½ï¿½ every 10 minutes, allowing the decentralized
 network to arrive at consensus about the state of transactions.
 </p>
 <p/>
@@ -132,8 +135,8 @@ The bitcoin network started in 2009, based on a reference implementation
 published by Nakamoto and since revised by many other programmers. The
 implementation of the Proof-of-Work algorithm (mining) that provides security
 and resilience for bitcoin has increased in power exponentially, and now
-exceeds the combined processing power of the world¡¯s top supercomputers.
-Bitcoin¡¯s total market value has at times exceeded $20 billion US dollars,
+exceeds the combined processing power of the worldï¿½ï¿½s top supercomputers.
+Bitcoinï¿½ï¿½s total market value has at times exceeded $20 billion US dollars,
 depending on the bitcoin-to-dollar exchange rate. The largest transaction
 processed so far by the network was $150 million US dollars, transmitted
 instantly and processed without any fees.
@@ -163,7 +166,7 @@ C
 <h3 class="mt0 mb1 slate h5">Bitcoin Wallet</h3>
 <p class="m0">
 Bitcoin is a protocol that can be accessed using a client application that speaks
-the protocol. A ¡°bitcoin wallet¡± is the most common user interface to the
+the protocol. A ï¿½ï¿½bitcoin walletï¿½ï¿½ is the most common user interface to the
 bitcoin system
 </p>
 <p/>
@@ -177,7 +180,7 @@ Categorization of Bitcoin Wallet:<p/>
 * Paper wallet    : Keys controlling bitcoins are printed for long-term storage.  Offline (cold) storage.<p/>
 * Full-node wallet: Full client or "full node", a client that stores the entire history of
 bitcoin transactions (every transaction by every user, ever), manages
-users¡¯ wallets, and can initiate transactions directly on the bitcoin
+usersï¿½ï¿½ wallets, and can initiate transactions directly on the bitcoin
 network. A full node handles all aspects of the protocol and can
 independently validate the entire blockchain and any transaction. A fullnode
 client consumes substantial computer resources (e.g., more than 125
@@ -213,7 +216,7 @@ Main focus of the book: Bitcoin Core; Mobile Wallet; Web Wallet.
 
 <p class="m0">
 <font color=green>bitcoin address</font>: long string of letters and numbers:
-<font color=red>1Cdid9KFAaatwczBwBttQcwXYCpvK8h7FK</font>. Next to the wallet¡¯s bitcoin
+<font color=red>1Cdid9KFAaatwczBwBttQcwXYCpvK8h7FK</font>. Next to the walletï¿½ï¿½s bitcoin
 address is a <font color=red>QR code</font>, a form of barcode that contains the same information in
 a format that can be scanned by a smartphone camera.
 </p>
@@ -308,20 +311,20 @@ C
 <p class="m0">
 The wallet will:<p/>
 * construct a transaction assigning 0.1 BTC to Alice's address<p/>
-* sourcing the funds from Joe¡¯s wallet and signing the transaction with Joe¡¯s private keys. This tells the bitcoin
-network that Joe has authorized a transfer of value to Alice¡¯s new address.<p/>
+* sourcing the funds from Joeï¿½ï¿½s wallet and signing the transaction with Joeï¿½ï¿½s private keys. This tells the bitcoin
+network that Joe has authorized a transfer of value to Aliceï¿½ï¿½s new address.<p/>
 * The transaction is transmitted via the peer-to-peer protocol, it quickly
 propagates across the bitcoin network. In less than a second, most of the well-
-connected nodes in the network receive the transaction and see Alice¡¯s address
+connected nodes in the network receive the transaction and see Aliceï¿½ï¿½s address
 for the first time.<p/>
-* Meanwhile, Alice¡¯s wallet is constantly ¡°listening¡± to published transactions
+* Meanwhile, Aliceï¿½ï¿½s wallet is constantly ï¿½ï¿½listeningï¿½ï¿½ to published transactions
 on the bitcoin network, looking for any that match the addresses in her wallets.<p/>
-* A few seconds after Joe¡¯s wallet transmits the transaction, Alice¡¯s wallet will
+* A few seconds after Joeï¿½ï¿½s wallet transmits the transaction, Aliceï¿½ï¿½s wallet will
 indicate that it is receiving 0.10 BTC.<p/>
 </p>
 <p/>
 <p class="m0">
-At first, Alice¡¯s address will show the transaction from Joe as <font color=red>¡°Unconfirmed.¡±</font> This
+At first, Aliceï¿½ï¿½s address will show the transaction from Joe as <font color=red>ï¿½ï¿½Unconfirmed.ï¿½ï¿½</font> This
 means that the transaction has been propagated to the network but has not yet been
 recorded in the <font color=red>bitcoin transaction ledger</font>, known as the <font color=red>blockchain</font>. To be confirmed, a
 transaction must be included in a block and added to the blockchain, which happens
