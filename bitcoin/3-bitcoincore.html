@@ -1313,16 +1313,93 @@ Build Bitcoin Core
         
         
         make
-        <font color=red></font>
+        <font color=red>......</font>
 
 3.  It is recommended to build and run the unit tests:
 
         make check
+        <font color=blue>============================================================================
+        Testsuite summary for univalue 1.0.2
+        ============================================================================
+        # TOTAL: 1
+        # PASS:  1
+        # SKIP:  0
+        # XFAIL: 0
+        # FAIL:  0
+        # XPASS: 0
+        # ERROR: 0
+        ============================================================================</font>
 
 4.  You can also create a .dmg that contains the .app bundle (optional):
 
         make deploy
+        <font color=green>+ Finalizing .dmg disk image +
+        正在准备映像引擎…
+        正在读取Protective Master Boot Record（MBR：0）…
+           (CRC32 $CF9603C0：Protective Master Boot Record（MBR：0）)
+        正在读取GPT Header（Primary GPT Header：1）…
+           (CRC32 $9F215F4C：GPT Header（Primary GPT Header：1）)
+        正在读取GPT Partition Data（Primary GPT Table：2）…
+           (CRC32 $2DCAF619：GPT Partition Data（Primary GPT Table：2）)
+        正在读取（Apple_Free：3）…
+           (CRC32 $00000000：（Apple_Free：3）)
+        正在读取disk image（Apple_HFS：4）…
+        ...............................................................................................................................
+           (CRC32 $DA7F0A9B：disk image（Apple_HFS：4）)
+        正在读取（Apple_Free：5）…
+        ...............................................................................................................................
+           (CRC32 $00000000：（Apple_Free：5）)
+        正在读取GPT Partition Data（Backup GPT Table：6）…
+        ...............................................................................................................................
+           (CRC32 $2DCAF619：GPT Partition Data（Backup GPT Table：6）)
+        正在读取GPT Header（Backup GPT Header：7）…
+        ................................................................................................................................
+           (CRC32 $D2ECF23A：GPT Header（Backup GPT Header：7）)
+        正在添加资源…
+        ................................................................................................................................
+        已耗时：12.850s
+        文件大小：26301720 字节，校验和：CRC32 $3AFB565C
+        已处理扇区：161404，已压缩 146220
+        速度：5.6M 字节/秒
+        节省：68.2%
+        created: /Users/chenliang/Documents/mycode/bitcoin/Bitcoin-Qt.dmg
+        + Done +</font>
 
+5. install built bitcoin core
+        make install
+        <font color=red>$ make install
+        Making install in src
+         ../build-aux/install-sh -c -d '/usr/local/lib'
+         /bin/sh ../libtool   --mode=install /usr/bin/install -c   libbitcoinconsensus.la '/usr/local/lib'
+        libtool: install: /usr/bin/install -c .libs/libbitcoinconsensus.0.dylib /usr/local/lib/libbitcoinconsensus.0.dylib
+        libtool: install: (cd /usr/local/lib && { ln -s -f libbitcoinconsensus.0.dylib libbitcoinconsensus.dylib || { rm -f libbitcoinconsensus.dylib && ln -s libbitcoinconsensus.0.dylib libbitcoinconsensus.dylib; }; })
+        libtool: install: /usr/bin/install -c .libs/libbitcoinconsensus.lai /usr/local/lib/libbitcoinconsensus.la
+        libtool: install: /usr/bin/install -c .libs/libbitcoinconsensus.a /usr/local/lib/libbitcoinconsensus.a
+        libtool: install: chmod 644 /usr/local/lib/libbitcoinconsensus.a
+        libtool: install: /usr/bin/ranlib /usr/local/lib/libbitcoinconsensus.a
+         ../build-aux/install-sh -c -d '/usr/local/bin'
+          /bin/sh ../libtool   --mode=install /usr/bin/install -c bitcoind bitcoin-cli bitcoin-tx test/test_bitcoin bench/bench_bitcoin qt/bitcoin-qt qt/test/test_bitcoin-qt '/usr/local/bin'
+        libtool: install: /usr/bin/install -c bitcoind /usr/local/bin/bitcoind
+        libtool: install: /usr/bin/install -c bitcoin-cli /usr/local/bin/bitcoin-cli
+        libtool: install: /usr/bin/install -c bitcoin-tx /usr/local/bin/bitcoin-tx
+        libtool: install: /usr/bin/install -c test/test_bitcoin /usr/local/bin/test_bitcoin
+        libtool: install: /usr/bin/install -c bench/bench_bitcoin /usr/local/bin/bench_bitcoin
+        libtool: install: /usr/bin/install -c qt/bitcoin-qt /usr/local/bin/bitcoin-qt
+        libtool: install: /usr/bin/install -c qt/test/test_bitcoin-qt /usr/local/bin/test_bitcoin-qt
+         ../build-aux/install-sh -c -d '/usr/local/include'
+         /usr/bin/install -c -m 644 script/bitcoinconsensus.h '/usr/local/include'
+        Making install in doc/man
+        make[2]: Nothing to be done for `install-exec-am'.
+         ../../build-aux/install-sh -c -d '/usr/local/share/man/man1'
+         /usr/bin/install -c -m 644 bitcoind.1 bitcoin-qt.1 bitcoin-cli.1 bitcoin-tx.1 '/usr/local/share/man/man1'
+        make[2]: Nothing to be done for `install-exec-am'.
+         build-aux/install-sh -c -d '/usr/local/lib/pkgconfig'
+         /usr/bin/install -c -m 644 libbitcoinconsensus.pc '/usr/local/lib/pkgconfig'</font>
+         
+         <font color=blue>$ which bitcoind
+        /usr/local/bin/bitcoind
+        $ which bitcoin-cli
+        /usr/local/bin/bitcoin-cli</font>
 
 Running
 -------
@@ -1345,17 +1422,30 @@ You can monitor the download process by looking at the debug.log file:
 </li>
 
 
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">Running Bitcoin Core Node</h3>
+<pre>
+Running a full-index node needs 2GB RAM and 125GB of disk.  Bitcoin Core keeps full copy of the blockchain by default,
+with every transaction that has ever occurred on the bitcoin network since its inception in 2009.
+</pre>
+</li>
 
 
 
 <li class="p3 js-animateTab " data-tab="1">
-<h3 class="mt0 mb1 slate h5">Creating the outputs</h3>
+<h3 class="mt0 mb1 slate h5">Running Bitcoin Core for the first time</h3>
 <pre>
 A t
 </pre>
 </li>
 
 
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">Mining Transactions in Blocks</h3>
+<pre>
+New 
+</pre>
+</li>
 
 
 <li class="p3 js-animateTab " data-tab="1">
@@ -1363,23 +1453,6 @@ A t
 
 <pre>
 transaoin
-</pre>
-</li>
-
-
-<li class="p3 js-animateTab " data-tab="1">
-<h3 class="mt0 mb1 slate blue h2">Bitcoin Mining</h3>
-<pre>
-Alice's
-</pre>
-</li>
-
-
-
-<li class="p3 js-animateTab " data-tab="1">
-<h3 class="mt0 mb1 slate blue h2">Mining Transactions in Blocks</h3>
-<pre>
-New 
 </pre>
 </li>
 
