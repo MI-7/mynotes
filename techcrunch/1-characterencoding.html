@@ -60,67 +60,218 @@ Character Encodings</h3>
 一些测试
 </h3>
 <pre>
+我保存了一个文件Edit3，内容是abc陈亮，用UltraEdit保存的时候，用的选项是UTF-8.
+<img src="chencoding-saveasutf8.png"></img>
 
+然后用程序：
+</pre>
+<pre id="code">
+#include <stdio.h>
+
+int
+main(void)
+{
+  FILE *fptr;
+  char ch_buffer[1];
+  
+  if ((fptr = fopen("c:\\users\\lchen4\\desktop\\temp\\Edit3", "r")) == NULL)
+  {
+    printf("file read error");
+    exit(1);
+  }
+  
+  while(!feof(fptr))
+  {
+    fread(ch_buffer, sizeof ch_buffer, 1, fptr);
+    printf("%x..", ch_buffer[0]);
+  }
+  
+  fclose(fptr);
+}
+</pre>
+
+<pre>
+前三个byte的BOM Header是UTF-8特定的三个byte：EFBBBF，但是跑的时候结果是：
+C:\Users\lchen4\Desktop\temp>a.exe
+ffffffef..ffffffbb..ffffffbf..61..62..63..ffffffe9..ffffff99..ffffff88..ffffffe4..ffffffba..ffffffae..ffffffae..
+原因是<a href="https://stackoverflow.com/questions/8060170/printing-hexadecimal-characters-in-c">Printing hexadecimal characters in C</a>
+当前系统的char是signed，在printf函数中，会将任意小于int的整数转换成int，因为char是八位的带符号整数，
+所以转化成int的时候，也会带着符号转。因为ef / bb / bf都是以1开头，they are being sign-extended...
+
+所以我把类型换成unsigned char就好了：
+</pre>
+<pre id="code">
+
+#include <stdio.h>
+
+int
+main(void)
+{
+  FILE *fptr;
+  unsigned char ch_buffer[1];
+  
+  if ((fptr = fopen("c:\\users\\lchen4\\desktop\\temp\\Edit3", "r")) == NULL)
+  {
+    printf("file read error");
+    exit(1);
+  }
+  
+  while(!feof(fptr))
+  {
+    fread(ch_buffer, sizeof ch_buffer, 1, fptr);
+    printf("%X..", ch_buffer[0]);
+  }
+  
+  fclose(fptr);
+}
+
+</pre>
+<pre>
+C:\Users\lchen4\Desktop\temp>a.exe
+EF..BB..BF..61..62..63..E9..99..88..E4..BA..AE..AE..
 </pre>
 </li>
 
 
 <li class="p3 js-animateTab js-activeLink" data-tab="0">
 <h3 class="mt0 mb1 slate h5">
-What is QR Code
+BOM Header Reference
 </h3>
 <pre>
-A Quick Response code is a two-dimensional pictographic code used for its fast readability and
-comparatively large storage capacity. The code consists of black modules arranged in a square
-pattern on a white background. The information encoded can be made up of any kind of data
-(e.g., binary, alphanumeric, or Kanji symbols)
+<a href="">BOM - Byte Order Marks</a>
+<table border="1">
+<tr>
+<th>Encoding</th>
+<th>Representation (hexadecimal)</th>
+<th>Representation (decimal)</th>
+<th>Bytes as CP1252 characters</th>
+</tr>
+<tr>
+<td><a href="/wiki/UTF-8" title="UTF-8">UTF-8</a><sup id="cite_ref-b_15-0" class="reference"><a href="#cite_note-b-15">[t 1]</a></sup></td>
+<td><code>EF BB BF</code></td>
+<td><code>239 187 191</code></td>
+<td><code>ï»¿</code></td>
+</tr>
+<tr>
+<td><a href="/wiki/UTF-16" title="UTF-16">UTF-16</a> (<a href="/wiki/Big_Endian" class="mw-redirect" title="Big Endian">BE</a>)</td>
+<td><code>FE FF</code></td>
+<td><code>254 255</code></td>
+<td><code>þÿ</code></td>
+</tr>
+<tr>
+<td><a href="/wiki/UTF-16" title="UTF-16">UTF-16</a> (<a href="/wiki/Little_Endian" class="mw-redirect" title="Little Endian">LE</a>)</td>
+<td><code>FF FE</code></td>
+<td><code>255 254</code></td>
+<td><code>ÿþ</code></td>
+</tr>
+<tr>
+<td><a href="/wiki/UTF-32" title="UTF-32">UTF-32</a> (BE)</td>
+<td><code>00 00 FE FF</code></td>
+<td><code>0 0 254 255</code></td>
+<td><code>␀␀þÿ</code> (␀ refers to the ASCII null character)</td>
+</tr>
+<tr>
+<td><a href="/wiki/UTF-32" title="UTF-32">UTF-32</a> (LE)</td>
+<td><code>FF FE 00 00</code><sup id="cite_ref-16" class="reference"><a href="#cite_note-16">[t 2]</a></sup></td>
+<td><code>255 254 0 0</code></td>
+<td><code>ÿþ␀␀</code> (␀ refers to the ASCII null character)</td>
+</tr>
+<tr>
+<td><a href="/wiki/UTF-7" title="UTF-7">UTF-7</a><sup id="cite_ref-b_15-1" class="reference"><a href="#cite_note-b-15">[t 1]</a></sup></td>
+<td><code>2B 2F 76 38</code><br />
+<code>2B 2F 76 39</code><br />
+<code>2B 2F 76 2B</code><br />
+<code>2B 2F 76 2F</code><sup id="cite_ref-17" class="reference"><a href="#cite_note-17">[t 3]</a></sup><br />
+<code>2B 2F 76 38 2D</code><sup id="cite_ref-18" class="reference"><a href="#cite_note-18">[t 4]</a></sup></td>
+<td><code>43 47 118 56</code><br />
+<code>43 47 118 57</code><br />
+<code>43 47 118 43</code><br />
+<code>43 47 118 47</code><br />
+<code>43 47 118 56 45</code></td>
+<td><code>+/v8</code><br />
+<code>+/v9</code><br />
+<code>+/v+</code><br />
+<code>+/v/</code><br />
+<code>+/v8-</code></td>
+</tr>
+<tr>
+<td><a href="/wiki/UTF-1" title="UTF-1">UTF-1</a><sup id="cite_ref-b_15-2" class="reference"><a href="#cite_note-b-15">[t 1]</a></sup></td>
+<td><code>F7 64 4C</code></td>
+<td><code>247 100 76</code></td>
+<td><code>÷dL</code></td>
+</tr>
+<tr>
+<td><a href="/wiki/UTF-EBCDIC" title="UTF-EBCDIC">UTF-EBCDIC</a><sup id="cite_ref-b_15-3" class="reference"><a href="#cite_note-b-15">[t 1]</a></sup></td>
+<td><code>DD 73 66 73</code></td>
+<td><code>221 115 102 115</code></td>
+<td><code>Ýsfs</code></td>
+</tr>
+<tr>
+<td><a href="/wiki/Standard_Compression_Scheme_for_Unicode" title="Standard Compression Scheme for Unicode">SCSU</a><sup id="cite_ref-b_15-4" class="reference"><a href="#cite_note-b-15">[t 1]</a></sup></td>
+<td><code>0E FE FF</code><sup id="cite_ref-20" class="reference"><a href="#cite_note-20">[t 5]</a></sup></td>
+<td><code>14 254 255</code></td>
+<td><code>␎þÿ</code> (␎ represents the ASCII <a href="/wiki/Shift_Out_and_Shift_In_characters" title="Shift Out and Shift In characters">"shift out"</a> character)</td>
+</tr>
+<tr>
+<td><a href="/wiki/BOCU-1" class="mw-redirect" title="BOCU-1">BOCU-1</a><sup id="cite_ref-b_15-5" class="reference"><a href="#cite_note-b-15">[t 1]</a></sup></td>
+<td><code>FB EE 28</code></td>
+<td><code>251 238 40</code></td>
+<td><code>ûî(</code></td>
+</tr>
+<tr>
+<td><a href="/wiki/GB-18030" class="mw-redirect" title="GB-18030">GB-18030</a><sup id="cite_ref-b_15-6" class="reference"><a href="#cite_note-b-15">[t 1]</a></sup></td>
+<td><code>84 31 95 33</code></td>
+<td><code>132 49 149 51</code></td>
+<td><code>„1•3</code></td>
+</tr>
+</table>
+</pre>
 
-<a href="http://www.qrcode.com/en/about/">http://www.qrcode.com/en/about/</a>
-<font color=blue>QR Code Feature - High Capacity Encoding of Data</font>
-While conventional bar codes are capable of storing a maximum of approximately 20 digits, QR Code
-is capable of handling several dozen to several hundred times more information.
+<pre>
+用新的程序读文件：
+</pre>
+<pre id="code">
+#include <stdio.h>
 
-QR Code is capable of handling all types of data, such as numeric and alphabetic characters, Kanji,
-Kana, Hiragana, symbols, binary, and control codes. Up to 7,089 characters can be encoded in one symbol.
-
-<img src="qrcode-feature1.png"></img>
-
-<font color=blue>QR Code Feature - Small Pintout Size</font>
-Since QR Code carries information both horizontally and vertically, QR Code is capable of encoding the
-same amount of data in approximately one-tenth the space of a traditional barcode. (For a smaller printout
-size, Micro QR Code is available.)
-
-<img src="qrcode-feature2.png"></img>
-
-<font color=blue>QR Code Feature - Kanji and Kana Capability</font>
-As a symbology developed in Japan, QR Code is capable of encoding JIS Level 1 and Level 2 kanji character set.
-In case of Japanese, one full-width Kana or Kanji character is efficiently encoded in 13 bits, allowing QR Code
-to hold more than 20% data than other 2D symbologies.
-
-<img src="qrcode-feature3.png"></img>
-
-<font color=blue>QR Code Feature - Dirt and Damage Resistant</font>
-QR Code has error correction capability. Data can be restored even if the symbol is partially dirty or damaged.
-A maximum 30% of codewords can be restored.
-
-A codeword is a unit that constructs the data area. In the case of QR Code, one codeword is equal to 8 bits.
-Data restoration may not be fully performed depending on the amount of dirt or damage
-
-<img src="qrcode-feature4.png"></img>
-
-<font color=blue>QR Code Feature - Readable from any direction in 360</font>
-QR Code is capable of 360 degree (omni-directional), high speed reading. QR Code accomplishes this task
-through position detection patterns located at the three corners of the symbol. These position detection
-patterns guarantee stable high-speed reading, circumventing the negative effects of background interference.
-
-<img src="qrcode-feature5.png"></img>
-
-<font color=blue>QR Code Feature - Structured Appending</font>
-QR Code can be divided into multiple data areas. Conversely, information stored in multiple QR Code
-symbols can be reconstructed as a single data symbol.　One data symbol can be divided into up to 16
-symbols, allowing printing in a narrow area.
-
-<img src="qrcode-feature6.png"></img>
+int
+main(void)
+{
+  FILE *fptr;
+  unsigned char ch_buffer[5];
+  unsigned char ch;
+  short int i = 0;
+  
+  if ((fptr = fopen("c:\\users\\lchen4\\desktop\\temp\\Edit3", "r")) == NULL)
+  {
+    printf("file read error");
+    exit(1);
+  }
+  
+  while(!feof(fptr))
+  {
+    fread(&ch, sizeof (unsigned char), 1, fptr);
+    printf("%X..", ch);
+    
+    if (i < 5)
+    {
+    	ch_buffer[i] = ch;
+      i ++;
+    }
+  }
+  
+  if (ch_buffer[0] == 0xEF && ch_buffer[1] == 0xBB && ch_buffer[2] == 0xBF)
+  {
+    printf("\nthis file is encoded in utf-8");
+  }
+  
+  fclose(fptr);
+}
+</pre>
+<pre>
+输出为：
+C:\Users\lchen4\Desktop\temp>a.exe
+EF..BB..BF..61..62..63..E9..99..88..E4..BA..AE..AE..
+this file is encoded in utf-8
 </pre>
 </li>
 
