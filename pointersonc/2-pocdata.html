@@ -1,3 +1,5 @@
+<title>Data</title>
+
 <link rel="stylesheet" href="../homepage/envoy.min.css">
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -102,7 +104,7 @@ Information about the actual properties, such as size, of the basic arithmetic t
 <font color=green>&lt;limits.h&gt;</font> header (climits header in C++) defines macros for integer types and
 <font color=green>&lt;float.h&gt;</font> header (cfloat header in C++) defines macros for floating-point types. The actual values depend on the implementation.
 
-Properties of integer types
+Properties of integer types; <a href="https://en.wikipedia.org/wiki/C_data_types">C Data Types</a>
 CHAR_BIT – size of the char type in bits (at least 8 bits)
 SCHAR_MIN, SHRT_MIN, INT_MIN, LONG_MIN, LLONG_MIN(C99) – minimum possible value of signed integer types: signed char, signed short, signed int, signed long, signed long long
 SCHAR_MAX, SHRT_MAX, INT_MAX, LONG_MAX, LLONG_MAX(C99) – maximum possible value of signed integer types: signed char, signed short, signed int, signed long, signed long long
@@ -228,39 +230,236 @@ each character (primarily used in source code and external files), from wide cha
 characters in single objects (typically, greater than 8 bits).
 
 Size of a wide character
-UTF-16 little-endian is the encoding standard at Microsoft (and in the Windows operating system). Yet with surrogate pairs it supports 32-bit as well.[1] The .Net Framework platform supports multiple wide-character implementations including UTF7, UTF8, UTF16 and UTF32.[2]
+UTF-16 little-endian is the encoding standard at Microsoft (and in the Windows operating system). Yet with
+surrogate pairs it supports 32-bit as well. The .Net Framework platform supports multiple wide-character
+implementations including UTF7, UTF8, UTF16 and UTF32.
 
-The Java platform requires that wide character variables be defined as 16-bit values, and that characters be encoded using UTF-16 (due to former use of UCS-2), while modern Unix-like systems generally require UTF-8 in their interfaces.
+The Java platform requires that wide character variables be defined as 16-bit values, and that characters
+be encoded using UTF-16 (due to former use of UCS-2), while modern Unix-like systems generally require
+UTF-8 in their interfaces.
 
 Programming specifics
-C/C++[edit]
-The C and C++ standard libraries include a number of facilities for dealing with wide characters and strings composed of them. The wide characters are defined using datatype wchar_t, which in the original C90 standard was defined as
+C/C++
+The C and C++ standard libraries include a number of facilities for dealing with wide characters and strings
+composed of them. The wide characters are defined using datatype wchar_t, which in the original C90 standard was defined as
 
-"an integral type whose range of values can represent distinct codes for all members of the largest extended character set specified among the supported locales" (ISO 9899:1990 §4.1.5)
-Both C and C++ introduced fixed-size character types char16_t and char32_t in the 2011 revisions of their respective standards to provide unambiguous representation of 16-bit and 32-bit Unicode transformation formats, leaving wchar_t implementation-defined. The ISO/IEC 10646:2003 Unicode standard 4.0 says that:
+"an integral type whose range of values can represent distinct codes for all members of the largest extended
+character set specified among the supported locales" (ISO 9899:1990 §4.1.5) Both C and C++ introduced fixed-size
+character types char16_t and char32_t in the 2011 revisions of their respective standards to provide unambiguous
+representation of 16-bit and 32-bit Unicode transformation formats, leaving wchar_t implementation-defined.
+The ISO/IEC 10646:2003 Unicode standard 4.0 says that:
 
-"The width of wchar_t is compiler-specific and can be as small as 8 bits. Consequently, programs that need to be portable across any C or C++ compiler should not use wchar_t for storing Unicode text. The wchar_t type is intended for storing compiler-defined wide characters, which may be Unicode characters in some compilers."
-Python[edit]
-According to Python's documentation, the language sometimes uses wchar_t as the basis for its character type Py_UNICODE. It depends on whether wchar_t is "compatible with the chosen Python Unicode build variant" on that system.[3]
+"The width of wchar_t is compiler-specific and can be as small as 8 bits. Consequently, programs that need to be
+portable across any C or C++ compiler should not use wchar_t for storing Unicode text. The wchar_t type is intended
+for storing compiler-defined wide characters, which may be Unicode characters in some compilers."
+
+Python
+According to Python's documentation, the language sometimes uses wchar_t as the basis for its character type Py_UNICODE.
+It depends on whether wchar_t is "compatible with the chosen Python Unicode build variant" on that system.
+
+
+如果一个数值是为了突出某几个位置上的bits，那最好还是把数字表示成八位或者十六位数值表示：
+983040也许不代表什么特别的意义，但是写成0xF0000可能看得更清楚一些。
+
+如果一个数字是为了表示某个字符，那么直接写出那个字符也许更好理解，因为字符也是个数字，以下是一样的：
+value = value - 48;
+value = value - \60;
+value = value - '0';
+
 </pre>
 </li>
 
 
 <li class="p3 js-animateTab js-activeLink" data-tab="0">
-<h3 class="mt0 mb1 slate blue h2">
-Environments
+<h3 class="mt0 mb1 slate h5">
+Enumerated Type
 </h3>
 <pre>
-tran
+An enumerated type = one whose values are <font color=green>symbolic constants</font> rather than literal
+
+e.g.: <font color=blue>enum Jar_Type {CUP, PINT, QUART, HALF_GALLON, GALLON};</font>
+it declares a type called Jar_Type. variables of this type are declared like this:
+<font color=blue>enum Jar_Type milk_jug, gas_can, medicine_bottle;</font>
+
+They may also be combined like this, if there is only one declaration of variables of a particular enum type:
+<font color=blue>enum { CUP, PINT, QUART, HALF_GALLON, GALLON }
+      milk_jug, gas_can, medicine_bottle;</font>
+
+这些变量是当做integer存储的，缺省情况下，CUP=0, PINT=1, ...依次类推，你也可以指定数值：
+<font color=blue>enum Jar_Type { CUP=8, PINT=16, QUART=32, HALF_GALLON=64, GALLON=128 };</font>
+
+如果有些symbol没有赋值，就用前面那个symbol的值加一，依次类推。
+
+这些symbolic names (CUP, PINT...)被当做integer constants，整形常量。
 </pre>
 </li>
 
 <li class="p3 js-animateTab " data-tab="1">
 <h3 class="mt0 mb1 slate h5">
-Translation
+Floating-Point Types
 </h3>
 <pre>
-The
+floating-point family = float, double, long double
+                        float: sinlge precision
+                        double: double precision
+                        long double: extended precisions if supported by the machine
+
+<font color=red>Note:</font>
+The term double precision is something of a misnomer because the precision is not really double.
+
+The word double derives from the fact that a double-precision number uses twice as many bits as a regular
+floating-point number.
+
+For example, if a single-precision number requires 32 bits, its double-precision counterpart will be 64 bits long.
+
+The extra bits increase not only the precision but also the range of magnitudes that can be represented.
+
+The exact amount by which the precision and range of magnitudes are increased depends on what format the program
+is using to represent floating-point values. Most computers use a standard format known as the IEEE floating-point format.
+
+<font color=red>IEEE Single Precision</font>
+
+The IEEE single precision floating point standard representation requires a 32 bit word, which may be represented as
+numbered from 0 to 31, left to right.
+
+The first bit is the sign bit, S,
+the next eight bits are the exponent bits, 'E', and
+the final 23 bits are the fraction 'F':
+
+S EEEEEEEE FFFFFFFFFFFFFFFFFFFFFFF
+0 1      8 9                    31
+The value V represented by the word may be determined as follows:
+
+If E=255 and F is nonzero, then V=NaN ("Not a number")
+If E=255 and F is zero and S is 1, then V=-Infinity
+If E=255 and F is zero and S is 0, then V=Infinity
+If 0&lt;E&lt;255 then V=(-1)**S * 2 ** (E-127) * (1.F) where "1.F" is intended to represent the binary number created
+by prefixing F with an implicit leading 1 and a binary point.
+
+If E=0 and F is nonzero, then V=(-1)**S * 2 ** (-126) * (0.F). These are "unnormalized" values.
+If E=0 and F is zero and S is 1, then V=-0
+If E=0 and F is zero and S is 0, then V=0
+In particular,
+
+0 00000000 00000000000000000000000 = 0
+1 00000000 00000000000000000000000 = -0
+
+0 11111111 00000000000000000000000 = Infinity
+1 11111111 00000000000000000000000 = -Infinity
+
+0 11111111 00000100000000000000000 = NaN
+1 11111111 00100010001001010101010 = NaN
+
+0 10000000 00000000000000000000000 = +1 * 2**(128-127) * 1.0 = 2
+0 10000001 10100000000000000000000 = +1 * 2**(129-127) * 1.101 = 6.5
+1 10000001 10100000000000000000000 = -1 * 2**(129-127) * 1.101 = -6.5
+
+0 00000001 00000000000000000000000 = +1 * 2**(1-127) * 1.0 = 2**(-126)
+0 00000000 10000000000000000000000 = +1 * 2**(-126) * 0.1 = 2**(-127) 
+0 00000000 00000000000000000000001 = +1 * 2**(-126) * 
+                                     0.00000000000000000000001 = 
+                                     2**(-149)  (Smallest positive value)
+<font color=red>IEEE Double Precision</font>
+
+The IEEE double precision floating point standard representation requires a 64 bit word, which may be represented as
+numbered from 0 to 63, left to right.
+
+The first bit is the sign bit, S,
+the next eleven bits are the exponent bits, 'E', and
+the final 52 bits are the fraction 'F':
+
+S EEEEEEEEEEE FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+0 1        11 12                                                63
+The value V represented by the word may be determined as follows:
+
+If E=2047 and F is nonzero, then V=NaN ("Not a number")
+If E=2047 and F is zero and S is 1, then V=-Infinity
+If E=2047 and F is zero and S is 0, then V=Infinity
+If 0&lt;E&lt;2047 then V=(-1)**S * 2 ** (E-1023) * (1.F) where "1.F" is intended to represent the binary number created
+by prefixing F with an implicit leading 1 and a binary point.
+
+If E=0 and F is nonzero, then V=(-1)**S * 2 ** (-1022) * (0.F) These are "unnormalized" values.
+If E=0 and F is zero and S is 1, then V=-0
+If E=0 and F is zero and S is 0, then V=0
+
+Reference:
+ANSI/IEEE Standard 754-1985
+
+
+<font color=red>Floating-Point headers and literals</font>
+&lt;float.h> header (cfloat header in C++) defines macros for floating-point types:
+FLT_MIN, DBL_MIN, LDBL_MIN – minimum normalized positive value of float, double, long double respectively
+FLT_TRUE_MIN, DBL_TRUE_MIN, LDBL_TRUE_MIN (C11) – minimum positive value of float, double, long double respectively
+FLT_MAX, DBL_MAX, LDBL_MAX – maximum finite value of float, double, long double, respectively
+FLT_ROUNDS – rounding mode for floating-point operations
+FLT_EVAL_METHOD (C99) – evaluation method of expressions involving different floating-point types
+FLT_RADIX – radix of the exponent in the floating-point types
+FLT_DIG, DBL_DIG, LDBL_DIG – number of decimal digits that can be represented without losing precision by float,
+double, long double, respectively
+
+FLT_EPSILON, DBL_EPSILON, LDBL_EPSILON – difference between 1.0 and the next representable value of float, double,
+long double, respectively
+
+FLT_MANT_DIG, DBL_MANT_DIG, LDBL_MANT_DIG – number of FLT_RADIX-base digits in the floating-point significand for types
+float, double, long double, respectively
+
+FLT_MIN_EXP, DBL_MIN_EXP, LDBL_MIN_EXP – minimum negative integer such that FLT_RADIX raised to a power one less than
+that number is a normalized float, double, long double, respectively
+
+FLT_MIN_10_EXP, DBL_MIN_10_EXP, LDBL_MIN_10_EXP – minimum negative integer such that 10 raised to that power is a
+normalized float, double, long double, respectively
+
+FLT_MAX_EXP, DBL_MAX_EXP, LDBL_MAX_EXP – maximum positive integer such that FLT_RADIX raised to a power one less than
+that number is a normalized float, double, long double, respectively
+
+FLT_MAX_10_EXP, DBL_MAX_10_EXP, LDBL_MAX_10_EXP – maximum positive integer such that 10 raised to that power is a
+normalized float, double, long double, respectively
+
+DECIMAL_DIG (C99) – minimum number of decimal digits such that any number of the widest supported floating-point type
+can be represented in decimal with a precision of DECIMAL_DIG digits and read back in the original floating-point type
+without changing its value. DECIMAL_DIG is at least 10.
+
+<font color=red>Floating-Point Literals:</font>
+3.14        1E10         25.         .5         6.023e23
+Floating point literals are double values unless they are followed by a suffix: L / l specify long double; 
+                                                                                F / f specify float.
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Pointers
+</h3>
+<pre>
+Pointer = Address
+Pointer Variable = Variable whose value is and Address
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Pointer Constants
+</h3>
+<pre>
+Usually not used except for one: NULL
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+String Literals
+</h3>
+<pre>
+C..strangely does not have string types, yet has string literals.
+C string = a sequence of 0 or more characters terminated by NUL byte.
+
+字符
 </pre>
 </li>
 
