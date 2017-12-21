@@ -459,7 +459,16 @@ String Literals
 C..strangely does not have string types, yet has string literals.
 C string = a sequence of 0 or more characters terminated by NUL byte.
 
-字符
+String literals causes the characters and NUL being stored somewhere in the program.
+K&R C stated that string literals with same value are stored separately.
+And it didn't mention whether characters in string literal could be modified by the program.
+Still, many implementations supports modifications to string literals.
+
+ANSI C states that the effect of modifying a string literal is undefined.  And it allows
+the compiler to store a string literal once even if it appears multiple times in the program.
+This makes modifying string literals very risky.
+
+Better way to do it if you wish to modify a string literal is to put it in an array.
 </pre>
 </li>
 
@@ -467,20 +476,71 @@ C string = a sequence of 0 or more characters terminated by NUL byte.
 
 <li class="p3 js-animateTab " data-tab="1">
 <h3 class="mt0 mb1 slate blue h2">
-Lexical Rules
+Basic Declarations
 </h3>
 <pre>
-The
+<font color=green><i>spcifier(s) declaration_expression_list</i></font>
+<font color=green><i>spcifier(s)</i></font>=base type + modifier to default storage class + scope of identifier
+<font color=green><i>declaration_expression_list</i></font>=identifiers being declared + expression that shows how the identifiers are used
+
+e.g. int i;
+     char j, k, l;
+
+specifiers may use keywords to modify the length / signedness of the identifier:
+<font color=green>short / long / signed / unsigned</font>
+also the type int may be omitted from the declaration of any integral type if at least one other specifier is given.
+
+e.g. unsigned short int a;
+     unsigned short     a;
+     are the same declarations
+
+     unsigned a;
+     is also valid, should be an unsigned int
+     
+     equivalent declarations:
+     short = signed short = short int = signed short int
+     int   = signed int   = signed
+     long  = signed long  = long int  = signed long int
+     
+     unsigned short = unsigned short int
+     unsigned int   = unsigned
+     unsigned long  = unsigned long int
+
+<font color=red>signed</font> is usually used only for char because the other integer types are signed by default.
+It is implementation dependent whether char is signed or unsigned.
 </pre>
 </li>
 
 
 <li class="p3 js-animateTab " data-tab="1">
 <h3 class="mt0 mb1 slate h5">
-Characters
+Initialization
 </h3>
 <pre>
-Stan
+a declaration may specify an initial value:
+  int j = 15;
+
+we return to initialization later..
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Declaring Simple Arrays
+</h3>
+<pre>
+to declare a one-dimensional array = int values[20];
+the name values when followed by a subscript, yields an value of type int
+
+subscript of array always begin at zero, and ends at array_length - 1
+
+note: compiler does not check the subscripts to see whether they are in proper range.
+it is good because there is no time lost checking the subscripts
+it is bad because invalid subscripts are not detected
+
+initialization of array will be covered later...
 </pre>
 </li>
 
@@ -489,10 +549,21 @@ Stan
 
 <li class="p3 js-animateTab " data-tab="1">
 <h3 class="mt0 mb1 slate h5">
-Comments
+Declaring Pointers
 </h3>
 <pre>
-C
+in C, the base type is given first, followed by list of identifiers used in the expressions needed to produce the base type.
+int *a;
+states that the expression *a results in type int.
+operator * performs indirection, we can infer this is a pointer to an integer.
+
+int* b, c, d;   ->  int *b; int c; int d;
+int *b, *c, *d; ->  int *b; int *c; int *d;
+
+declaration while initialization:
+char *message = "Hello World!";
+
+
 </pre>
 </li>
 
@@ -501,22 +572,34 @@ C
 
 <li class="p3 js-animateTab " data-tab="1">
 <h3 class="mt0 mb1 slate h5">
-Free Form Source Code
+Implicit Declarations
 </h3>
 <pre>
-there
-</pre>
-</li>
+there are a few declarations in which type names may be omitted.
 
+functions, for example, are assumed to return integers unless declared otherwise.
+any formal param of the function is assumed to be integers.
+and if the compiler can determine the statement is a declaration, an omitted type is assumed to be integer.
 
+e.g.
+int a[10];
+b[10];
+d;
+f( x )
+{
+    return x + 1;
+}
 
+ANSI C does not allow b[10]; and d;  It does allow function declaration without type:
 
-<li class="p3 js-animateTab " data-tab="1">
-<h3 class="mt0 mb1 slate h5">
-Identifiers
-</h3>
-<pre>
-auto
+<font color=green>$ gcc test.c -std=c11</font>
+test.c:3:1: warning: return type defaults to 'int' [-Wimplicit-int]
+ somefunc(x)
+ ^~~~~~~~
+test.c: In function 'somefunc':
+test.c:3:1: warning: type of 'x' defaults to 'int' [-Wimplicit-int]
+
+implicit declaration is not a good idea.  explict declaration may make your intent clear.
 </pre>
 </li>
 
@@ -525,13 +608,49 @@ auto
 
 <li class="p3 js-animateTab " data-tab="1">
 <h3 class="mt0 mb1 slate blue h2">
-Program Style
+Typedef
 </h3>
 <pre>
-sloppy
+<font color=green>typedef</font> = define new names for various data types.
+e.g. the declaration
+     char *ptr_to_char;
+declares the variable ptr_to_char to be a pointer to a character.  but add the keyword typedef you get:
+     typedef char *ptr_to_char;
+which declares the identifier ptr_to_char = new name for the type "pointer to char"
+you can then use the new name in subsequent declarations:
+     ptr_to_char a;
+declares a to be a pointer to a character.
+
+use typedef = reduce chance of mess up a declaration, particularly complex ones.
+
+use typedef rather than #define for creating new type names, cause #define cannot handle pointer types.
+
+e.g.   #define d_ptr_to_char char *
+       d_ptr_to_char a, b;
+       declares a properly, but declares b to be a char
 </pre>
 </li>
 
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+Constants
+</h3>
+<pre>
+typedef
+</pre>
+</li>
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Declaring Pointers
+</h3>
+<pre>
+i
+</pre>
+</li>
 
 
 
