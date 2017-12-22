@@ -749,9 +749,62 @@ external = all references to an identifier with external linkage refer to the sa
              ...
      }
 
+b, c, f = external
+a, d, e, g = no linkage
 
+f是external，因为他是function名字，在本文件中调用它时，会被LINK到其他文件中的定义。
+c和f类似，只不过这里是定义被调用的函数的地方。。
+
+Keywords extern and static被用来修改linkage属性。
+
+when using static on something external, it will change the linkage to internal
+e.g. (2) static int b;  it changes linkage to extern
+     -> variable b would remain private to this file
+
+e.g. (3) static int c( int d );
+     -> this prevents c being called from other files
+
+static only works for identifiers whose default linkage is external.
+
+rule of extern is more complicated.  in general, it specifies external linkage for an identifier
+and is used to get access to an entity that is defined elsewhere.
+e.g.
+(1)  static int i;
+     int func()
+     {
+(2)          int j;
+(3)          extern int k;
+(4)          extern int i;
+     }
+the definition of (3) k, gives the funtion access to an external variable declared in another source file.
 </pre>
 </li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+Storage Class
+</h3>
+<pre>
+storage class = type of memory in which the var value is stored.
+storage class determines when it is created and destroyed and how long will it retain its value
+
+three possible places to store var: ordinary memory, runtime stack, hardware registers.
+
+var declared outside of any blocks are always stored in <font color=red>static</font> memory (not part of stack)
+static vars are created before the program begins to run and exist throughout the entire execution
+they retain whatever value they were assigned till a different value is assigned or program ends
+
+vars declared within a block is <font color=blue>automatic</font>, which is "on stack"
+auto vars are created just before the program execution enters the block
+and they are discarded after the program execution exits the block
+
+<font color=green>static</font> changes the storage class from auto to static.
+</pre>
+</li>
+
 
 
 </ul>
