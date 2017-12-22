@@ -638,17 +638,89 @@ e.g.   #define d_ptr_to_char char *
 Constants
 </h3>
 <pre>
-typedef
+int const a;
+const int a;
+both declars integer a, and cannot be changed.
+
+since constants cannot be changed, how to assign initial values?
+
+first, during declaration: int const a = 15;
+
+second, const formal param of a function are given the values of the actual arguments when function is called
+
+int *pi;         = pointer to an integer
+int const *pci;  = pointer to a constant integer, you can change pic's value, but not the int value
+int * const pci; = const pointer to an integer, here the pointer is const
+int const * const cpci = both the pointer and the value that it points to are const
+
+#define is another way of creating named constants.  both reduce the times that you write magic numbers in your program.
+
+#define is not stored in stack, it's simple replacement in your code.  might increase exe size.
+#define is not type safe in some occasions.
+#define does not have scope attached to it.  you don't want always use #define to pollute the entire namespace.
+</pre>
+</li>
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+Scope
+</h3>
+<pre>
+when variable is declared => it can only accessed in a certain area of the program.
+this area is determined by the identifier's <font color=red><b>scope</b></font>
+
+types of scope: <font color=green>file; function; block; and prototype</font>
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+block scope
+</h3>
+<pre>
+{..block..}
+identifiers declared at the beginning of a block have <font color=blue>block scope</font>
+if inner block has same name as outer block, inner one hides the outer one.
+same names in blocks that are not nested don't interfere with each other.
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+file scope
+</h3>
+<pre>
+any identifier out of all blocks = <font color=red>file scope</font>
+file scope = accessible from the point declared TO end of the file declared in
+
+header file are treated as if they were written directly in the including file.
 </pre>
 </li>
 
 
 <li class="p3 js-animateTab " data-tab="1">
 <h3 class="mt0 mb1 slate h5">
-Declaring Pointers
+prototype scope
 </h3>
 <pre>
-i
+<font color=green>prototype scope</font> = only applies to argument names declared in function prototypes
+prototype argument names need not be the same as the formal parameter names given in the function declaration
+</pre>
+</li>
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+function scope
+</h3>
+<pre>
+<font color=blue>function scope</font> = applies only to statement labels, which are used with goto statement.
+the rule is simple: all statement labels in a function must be unique.
 </pre>
 </li>
 
@@ -656,13 +728,30 @@ i
 
 <li class="p3 js-animateTab " data-tab="1">
 <h3 class="mt0 mb1 slate blue h2">
-Program Style
+Linkage
 </h3>
 <pre>
+after compile -> link object files + lib files
+when same identifier appears in more than one source file, do they refer to same entity? or different?
+linkage of an identifier determines how the identifiers are treated
+
+types of linkage: <font color=green>external; internal; and none</font>
+none     = multiple declarations of the identifier are always treated as separate and distinct entities
+internal = all declarations of the identifier within one source file refer to a single entity, but
+               declarations of the same identifier in other source files refer to different entities
+external = all references to an identifier with external linkage refer to the same entity
+(1)  typedef char *a;
+(2)  int b;
+(3)  int c ( int d )             d -> 4
+     {
+(5)          int e;
+(6)          int f ( int g );    g -> 7
+             ...
+     }
+
 
 </pre>
 </li>
-
 
 
 </ul>

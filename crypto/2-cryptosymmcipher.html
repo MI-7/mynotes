@@ -108,7 +108,7 @@ Typical key lengths are 56 (as in DES) or 128, 192 and 256 (as in AES).
 
 而为了得到最大限度的安全性，我们可以为(2**n)!种排列组合编号，为了得到编号，需要以下的数字计算：
 总之，key的长度需要达到2**67（当n=64时），存储这个key就够麻烦了。
-<img src="fig1.12-idealkeysize.png" width="60%" height="60%"></img>
+<img src="fig1.12-idealkeysize.png" width="70%" height="70%"></img>
 
 所以现实中我们要选个短一点的key，一般来说56到256个bit。
 尽管如此，block cipher的设计者们还是在努力使加密公式表现得像是随机的从一个很大的组合中选取结果一样。
@@ -120,10 +120,18 @@ Typical key lengths are 56 (as in DES) or 128, 192 and 256 (as in AES).
 <h3 class="mt0 mb1 slate h5">DES (Data Encryption Standard, FIPS46, 1977)</h3>
 <pre>
 Main user of DES: Governments, banks, financial companys.
-<img src="fig1.13-desdef.png" width="60%" height="60%"></img>
+<img src="fig1.13-desdef.png" width="70%" height="70%"></img>
 DES consists of 16 major steps (rounds)
 Each round, a 48-bit round key ki is used.
-The 16 round keys k1, k2...k16 are computed from the 56-bit key k.
+The 16 round keys k1, k2...k16 are computed from the 56-bit key k.  the algo will be studied later.
+<img src="fig1.14-desbasictransformation.png" width="70%" height="70%"></img>
+
+The 32 message bits are extended to 48 bits, x → E(x) (some of the 32 bits
+are used twice), and XORed with the 48-bit round key k. The resulting 48
+bits are divided into eight groups of 6 bits, and each group is substituted by 4
+bits. Thus, we get 32 bits which are then permuted by P. The cryptographic
+strength of the DES function depends on the design of f, especially on the
+design of the eight famous S-boxes which handle the eight substitutions
 </pre>
 <pre>
 A
