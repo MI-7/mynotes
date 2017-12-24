@@ -498,6 +498,13 @@ Properties of Operators
 </h3>
 <pre>
 <font color=green>precedence, associativity</font> of operators controls how expressions are evaluated.
+
+eval of two adjacent operators is determined by their precedence.  if they have same precedence, the order
+is determined by their associativity.  otherwise, the compiler is free to evaluate expressions in any
+order that does not violate the order of eval imposed by (), or comma, &&, || or ?: operators.
+
+test.c:8:10: warning: multiple unsequenced modifications to 'aa' [-Wunsequenced]
+  aa = aa-- - --aa;
 </pre>
 </li>
 
