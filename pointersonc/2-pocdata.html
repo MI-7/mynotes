@@ -562,11 +562,8 @@ int *b, *c, *d; ->  int *b; int *c; int *d;
 
 declaration while initialization:
 char *message = "Hello World!";
-
-
 </pre>
 </li>
-
 
 
 
@@ -802,9 +799,158 @@ auto vars are created just before the program execution enters the block
 and they are discarded after the program execution exits the block
 
 <font color=green>static</font> changes the storage class from auto to static.
+
+the <font color=green>register</font> = used on <font color=green>auto</font> variables, indicate them as being stored in the registers.
+if too many vars are defined as register, only the first ones will actually be stored in the registers.
+a compiler that does its own register optimization may choose to ignore register.
+
+typically, you declare most heavily used vars as register var.
+
+on some computers, the program can benefit if we declare pointers as register vars,
+especially pointers on which most indirection is performed.
+
+you may declare formal parameters of function as register var, and compiler will generate instructions
+at the beginning of the function to copy the values from the stack to registers.
+it is entirely possible, however, that the space and time savings in subsequent accesses to param may not
+be enough to offset the overhead of this copying.
+
+many hardware implementations do not assign addresses to the registers.
+and for some reasons...you are not allowed to take the address of a register var.
+$ gcc test.c
+test.c:8:13: error: address of register variable requested
+  int *pi = &i;
 </pre>
 </li>
 
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Initialization
+</h3>
+<pre>
+Initialization of variables with static storage class is accomplished by placing the desired value in
+the executable program file in the location that will be used by the variable when the program is executing.
+When this executable file is loaded into memory, the location assigned to the variable starts out with the
+correct value already in it. No extra time is taken to accomplish this task. Static variables are initialized
+to zero unless an explicit initialization specifies some other value
+
+Initialization of automatic variables takes more overhead because the location used to store the variable
+cannot be determined when the program is linked. Indeed, local variables in a function may occupy different
+locations each time the function is called. For this reason, there is no default initialization of automatic
+variables, and explicit initialization is performed with an invisible assignment statement inserted in the
+beginning of the block.
+
+This technique has four consequences.
+* First, initialization of automatic variables is no more efficient than an assignment statement.
+  Except for variables declared as const, initializing the variable in its declaration or using assignment
+  statements is solely a matter of style.
+
+* Second, the implicit assignment statement causes automatic variables to be reinitialized each time the
+  function (or block) in which they were declared is entered. This behavior is quite different from static
+  variables, which are initialized only once before the program begins to execute.
+
+* The third consequence is an advantage. Because initialization is performed at run time, you may use any
+  expression as an initializer, for example.
+            int
+            func( int a )
+            {
+                int b = a + 3;
+
+* Finally, unless you initialize them explicitly, automatic variables will contain garbage when they are created.
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+The static keyword
+</h3>
+<pre>
+static keyword has different meanings when used in different contexts
+
+When used on function definitions, or declarations of variables that appear outside of blocks,
+the keyword static changes the linkage from external to internal— the storage class and scope are not affected.
+
+When used on variable declarations that appear inside of a block, the keyword static changes the storage
+class from automatic to static—the linkage and scope are not affected.
+</pre>
+</li>
+
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+Scope, Linkage, and Storage Class Example
+</h3>
+<pre>
+summary:
+- scope:             block, file, prototype, function
+- linkage:           external, internal, none
+- storage class:     auto, static, register
+
+1     int               a = 5;
+      scope = file; linkage = extern; storage class = static
+2     extern      int   b;
+      scope = file; linkage = extern; storage class = static
+3     static      int   c;
+      scope = file; linkage = external -> internal; storage class = static
+4     int d( int e )
+      d: scope = file; linkage = extern; storage class = static?
+      e: scope = block; linkage = none; storage class = auto
+5     {
+6             int               f = 15;
+              scope = block; linkage = none; storage class = auto
+7             register    int   b;
+              scope = block; linkage = none; storage class = register
+8             static      int   g = 20;
+              scope = block; linkage = none; storage class = static
+9             extern      int   a;
+              not needed, line 1's scope covered here
+10            ...
+11            {
+12                        int         e;
+                          line 4 is not accessible here.  scope = block; linkage = none; storage class = auto
+13                        int         a;
+                          line 1 is not accessible here.  scope = block; linkage = none; storage class = auto
+14                        extern int  h;
+                          makes global var h accessible locally.  scope = block; linkage = external; storage class = static
+15                        ...
+16            }
+17            ...
+18            {
+19                        int         x;
+                          scope = block; linkage = none; storage class = auto
+20                        int         e;
+                          different from line 12.  scope = block; linkage = none; storage class = auto
+21                        ...
+22            }
+23    ...
+24    }
+
+25    static int i()
+      scope = file; linkage = internal / static; storage class = static?
+26    {
+27                ...
+28    }
+29    ...
+
+
+
+Variable Type       Where Declared          Stored on Stack     Scope                           If Declared static
+global              outside of all blocks   no  1               remainder of this source file   prevents access from other source files
+local               beginning of a block    yes 2               throughout the block 3          variable is not stored on the stack, keeps its valued
+                                                                                                for the entire duration of the program not allowed
+formal prarm        function header         yes 2               throughout the function 3       not allowed
+
+1 Variables stored on the stack retain their values only while the block to which they are local is active. When execution leaves the block, the values are lost.
+2 Variables not stored on the stack are created when the program begins executing and retain their values throughout execution, regardless of whether they are local or global.
+3 Except in nested blocks that declare identical names.
+</pre>
+</li>
 
 
 </ul>

@@ -1,0 +1,404 @@
+<link rel="stylesheet" href="../homepage/envoy.min.css">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>C Statements</title>
+
+<style>
+	#code {
+    width:900px;
+    margin:0 auto;   
+    /*temporary text styles below*/
+    text-align:left;
+    font-weight:bold;
+    background: rgb(170,204,153);
+  }
+  main {
+    margin-bottom: 200%;
+  }
+  .floating-menu {
+    font-family: sans-serif;
+    background: transparent;
+    padding: 5px;;
+    width: 80px;
+    z-index: 100;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+  }
+  .floating-menu a, 
+  .floating-menu h3 {
+    font-size: 0.9em;
+    display: block;
+    margin: 0 0.5em;
+    color: white;
+  }
+  .floating-menu a:hover{
+    background: yellowgreen;
+  }
+</style>
+
+  <nav class="floating-menu">
+    <a href="../homepage2.html">Home</a>
+    <a href="../bitcoin/0-bitcoinhomepage.html">Bitcoin</a>
+    <a href="../crypto/0-cryptohomepage.html">Crypto</a>
+    <a href="0-pochomepage.html">C</a>
+    <a href="../linearalgebra/0-linearalgebrahomepage.html">Algebra</a>
+  </nav>
+
+<div class="col col-10 px2 js-linksHeight">
+<h3 class="red h2 mt0 mb4 px3">
+C Statements</h3>
+<div class="mbn2 relative">
+<div class="js-active-tab z2" style="pointer-events: none;"></div>
+<ul class="list-style-none z3 js-galleryLinks">
+
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate blue h2">
+empty statement
+</h3>
+<pre>
+empty statement = ;
+used in situations where the syntax requires a statement, but there isn’t any work to be performed
+for( ; ; ; )
+</pre>
+</li>
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate blue h2">
+Expression Statement
+</h3>
+<pre>
+there is no "assignment statement" in C, how is assignment performed?
+
+assignment is an operation just like add and sub, so assignment is performed by writing an expression.
+
+so, statement such as
+</pre>
+<pre id="code">
+x = y + 3;
+ch = getchar();
+</pre>
+<pre>
+are actually expression statements, not assignment statements.
+
+x=y+3 is an expression, by putting a semicolon at the end, it is turned into expression statement: x=y+3;
+
+and it is perfectly legal to write statements such as:
+</pre>
+<pre id="code">
+y+3;
+getchar();
+</pre>
+<pre>
+these statements are evaluated and executed, but don't have any "side effects"
+
+there do exist expression statements that have "side effects":
+a++;
+</pre>
+</li>
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+Statement Blocks
+</h3>
+<pre id="code">
+{
+    declarations (optional)
+    statements   (optional)
+}
+</pre>
+<pre>
+a block may be used anywhere a statement is required, and it lets you use a list of statements
+in places where the syntax only calls for one
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+If Statement
+</h3>
+<pre id="code">
+if( expression )
+    statement -> statement block
+else
+    statement
+</pre>
+<pre>
+C doesn't have a Boolean type till C99, integers are used for this purpose.
+0 = false; non-0 = true
+
+C relational operators produce integer 1 and 0 rather than 'true' and 'false':
+</pre>
+<pre id="code">
+  int i = 4>3;
+  printf("i=%d\n", i);
+  $ ./a.out 
+  i=1
+</pre>
+</li>
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+While Statement
+</h3>
+<pre id="code">
+while( expression )
+       statement
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Break and Continue Statements
+</h3>
+<pre>
+<font color=green>break</font>=terminate while loop prematurely
+<font color=green>continue</font>=terminate current iteration and continue with the next one
+
+if they are used in nested loops, it applies only to innermost loop
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Execution of the While
+</h3>
+<pre id="code">
+while( (ch = getchar()) != EOF )
+        putchar( ch );
+</pre>
+<pre>
+<img src="whilestmt.png" width="70%" height="70%"></img>
+
+sometimes, a while statement does all the work in its expression, and there is no
+work left for the body.
+</pre>
+<pre id="code">
+while( (ch = getchar()) != EOF && ch != '\n' )
+        ;
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+For Statement
+</h3>
+<pre>
+in C, the for statement is really just a shorthand notation for a while loop.
+</pre>
+<pre id="code">
+for( expressions1; expresssion2; expression3 )
+        statement
+</pre>
+<pre>
+expression<font color=red><b>s</b></font>1 = initializationand is evaluated once before the looping begins
+ - expressions1 = e.g. i=0, j=1
+expression2  = the condition and is evaluated before each execution of the body
+expression3  = adjustment and is evaluated after the body and just before the condition is evaluated again
+
+break and continue works on for statement as well.
+- break    = exits the loop immediately
+- continue = goes directly to adjustment
+
+the for is equivalent to the while statement:
+</pre>
+<pre id="code">
+expression1;
+while( expression2 ){
+        statement
+        expression3;
+}
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Execution of a For
+</h3>
+<pre>
+<img src="forstmt.png" width="70%" height="70%"></img>
+
+difference between for and while is with continue, 
+in for, continue = skip body of loop, goto expression3
+in while, continue = because adjustment is part of the body, so it will be skipped too
+
+one advantage of for in style is, it puts the operation of the loop together in one place, so it is easy to find
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+Do Statement
+</h3>
+<pre id="code">
+do
+        statement
+while( expression );
+</pre>
+
+<pre>
+when you need the body of the loop to be executed at least once, use a do..while
+
+<img src="dowhile.png" width="70%" height="70%"></img>
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+Switch Statement
+</h3>
+<pre id="code">
+switch( expression ) {
+        statement-list
+}
+
+statement-list =
+        case constant-expression:
+            statements
+            break;
+        case constant-expression:
+            statements
+            break;
+</pre>
+<pre>
+expression = returns integer
+
+execution flows through case labels rather than stopping at them.  Must use break to stop.
+
+break at the last case label is for maintenance purpose in the future...
+
+and continue does not have effects on switch
+
+and in order to execute the same group of statements with two or more values:
+</pre>
+<pre id="code">
+switch( expression ){
+case 1:
+case 2:
+case 3:
+            statement-list
+            break;
+case 4:
+case 5:
+            statement-list
+            break;
+}
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Defaults
+</h3>
+<pre>
+what if the value doesn't match any case?  nothing happens
+
+but what if you don't want to ignore expression values that do not match any case?
+
+you can add a default label:
+</pre>
+<pre id="code">
+default:
+</pre>
+<pre>
+for example:
+</pre>
+<pre id="code">
+  i=4;
+  switch( i )
+  {
+    case 1:
+           printf("something\n");
+    default:
+           printf("well...\n");
+    case 2:
+           printf("another something\n");
+    case 3:
+           printf("what? why?...\n");
+  }
+</pre>
+<pre>
+the code is going to print:
+$ ./a.out 
+well...                  -> this is default one
+another something        -> once there is a match, the other ones will be executed as well
+what? why?...            -> same as above
+
+but if we have:
+</pre>
+<pre id="code">
+  i=4;
+  switch( i )
+  {
+    case 1:
+           printf("something\n");
+    case 3:
+           printf("well...\n");
+    case 2:
+           printf("another something\n");
+    case 4:
+           printf("what? why?...\n");
+  }
+</pre>
+<pre>
+this is going to print:
+$ ./a.out 
+what? why?...
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+Goto Statement
+</h3>
+<pre id="code">
+statement-label:
+                some-statements;
+
+goto statement-label;
+</pre>
+<pre>
+occasions that goto are used are rare, one is breaking out of deeply nested loops.
+</pre>
+<pre id="code">
+while( condition1 ){
+        while( condition2 ){
+                while( condition3 ){
+                        if( somedisaster)
+                                goto quit;
+                }
+        }
+}
+quit:;
+</pre>
+</li>
+
+
+</ul>
+</div>
+
