@@ -505,6 +505,30 @@ order that does not violate the order of eval imposed by (), or comma, &&, || or
 
 test.c:8:10: warning: multiple unsequenced modifications to 'aa' [-Wunsequenced]
   aa = aa-- - --aa;
+precedence of operators indicates -- should be performed before -, but there is no way to tell whether
+the left operand of the + will be evaluated before or after the right operand.
+
+
+i = i-- - --i * ( i = -3 ) * i++ + ++i;
+this statement will be evaluated to different values under differnt c implementations.
+yet none of the results are wrong, the problem lies in the statement, which is ambiguous.  because of
+the side effects of many of the terms it contains.
+
+
+if( x + y + 1 > 0 )
+will depend on whether x + y or y + 1 is evaluated first, because the overflow occurs at different
+points in each case
+
+
+f() + g() + h()
+Although the left addition must be performed before the right addition, there is no rule constraining
+the order in which the functions are called. If their execution bad side effects, such as doing any I/O
+or modifying global variables, the result may be different for different orders of evaluation
+
+use temporary variables so that each function is called in a separate statement:
+            temp = f();
+            temp += g();
+            temp += h();
 </pre>
 </li>
 

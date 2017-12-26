@@ -71,121 +71,65 @@ many machines store integers in words, each composed of two or four bytes.
 
 question: what is the advantage of 64 bit computers?
 to read: <a href="https://en.wikipedia.org/wiki/X86-64#Intel_64">Intel 64</a>
-
+to read: <a href="https://www.reddit.com/r/askscience/comments/3b6lkz/why_is_it_that_the_de_facto_standard_for_the/">Why is it that the de facto standard for the smallest addressable unit of memory (byte) to be 8 bits?</a>
 
 </pre>
 </li>
 
 <li class="p3 js-animateTab js-activeLink" data-tab="0">
 <h3 class="mt0 mb1 slate h5">
-Arithmetic Op
+Indirection Operator
 </h3>
-<pre id="code">
-+       -       *       /       %
-</pre>
 <pre>
-they work for both int / float except for %
-/ trucate the result if both numbers are integers: 5 / 2 = 2, while 5.0 / 2.0 = 2.5
+<font color=red>uninitialized & illegal pointers:</font>
+int *a;
+*a = 12;
+uninitialized pointer variable points to unknown locations.
+on some systems, indirection on uninitialized pointer causes general protection exception.
+but it could be much more serious when the pointer accidentally contains a legal address.
+so, initialize them before applying indirection!!!
 
-printf("z=%d, f=%f", 5/2, 5.0/2.0); will print:
-z=2, f=2.500000
+
+<font color=blue>the NULL pointer:</font>
+the standard defines a NULL pointer as a pointer value that points to nothing.
+to make a pointer variable NULL, you assign it the value 0.
+NULL is useful cause it gives you a way to specify that a particular pointer is not currently
+pointing to anything at all.  e.g. a function whose job is to search an array for a specific
+value may return a pointer to the array element that was found. If no element in the array
+contained the right value, a NULL pointer could be returned instead. This technique allows
+the return value to convey two different pieces of information. First, was an element found?
+Second, if an element was found, which one was it?
+
+
+<font color=green>indirection to NULL</font>
+perform indirection to NULL is implementation dependent.
 </pre>
 </li>
 
 <li class="p3 js-animateTab " data-tab="1">
 <h3 class="mt0 mb1 slate h5">
-Shifting
+Pointer Constants
 </h3>
 <pre>
-left shift  = bits on the left side are discarded
-              0 1 1 0 1 1 0 1 << 3
-        0 1 1 0 1 1 0 1 <font color=red>0 0 0</font>
-right shift = 1. logical shift, 0s are shifted in on the left side
-              0 1 1 0 1 1 0 1 >> 3
-              <font color=red>0 0 0</font> 0 1 1 0 1 1 0 1 -> discarded
-              2. arithmetic shift, signs are preserved and shifted in from the left
-              1 1 1 0 0 1 0 1 >> 3
-              <font color=red>1 1 1</font> 1 1 1 0 0 1 0 1 -> discarded
+<font color=red>*100 = 25;</font>
+It looks like the statement assigns 25 to a, because a is the variable at location 100.
+But not so! The statement is actually invalid because die literal 100 is of type integer,
+and indirection can only be performed on expressions of type pointer. If you really want to
+store 25 in location 100, you must use a cast.
+<font color=blue>*(int *)100 = 25;</font>
+The cast converts the value 100 from an ʺintegerʺ to a ʺpointer to an integer.ʺ It is legal
+to apply indirection to this expression, so if a is stored in location 100, this statement 
+stores the value 25 in a. However, you will need this technique rarely, if ever! Why? As 
+mentioned earlier, you usually cannot predict where in memory the compiler will choose to 
+put any specific variable, so you donʹt know its address ahead of time
 
-C standard =
-    logical shift    = apply on all unsigned values
-    arithmetic shift = implementation decide whether arithmetic or logical shifts are used for signed value
-</pre>
-</li>
+On some machines, communication with device controllers is accomplished by reading and writing 
+values at specific memory addresses. Instead of accessing memory, however, these operations 
+access the device controller interface. These locations, then, must be accessed via their 
+addresses, which are known in advance.
 
-
-
-<li class="p3 js-animateTab " data-tab="1">
-<h3 class="mt0 mb1 slate h5">
-Bitwise
-</h3>
-<pre id="code">
-/*
-** This function returns the number of 1-bits that appeared in
-** the argument value.
-*/
-int
-count_one_bits( unsigned value )
-{
-    int ones;
-    
-    /*
-    ** While the value still has some 1-bits in it ...
-    */
-    for( ones = 0; value != 0; value = value >> 1 )
-          /*
-          ** If the low-order bit is a 1, count it.
-          */
-          if( value % 2 != 0 )
-                ones = ones + 1;
-
-    return ones;
-}
-</pre>
-<pre>
-The bitwise operators are:
-</pre>
-&       |       ^
-
-</pre>
-<pre>
-Bit Manipulation
-</pre>
-<pre id="code">
-bit_number = the position of bit that you wish to operate on.
-
-sets specified bit to one:
-    value = value | 1 << bit_number;
-
-sets specified bit to zero:
-    value = value & ~ ( 1 << bit_number );
-
-tests the specified bit and is nonzero if the bit is set:
-    value & 1 << bit_number
-</pre>
-</li>
-
-
-<li class="p3 js-animateTab " data-tab="1">
-<h3 class="mt0 mb1 slate h5">
-Assignment
-</h3>
-<pre>
-assignment is an expression, so it is legal anywhere an expression is legal.
-x = y + 3;
-the assignment operator stores the value of the operand on the right to the location specified on the left.
-
-but assignement is an expression, and expression has a value.  so,
-a = x = y + 3;
-the value of an assignment expression is the new value of the left operand
-
-assignment op is right to left associate, so above is equal to:
-a = ( x = y + 3 );
-
-another example: r = s + ( t = u - v ) / 3;
-although it is legal, but the following are just as good:
-t = u - v;
-r = s + t / 3;
+In the rare instances when they are required, they are generally written as integer literals
+and converted to the proper type with a cast
 </pre>
 </li>
 
@@ -193,80 +137,25 @@ r = s + t / 3;
 
 <li class="p3 js-animateTab " data-tab="1">
 <h3 class="mt0 mb1 slate h5">
-Compound Assignment
+Pointer Expressions
 </h3>
 <pre>
-There is a compound assignment form for each of the operators presented so far:
-      +=          -=          *=          /=          %=
-      <<=         >>=         &=          ^=          |=
-
-
-a += expression
-it reads "add expression to a" and is equal to:
-a = a + ( expression )
-
-the difference will be obvious in certain occasions, e.g.
-a[ 2 * (y - 6*f(x)) ] = a[ 2 * (y - 6*f(x)) ] + 1
-a[ 2 * (y - 6*f(x)) ] += 1
-the first statement will evaluate 2 * (y - 6*f(x)) twice.  while the second one does it only once.
+<img src="pe1.png" width="70%" height="70%"></img>
+<img src="pe2.png" width="70%" height="70%"></img>
+<img src="pe3.png" width="70%" height="70%"></img>
+<img src="pe4.png" width="70%" height="70%"></img>
+<img src="pe5.png" width="70%" height="70%"></img>
+<img src="pe6.png" width="70%" height="70%"></img>
+<img src="pe7.png" width="70%" height="70%"></img>
+<img src="pe8.png" width="70%" height="70%"></img>
+<img src="pe9.png" width="70%" height="70%"></img>
+<img src="pe10.png" width="70%" height="70%"></img>
+<img src="pe11.png" width="70%" height="70%"></img>
+<img src="pe12.png" width="70%" height="70%"></img>
+<img src="pe13.png" width="70%" height="70%"></img>
 </pre>
 </li>
 
-
-
-
-<li class="p3 js-animateTab " data-tab="1">
-<h3 class="mt0 mb1 slate h5">
-Unary
-</h3>
-<pre>
-There are a number of unary operators, that is, operators that take only one operand. They are
-            !           ++          -           &           sizeof
-            ~           --          +           *           (type)
-
-! operator = logical negation of its operand, produces an integer result, either zero or one.
-  int y = !5, z = !0;
-  printf( "y = %d, z = %dn", y, z );
-  
-  will print:
-  y = 0, z = 1
-
-
-~ operator produces the oneʹs complement of an integer‐type operand. The oneʹs complement is
-obtained by changing the value of each of the operandʹs bits from one to zero or from zero to one.
-
-
-- operator produces the negative of its operand.
-+ operator yields the value of its operand; in other words, it does nothing.
-It is provided only for symmetry with -
-
-
-& produces the address of its operand
-* is the indirection operator and is used with pointers to access the value being pointed to
-
-
-The sizeof operator determines the size of its operand, measured in bytes
-sizeof( int )       ->  a type
-sizeof x            ->  an expression
-
-determine the size of an expression does not evaluate the expression.  so,
-sizeof( a = b + 1 ) does not assign anything to a.
-
-
-(type) operator is called a cast and is used to explicitly convert values to another type.
-
-
-<font color=red>++ and --</font>
-there are four versions: prefix and postfix ++; prefix and postfix --
-they can only apply to L-values, expressions that can appear on the left side of an assignment op
-
-both ++ and -- makes copy of the variable's value.
-prefix version increments before copying
-postfix version increments after copying
-the result of the operator is not the variable itself, but a copy, so this is not legal:
-++a = 10; the result of ++a is a copy of the value of a, not the var itself.
-</pre>
-</li>
 
 
 
