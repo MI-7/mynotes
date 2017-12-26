@@ -162,16 +162,122 @@ Pointer Expressions
 
 <li class="p3 js-animateTab " data-tab="1">
 <h3 class="mt0 mb1 slate h5">
-Relational
+Examples
 </h3>
 <pre>
-The operators are
->       >=      <       <=      .       !=      ==
+example to calculate string length (program 6.1):
+</pre>
+<pre id="code">
+/*
+** Compute the length of a string.
+*/
+#include <stdlib.h>
+size_t
+strlen( char *string )
+{
+  int   length = 0;
+  
+  /*
+  ** Advance through the string, counting characters
+  ** until the terminating NUL byte is reached.
+  */
+  while( *string++ != '\0' )
+      length += 1;
 
-if( x = 5 )
-        do something
+  return length;
+}
+</pre>
+<pre>
+Programs 6.2 and 6.3 add a level of indirection. They search a collection of strings for 
+a specific character value, but an array of pointers is used to keep track of the strings, 
+as illustrated in Figure 6.1:
+<img src="peexample.png"></img>
 
-is perfectly legal but errorneous
+
+program 6.2:
+</pre>
+<pre id="code">
+/*
+** Given a pointer to a NULL-terminated list of pointers, search
+** the strings in the list for a particular character.
+*/
+
+#include <stdio.h>
+
+#define     TRUE  1
+#define     FALSE 0
+
+int
+find_char( char **strings, char value )
+{
+      char  *string;    /* the string we're looking at */
+      
+      /*
+      ** For each string in the list ...
+      */
+      while( ( string = *strings++ ) != NULL ){
+            /*
+            ** Look at each character in the string to see if
+            ** it is the one we want.
+            */
+            while( *string != '\0' ){
+                  if( *string++ == value )
+                        return TRUE;
+            }
+      }
+      return FALSE;
+}
+</pre>
+
+<pre>
+the code:
+while( ( string = *strings++ ) != NULL ){
+does the following:
+
+(1) it copies the pointer that strings currently points to into the variable string,
+(2) it increments strings to point to the next value, and 
+(3) it tests whether string is NULL.
+
+
+Program 6.3 performs the same function without making a copy of the pointer to each string:
+As a side effect, however, this program destroys the array of pointers
+</pre>
+
+<pre id="code">
+/*
+** Given a pointer to a NULL-terminated list of pointers, search
+** the strings in the list for a particular character.  This
+** version destroys the pointers so it can only be used when
+** the collection will be examined only once.
+*/
+
+#include <stdio.h>
+#include <assert.h>
+
+#define     TRUE  1
+#define     FALSE 0
+
+int
+find_char( char **strings, int value )
+{
+    assert( strings != NULL );
+    
+    /*
+    ** For each string in the list ...
+    */
+    while( *strings != NULL ){
+          /*
+          ** Look at each character in the string to see if
+          ** it is the one we want.
+          */
+          while( **strings != '\0' ){
+                if( *(*strings)++ == value )
+                      return TRUE;
+          }
+          strings++;
+    }
+    return FALSE;
+}
 </pre>
 </li>
 
