@@ -291,6 +291,19 @@ They may also be combined like this, if there is only one declaration of variabl
 如果有些symbol没有赋值，就用前面那个symbol的值加一，依次类推。
 
 这些symbolic names (CUP, PINT...)被当做integer constants，整形常量。
+
+以下是enum的一些测试，C语言没有根据定义时的字符串来打印enum类型的功能：
+</pre>
+<pre id="code">
+  enum coin {PENNY, NICKEL, OTHER};
+  char* coinNames[] = {[PENNY] = "Penny", [NICKEL] = "Nickel", [OTHER] = "Other", ['0'] = "Hello"};
+                                                               /* array index必须是整形，'0' = 48 */
+  
+  enum coin a = PENNY;
+  
+  printf("a=%d\n", a);
+  printf("a=%s\n", coinNames[a]);                              /* prints Other */
+  printf("a=%s\n", coinNames[48]);                             /* prints Hello */
 </pre>
 </li>
 
@@ -423,6 +436,10 @@ without changing its value. DECIMAL_DIG is at least 10.
 3.14        1E10         25.         .5         6.023e23
 Floating point literals are double values unless they are followed by a suffix: L / l specify long double; 
                                                                                 F / f specify float.
+
+<font color=red>to read:</font><a href="https://stackoverflow.com/questions/16839658/printf-width-specifier-to-maintain-precision-of-floating-point-value">Printf width specifier to maintain precision of floating-point value</a>
+<font color=red>to read:</font><a href="https://stackoverflow.com/questions/4264127/correct-format-specifier-for-double-in-printf">Correct format specifier for double in printf</a>
+
 </pre>
 </li>
 
@@ -469,6 +486,53 @@ the compiler to store a string literal once even if it appears multiple times in
 This makes modifying string literals very risky.
 
 Better way to do it if you wish to modify a string literal is to put it in an array.
+
+to read: <a href="https://stackoverflow.com/questions/5464183/modifying-string-literal">Modifying String Literals</a>
+in a word, this won't work:
+</pre>
+<pre id="code">
+char *s = "abc";
+*++s = 'd';
+</pre>
+<pre>
+on windows, the program will be shutdown.
+this will work:
+</pre>
+<pre id="code">
+char s[] = "abc";
+s[1] = 'd';
+</pre>
+<pre>
+A C string literal creates an anonymous array of char. Any attempt to modify that array has 
+<font color=red>undefined behavior</font>. Ideally this would be enforced by making the array const, but C didn't 
+always have const, and adding it to string literals would have broken existing code.
+
+<pre id="code">char* t="C++";</pre>
+
+This is legal but potentially risky. The array containing the characters 'C', '+', '+', '\0' 
+could be stored either in read-write memory or in read-only memory, at the whim of the compiler.
+
+<pre id="code">t[1]='p';</pre>
+
+Here your program's behavior is <font color=red>undefined</font>, because you're attempting to modify the contents of 
+a string literal. The compiler isn't required to warn you about this, either at compile time or 
+at run time -- nor is it required to do anything to make it "work".
+
+If you want to let the compiler know that the string is read-only, it's best to add the
+const qualifier yourself:
+
+<pre id="code">const char *t = "C++";</pre>
+
+The compiler should then at least warn you if you attempt to modify the string literal
+-- at least if you attempt to do so through t.
+
+If you want to be able to modify it, you should make t a writable array:
+
+<pre id="code">char t[] = "C++";</pre>
+
+Rather than making t a pointer that points to the beginning of "C++", this makes t an array
+into which the contents of "C++" are copied. You can do what you like with the contents of t, 
+as long as you don't go outside its bounds.
 </pre>
 </li>
 
@@ -541,6 +605,20 @@ it is good because there is no time lost checking the subscripts
 it is bad because invalid subscripts are not detected
 
 initialization of array will be covered later...
+
+but here is little something to look at:
+</pre>
+<pre id="code">
+char a[4]="abcd";               /* this gives: a = { 'a', 'b', 'c', 'd', '\0'}
+
+char a[5]="abcde";              /* this gives: a = { 'a', 'b', 'c', 'd', 'e'} */
+and when you print it:          /* this is legal in C, but compilation error in C++ */
+printf("a=%s\n", a);
+
+something unexpected comes out, because the string is not properly ended:
+
+>a.exe
+a=abcdePz2
 </pre>
 </li>
 
@@ -951,7 +1029,6 @@ formal prarm        function header         yes 2               throughout the f
 3 Except in nested blocks that declare identical names.
 </pre>
 </li>
-
 
 </ul>
 </div>

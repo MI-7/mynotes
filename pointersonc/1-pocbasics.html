@@ -223,6 +223,31 @@ checking the __STDC_VERSION__ gives you the default c version used:
 will print 201112 on my mac （也就是c11）.  The __STDC_VERSION__ is a long value.
 
 But, if I compile with -std=c89 specified.  The macro __STDC_VERSION__ is not defined.
+
+另外，有关课后练习4，做了一些关于\ddd和\xddd的测试：
+其实\xddd中，x之后十六进制数的个数是不限的，而\ddd是很明确的1，2或者3个。
+</pre>
+<pre id="code">
+  char *c = "abc\60";                      /* 字符串abc0，因为\60是换成byte正好是ASCII的0，十进制的48 */
+  char *c2 = "\0614";                      /* 字符串14，可以看出\ddd转到第三个就停止了 */
+  char *c21 = "\x314defYYYhijkl";          /* 打出来的是：颵YYhijkl，虽然hex数量不限，不过遇到非十六进制的字符就停止了 */
+  char c4 = "\x310000456";                 /* 而这里因为都是十六进制字符，所以整个变成了byte */
+  char c3 = '\61';                         /* 字符1 */
+  char c31 = '\x31';                       /* 字符1 */
+  
+  int d = '\160';                          /* 数字112 */
+  int d2 = '\1160';                        /* 数字20016，不知道怎么来的 */
+  int e = '\x1234';                        /* 0x34 = 52 */
+  int f = '\x234';                         /* 0x34 = 52 */
+  int g = '\x34';                          /* 0x34 = 52 */
+  
+  printf("c=%s_c2=%s_c21=%s_c3=%c_c31=%c_c4=%s\n", c, c2, c21, c3, c31, &c4);
+  printf("d=%d_d2=%d_e=%d_f=%d_g=%d\n", d, d2, e, f, g);
+</pre>
+<pre>
+再用operator and expression一章中Arithmetic Conversions一节的程序打印了一下各位的bit:
+c4变成了不知道什么：0x12；0b0001 0010
+e, f, g都只留下来后面两位：0x34；0b0011 0100
 </pre>
 </li>
 
