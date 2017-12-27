@@ -3,3 +3,6 @@
 __pycache__
 *.log
 .idea
+*.exe
+*.out
+*.obj
