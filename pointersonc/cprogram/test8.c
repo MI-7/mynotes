@@ -1,7 +1,8 @@
 #include <stdio.h>
+#include "test.h"
 
-int
-main(void)
+void
+test8(void)
 {
   int a, b, c, d, e, f, g;
   int ch;
@@ -10,7 +11,7 @@ main(void)
   if (g != 6)
   {
     printf("input is invalid\n");
-    return 0;
+    return;
   }
   
   printf("%d,%d,%d,%d,%d,%d\n", a, b, c, d, e, f);
@@ -18,5 +19,5 @@ main(void)
   while( (ch = getchar()) != EOF  && ch != '\n')
     printf("%c\n", ch);
 
-  return 0;
+  return;
 }

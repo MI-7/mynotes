@@ -1,4 +1,5 @@
 ﻿#include <stdio.h>
+#include "test.h"
 
 float
 sqrt_float(float f, float approx)
@@ -28,10 +29,10 @@ sqrt_double(double f, double approx)
   return current_approx;
 }
 
-int
-main(void)
+void
+test5(void)
 {
   float sqrt_of_five = sqrt_float(5.0f, 1.0f);
-  double sqrt_of_five_double = sqrt_double(5.0d, 1.0d);
+  double sqrt_of_five_double = sqrt_double(5.0, 1.0);
   printf("sqrt of 5 = %10f; in double=%20lf\n", sqrt_of_five, sqrt_of_five_double);
 }

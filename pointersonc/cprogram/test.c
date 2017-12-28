@@ -1,12 +1,13 @@
 #include <stdio.h>
+#include "test.h"
 
 somefunc(x)
 {
   return x+1;
 }
 
-int
-main(void)
+void
+test1(void)
 {
   FILE *fptr;
   int const asize = 5;
@@ -14,12 +15,11 @@ main(void)
   unsigned char ch;
   short int i = 0;
   char *s = "Hello";
-  unsigned a;
   
   if ((fptr = fopen("c:\\users\\lchen4\\desktop\\temp\\Edit3", "r")) == NULL)
   {
     printf("file read error");
-    exit(1);
+    return;
   }
   
   while(!feof(fptr))
@@ -48,5 +48,4 @@ main(void)
   printf("\nsomething");
   goto abc;
   abc: printf("\n%s", s);
-  abc: printf("something");
 }

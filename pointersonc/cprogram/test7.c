@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "test.h"
 
 unsigned short
 is_prime(int n)
@@ -16,11 +17,18 @@ is_prime(int n)
   return 1;
 }
 
-int
-main(void)
+void
+test7(void)
 {
-  int max_to_test = 100;
+  int max_to_test;
   int i;
+
+  printf("enter max number to search for primes:");
+  if (scanf("%d", &max_to_test) != 1)
+  {
+    printf("invalid input, using 1000 as input\n");
+    max_to_test = 1000;
+  }
 
   for (i = 2; i <= max_to_test; i++)
   {
@@ -29,6 +37,4 @@ main(void)
       printf("found prime:%d\n", i);
     }
   }
-
-  return 0;
 }

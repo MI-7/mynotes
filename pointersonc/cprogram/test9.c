@@ -1,4 +1,5 @@
 ﻿#include <stdio.h>
+#include "test.h"
 
 void copy_n(char dst[], char src[], int n)
 {
@@ -26,8 +27,8 @@ void copy_n(char dst[], char src[], int n)
   }
 }
 
-int
-main(void)
+void
+test9(void)
 {
   char dst[] = "1234567890";
   char src[]="abcdefg";
@@ -35,6 +36,4 @@ main(void)
   copy_n(dst, src, 8);
   
   printf("dst=%s_%c\n", dst, dst[9]);
-
-  return 0;
 }
