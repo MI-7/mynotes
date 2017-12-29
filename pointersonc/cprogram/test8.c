@@ -1,4 +1,6 @@
-#include <stdio.h>
+/*
+ * test scanf
+ */
 #include "test.h"
 
 void

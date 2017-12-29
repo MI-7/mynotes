@@ -1,4 +1,7 @@
-﻿#include <stdio.h>
+﻿/*
+ * copy n char from src to dst
+ */
+
 #include "test.h"
 
 void copy_n(char dst[], char src[], int n)
