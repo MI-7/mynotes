@@ -9,7 +9,7 @@
 int
 main(void)
 {
-  test16();
+  test18();
 
   return 0;
 }

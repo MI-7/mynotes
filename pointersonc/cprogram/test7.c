@@ -24,7 +24,7 @@ void
 test7(void)
 {
   int max_to_test;
-  int i;
+  int i, total_prime_count = 0;
 
   printf("enter max number to search for primes:");
   if (scanf("%d", &max_to_test) != 1)
@@ -37,7 +37,10 @@ test7(void)
   {
     if (is_prime(i))
     {
+      total_prime_count++;
       printf("found prime:%d\n", i);
     }
   }
+
+  printf("total prime number: %d\n", total_prime_count);
 }

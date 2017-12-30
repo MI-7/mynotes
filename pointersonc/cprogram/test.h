@@ -12,6 +12,12 @@
 #include <strings.h>
 #include <stdlib.h>
 #include <time.h>
+#include <limits.h>
+
+#define NULL  0
+#define NUL   '\0'
+#define TRUE  1
+#define FALSE 0
 
 void test1(void);
 void test2(void);
@@ -44,5 +50,11 @@ void test15(void);
 
 int del_substr( char *str, char const *substr );
 void test16(void);
+
+void reverse_string(char *string);
+void test17(void);
+
+void sieve_of_eratosthenes(unsigned char primes[]);
+void test18(void);
 
 #endif /* POINTERSONC_CPROGRAM_TEST_H_ */
