@@ -55,6 +55,7 @@ void reverse_string(char *string);
 void test17(void);
 
 void sieve_of_eratosthenes(unsigned char primes[]);
+void sieve_of_eratosthenes_with_files();
 void test18(void);
 
 #endif /* POINTERSONC_CPROGRAM_TEST_H_ */

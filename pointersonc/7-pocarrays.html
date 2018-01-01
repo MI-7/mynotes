@@ -1,0 +1,806 @@
+<link rel="stylesheet" href="../homepage/envoy.min.css">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>Arrays</title>
+
+<style>
+	#code {
+    width:900px;
+    margin:0 auto;   
+    /*temporary text styles below*/
+    text-align:left;
+    font-weight:bold;
+    background: rgb(170,204,153);
+  }
+  main {
+    margin-bottom: 200%;
+  }
+  .floating-menu {
+    font-family: sans-serif;
+    background: transparent;
+    padding: 5px;;
+    width: 80px;
+    z-index: 100;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+  }
+  .floating-menu a, 
+  .floating-menu h3 {
+    font-size: 0.9em;
+    display: block;
+    margin: 0 0.5em;
+    color: white;
+  }
+  .floating-menu a:hover{
+    background: yellowgreen;
+  }
+</style>
+
+  <nav class="floating-menu">
+    <a href="../homepage2.html">Home</a>
+    <a href="../bitcoin/0-bitcoinhomepage.html">Bitcoin</a>
+    <a href="../crypto/0-cryptohomepage.html">Crypto</a>
+    <a href="0-pochomepage.html">C</a>
+    <a href="../linearalgebra/0-linearalgebrahomepage.html">Algebra</a>
+  </nav>
+
+<div class="col col-10 px2 js-linksHeight">
+<h3 class="red h2 mt0 mb4 px3">
+Arrays</h3>
+<div class="mbn2 relative">
+<div class="js-active-tab z2" style="pointer-events: none;"></div>
+<ul class="list-style-none z3 js-galleryLinks">
+
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate blue h2">
+One-Dimensional Arrays
+</h3>
+</li>
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate h5">
+Array Names
+</h3>
+<pre>
+int b[10];
+b = a pointer constant, address of the first element of the array
+but this doesn't make array name the same as pointers
+compilers use array names to keep track of array properties, such as array has a number of elements
+while, pointer is a scalar number
+
+sizeof(arrayname) = return size of whole array, not just size of a pointer to array.
+&arrayname = pointer to the first element in the array.
+
+int *c;
+int a[10];
+int b[10];
+c = a; and c = &a[0]; are equal
+a = c is illegal, pointer constant cannot be modified
+b = a is illegal
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate h5">
+Subscripts
+</h3>
+<pre>
+array[subscript] == *(array + (subscript))
+subscript can be an expression, parenthesis makes sure it is evaluated first
+
+int array[10];
+int *ap = array + 2;
+
+ap      = &array[2]
+*ap     = array[2]
+ap[0]   = illegal, ap is not array
+ap + 6  = &array[8]
+*ap + 6 = array[2] + 6, but be carefulof the type...
+*(ap+6) = array[8]
+ap[-1]  = subscript is just indirection expression, ap[-1]=*(&array[2] - 1), so it is array[1].
+ap[9]   = out of bound!
+<font color=red>2[array]=*(2 + (array)) = *(array + 2) = array[2]</font>
+
+most C compiler does not check array bounds, if they do, usually the checking can be turned off
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Pointers versus Subscripts
+</h3>
+<pre>
+so, subscript and pointers, which one to use?
+
+Assuming that they are both used correctly, subscripts are never more efficient than pointers,
+but pointers are sometimes more efficient than subscripts.
+
+            int   array[10], a;
+            for( a = 0; a < 10; a += 1 )
+                  array[a] = 0;
+
+To evaluate this subscript, the compiler inserts instructions in the program to take the value
+of a and multiply it by the size of an integer (say, four). This multiplication takes both space and time.
+
+Now consider this loop, which does exactly the same work.
+            int   array[10], *ap;
+            for( ap = array; ap < array + 10; ap++ )
+                  *ap = 0;
+
+The multiplication is now performed in the adjustment step of the for statement; the value one must be
+scaled to the size of an integer before it is added to the pointer. But there is a big difference here:
+the same two values (1 × 4) are multiplied each time through the loop. As a result, this multiplication
+is <font color=red>performed once at compile time</font>—the program now contains an instruction to add four to the pointer.
+No multiplications are performed at run time.
+
+when moving through an array by one (or any other fixed amount). The multiplication is performed on the
+fixed amount at compile time, so there are fewer instructions to execute at run time. On most machines
+the program is smaller and faster.
+
+</pre>
+<pre id="code">
+a = get_value();             |              a = get_value();
+array[a] = 0;                |              *( array + a ) = 0;
+
+There is no difference in the code generated for these statements. a could be any value, so the multiplication
+instruction is needed in both places to scale it. This example illustrates the type of situation in which
+pointers and subscripts are equally efficient.
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Pointer Efficiency
+</h3>
+<pre>
+the code to test:
+</pre>
+<pre id="code">
+      #define     SIZE        50
+      int         x[SIZE];
+      int         y[SIZE];
+      int         i;
+      int *p1, *p2;
+      
+      /* subscript version */
+      int main(void) {
+            for( i = 0; i < SIZE; i++ )
+                  x[i] = y[i];
+      }
+</pre>
+<pre>
+with gcc:
+gcc -S -masm=att test.c
+the -S switch to GCC on x86 based systems produces a dump of AT&T syntax
+
+if you'd like to produce a dump of intel syntax, you could use the -masm=intel switch, as so:
+gcc -S -masm=intel test.c
+will generate:
+
+        .section        __TEXT,__text,regular,pure_instructions
+        .macosx_version_min 10, 13
+        .intel_syntax noprefix
+        .globl  _main
+        .p2align        4, 0x90
+_main:                                  ## @main
+        .cfi_startproc
+## BB#0:
+        push    rbp
+Lcfi0:
+        .cfi_def_cfa_offset 16
+Lcfi1:
+        .cfi_offset rbp, -16
+        mov     rbp, rsp
+Lcfi2:
+        .cfi_def_cfa_register rbp
+        mov     rax, qword ptr [rip + _i@GOTPCREL]
+        mov     dword ptr [rbp - 4], 0
+        mov     dword ptr [rax], 0
+LBB0_1:                                 ## =>This Inner Loop Header: Depth=1
+        mov     rax, qword ptr [rip + _i@GOTPCREL]
+        cmp     dword ptr [rax], 50
+        jge     LBB0_4
+## BB#2:                                ##   in Loop: Header=BB0_1 Depth=1
+        mov     rax, qword ptr [rip + _x@GOTPCREL]
+        mov     rcx, qword ptr [rip + _i@GOTPCREL]
+        mov     rdx, qword ptr [rip + _y@GOTPCREL]
+        movsxd  rsi, dword ptr [rcx]
+        mov     edi, dword ptr [rdx + 4*rsi]             <font color=red><b>i is evaluated twice (see line below), two multiplications</b></font>
+        movsxd  rcx, dword ptr [rcx]
+        mov     dword ptr [rax + 4*rcx], edi             <font color=red><b>i is evaluated twice (see line above), two multiplications</b></font>
+## BB#3:                                ##   in Loop: Header=BB0_1 Depth=1
+        mov     rax, qword ptr [rip + _i@GOTPCREL]
+        mov     ecx, dword ptr [rax]
+        add     ecx, 1
+        mov     dword ptr [rax], ecx
+        jmp     LBB0_1
+LBB0_4:
+        mov     eax, dword ptr [rbp - 4]
+        pop     rbp
+        ret
+        .cfi_endproc
+
+        .comm   _i,4,2                  ## @i
+        .comm   _y,200,4                ## @y
+        .comm   _x,200,4                ## @x
+        .comm   _p1,8,3                 ## @p1
+        .comm   _p2,8,3                 ## @p2
+
+.subsections_via_symbols
+</pre>
+<pre id="code">
+      #define     SIZE        50
+      int         x[SIZE];
+      int         y[SIZE];
+      int         i;
+      int *p1, *p2;
+      
+      /* subscript version */
+      int main(void) {
+            for( p1 = x, p2 = y; p1 – x < SIZE; )
+                  *p1++ = *p2++;
+      }
+</pre>
+<pre>
+will generate, gcc -S -masm=intel test.c:
+        .section        __TEXT,__text,regular,pure_instructions
+        .macosx_version_min 10, 13
+        .intel_syntax noprefix
+        .globl  _main
+        .p2align        4, 0x90
+_main:                                  ## @main
+        .cfi_startproc
+## BB#0:
+        push    rbp
+Lcfi0:
+        .cfi_def_cfa_offset 16
+Lcfi1:
+        .cfi_offset rbp, -16
+        mov     rbp, rsp
+Lcfi2:
+        .cfi_def_cfa_register rbp
+        mov     rax, qword ptr [rip + _p2@GOTPCREL]
+        mov     rcx, qword ptr [rip + _y@GOTPCREL]
+        mov     rdx, qword ptr [rip + _p1@GOTPCREL]
+        mov     rsi, qword ptr [rip + _x@GOTPCREL]
+        mov     dword ptr [rbp - 4], 0
+        mov     qword ptr [rdx], rsi
+        mov     qword ptr [rax], rcx
+LBB0_1:                                 ## =>This Inner Loop Header: Depth=1
+        mov     rax, qword ptr [rip + _x@GOTPCREL]
+        mov     rcx, qword ptr [rip + _p1@GOTPCREL]
+        mov     rcx, qword ptr [rcx]
+        sub     rcx, rax
+        sar     rcx, 2                         <font color=red><b>pointer subtraction needs to be scaled, so shift is used, increased effort</b></font>
+        cmp     rcx, 50
+        jge     LBB0_3
+## BB#2:                                ##   in Loop: Header=BB0_1 Depth=1
+        mov     rax, qword ptr [rip + _p1@GOTPCREL]
+        mov     rcx, qword ptr [rip + _p2@GOTPCREL]
+        mov     rdx, qword ptr [rcx]
+        mov     rsi, rdx
+        add     rsi, 4                         <font color=red><b>no multiplications, only pointer increment</b></font>
+        mov     qword ptr [rcx], rsi
+        mov     edi, dword ptr [rdx]
+        mov     rcx, qword ptr [rax]
+        mov     rdx, rcx
+        add     rdx, 4                         <font color=red><b>no multiplications, only pointer increment</b></font>
+        mov     qword ptr [rax], rdx
+        mov     dword ptr [rcx], edi
+        jmp     LBB0_1
+LBB0_3:
+        mov     eax, dword ptr [rbp - 4]
+        pop     rbp
+        ret
+        .cfi_endproc
+
+        .comm   _x,200,4                ## @x
+        .comm   _p1,8,3                 ## @p1
+        .comm   _y,200,4                ## @y
+        .comm   _p2,8,3                 ## @p2
+        .comm   _i,4,2                  ## @i
+
+.subsections_via_symbols
+</pre>
+
+<pre>
+now try another approach:
+</pre>
+<pre id="code">
+            for( i = 0, p1 = x, p2 = y; i < SIZE; i++ )
+                  *p1++ = *p2++;
+</pre>
+<pre>
+        .section        __TEXT,__text,regular,pure_instructions
+        .macosx_version_min 10, 13
+        .intel_syntax noprefix
+        .globl  _main
+        .p2align        4, 0x90
+_main:                                  ## @main
+        .cfi_startproc
+## BB#0:
+        push    rbp
+Lcfi0:
+        .cfi_def_cfa_offset 16
+Lcfi1:
+        .cfi_offset rbp, -16
+        mov     rbp, rsp
+Lcfi2:
+        .cfi_def_cfa_register rbp
+        mov     rax, qword ptr [rip + _p2@GOTPCREL]
+        mov     rcx, qword ptr [rip + _y@GOTPCREL]
+        mov     rdx, qword ptr [rip + _p1@GOTPCREL]
+        mov     rsi, qword ptr [rip + _x@GOTPCREL]
+        mov     rdi, qword ptr [rip + _i@GOTPCREL]
+        mov     dword ptr [rbp - 4], 0
+        mov     dword ptr [rdi], 0
+        mov     qword ptr [rdx], rsi
+        mov     qword ptr [rax], rcx
+LBB0_1:                                 ## =>This Inner Loop Header: Depth=1
+        mov     rax, qword ptr [rip + _i@GOTPCREL]
+        cmp     dword ptr [rax], 50                       <font color=red><b>no shift this time</b></font>
+        jge     LBB0_4
+## BB#2:                                ##   in Loop: Header=BB0_1 Depth=1
+        mov     rax, qword ptr [rip + _p1@GOTPCREL]
+        mov     rcx, qword ptr [rip + _p2@GOTPCREL]
+        mov     rdx, qword ptr [rcx]
+        mov     rsi, rdx
+        add     rsi, 4                                    <font color=red><b>no multiplications, also</b></font>
+        mov     qword ptr [rcx], rsi
+        mov     edi, dword ptr [rdx]
+        mov     rcx, qword ptr [rax]
+        mov     rdx, rcx
+        add     rdx, 4                                    <font color=red><b>no multiplications, also</b></font>
+        mov     qword ptr [rax], rdx
+        mov     dword ptr [rcx], edi
+## BB#3:                                ##   in Loop: Header=BB0_1 Depth=1
+        mov     rax, qword ptr [rip + _i@GOTPCREL]
+        mov     ecx, dword ptr [rax]
+        add     ecx, 1
+        mov     dword ptr [rax], ecx
+        jmp     LBB0_1
+LBB0_4:
+        mov     eax, dword ptr [rbp - 4]
+        pop     rbp
+        ret
+        .cfi_endproc
+
+        .comm   _i,4,2                  ## @i
+        .comm   _x,200,4                ## @x
+        .comm   _p1,8,3                 ## @p1
+        .comm   _y,200,4                ## @y
+        .comm   _p2,8,3                 ## @p2
+
+.subsections_via_symbols
+</pre>
+<pre>
+although we eliminated the multiplications (subscript evaluation) and shifts (pointer sub)
+there is still work to copy the pointer variables into address register
+the final approach, the register variable, this is the shortest machine code generated:
+</pre>
+<pre id="code">
+      register int *p1, *p2;
+      register int i;
+      for( i = 0, p1 = x, p2 = y; i < SIZE; i++ )
+            *p1++ = *p2++;
+</pre>
+<pre>
+        .section        __TEXT,__text,regular,pure_instructions
+        .macosx_version_min 10, 13
+        .intel_syntax noprefix
+        .globl  _main
+        .p2align        4, 0x90
+_main:                                  ## @main
+        .cfi_startproc
+## BB#0:
+        push    rbp
+Lcfi0:
+        .cfi_def_cfa_offset 16
+Lcfi1:
+        .cfi_offset rbp, -16
+        mov     rbp, rsp
+Lcfi2:
+        .cfi_def_cfa_register rbp
+        mov     rax, qword ptr [rip + _y@GOTPCREL]
+        mov     rcx, qword ptr [rip + _x@GOTPCREL]
+        mov     dword ptr [rbp - 4], 0
+        mov     dword ptr [rbp - 28], 0
+        mov     qword ptr [rbp - 16], rcx
+        mov     qword ptr [rbp - 24], rax
+LBB0_1:                                 ## =>This Inner Loop Header: Depth=1
+        cmp     dword ptr [rbp - 28], 50
+        jge     LBB0_4
+## BB#2:                                ##   in Loop: Header=BB0_1 Depth=1
+        mov     rax, qword ptr [rbp - 24]
+        mov     rcx, rax
+        add     rcx, 4
+        mov     qword ptr [rbp - 24], rcx
+        mov     edx, dword ptr [rax]
+        mov     rax, qword ptr [rbp - 16]
+        mov     rcx, rax
+        add     rcx, 4
+        mov     qword ptr [rbp - 16], rcx
+        mov     dword ptr [rax], edx
+## BB#3:                                ##   in Loop: Header=BB0_1 Depth=1
+        mov     eax, dword ptr [rbp - 28]
+        add     eax, 1
+        mov     dword ptr [rbp - 28], eax
+        jmp     LBB0_1
+LBB0_4:
+        mov     eax, dword ptr [rbp - 4]
+        pop     rbp
+        ret
+        .cfi_endproc
+
+        .comm   _x,200,4                ## @x
+        .comm   _y,200,4                ## @y
+        .comm   _i,4,2                  ## @i
+        .comm   _p1,8,3                 ## @p1
+        .comm   _p2,8,3                 ## @p2
+
+.subsections_via_symbols
+</pre>
+<pre>
+well, i guess this is not the end, here is another try, eliminating the counter totally:
+</pre>
+<pre id="code">
+      register int *p1, *p2;
+      for( p1 = x, p2 = y, p1 < &x[SIZE]; )
+            *p1++ = *p2++;
+</pre>
+<pre>
+we get:
+        .section        __TEXT,__text,regular,pure_instructions
+        .macosx_version_min 10, 13
+        .intel_syntax noprefix
+        .globl  _main
+        .p2align        4, 0x90
+_main:                                  ## @main
+        .cfi_startproc
+## BB#0:
+        push    rbp
+Lcfi0:
+        .cfi_def_cfa_offset 16
+Lcfi1:
+        .cfi_offset rbp, -16
+        mov     rbp, rsp
+Lcfi2:
+        .cfi_def_cfa_register rbp
+        mov     rax, qword ptr [rip + _y@GOTPCREL]
+        mov     rcx, qword ptr [rip + _x@GOTPCREL]
+        mov     dword ptr [rbp - 4], 0
+        mov     qword ptr [rbp - 16], rcx
+        mov     qword ptr [rbp - 24], rax
+LBB0_1:                                 ## =>This Inner Loop Header: Depth=1
+        mov     rax, qword ptr [rip + _x@GOTPCREL]
+        add     rax, 200
+        cmp     qword ptr [rbp - 16], rax
+        jae     LBB0_3
+## BB#2:                                ##   in Loop: Header=BB0_1 Depth=1
+        mov     rax, qword ptr [rbp - 24]
+        mov     rcx, rax
+        add     rcx, 4
+        mov     qword ptr [rbp - 24], rcx
+        mov     edx, dword ptr [rax]
+        mov     rax, qword ptr [rbp - 16]
+        mov     rcx, rax
+        add     rcx, 4
+        mov     qword ptr [rbp - 16], rcx
+        mov     dword ptr [rax], edx
+        jmp     LBB0_1
+LBB0_3:
+        mov     eax, dword ptr [rbp - 4]
+        pop     rbp
+        ret
+        .cfi_endproc
+
+        .comm   _x,200,4                ## @x
+        .comm   _y,200,4                ## @y
+        .comm   _i,4,2                  ## @i
+        .comm   _p1,8,3                 ## @p1
+        .comm   _p2,8,3                 ## @p2
+
+.subsections_via_symbols
+</pre>
+</li>
+
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Arrays and Pointers
+</h3>
+<pre>
+<font color=red>pointers != arrays</font>
+int a[5];  /* declaring array set aside memory for the number of elements */
+           /* then creates pointer constant that points to the beginning of space */
+a -> with five elements' space allocated
+ _______________________________________
+|_______|_______|_______|_______|_______|
+
+int *b;
+b
+ _______
+|_______|
+the pointer variable is not initialized to point to any existing space
+
+so, after the declaration, *a is legal, while *b is not.
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Array Names as Function Arguments
+</h3>
+<pre id = "code">
+/*
+** Copy the string contained in the second argument to the
+** buffer specified by the first argument.
+*/
+void
+strcpy( char *buffer, char <font color=red>const</font> *string )
+{
+      /*
+      ** Copy characters until a NUL byte is copied.
+      */
+      while( (*buffer++ = *string++) != '\0' )
+            ;
+}
+</pre>
+<pre>
+the parameter is declared as a pointer to const characters
+why is this declaration important for a function that is not going to modify the characters?
+* First, it is good documentation. Someone wishing to use this function can see from the prototype
+  that the data will not be changed, without reading the code
+* Second, the compiler will be able to catch any programming error that causes accidental modification
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Declaring Array Parameters
+</h3>
+<pre>
+What is the correct way to declare a function parameter if you intend to pass it an array name argument?
+* Is it declared as a pointer?
+                    or as an array?
+
+for array parameters, you may use either declaration.  they are equivalent:
+            int   strlen( char *string );
+            int   strlen( char string[] );
+Note: the declarations are equal only in this context!!!
+
+but, which one is <font color=red>"more correct"</font>: the pointer!
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Initialization
+</h3>
+<pre>
+static and automatic initialization
+Arrays (static) stored in static memory are initialized once, before the program begins to execute. 
+No instructions are executed to put the values in the proper places, they just start out there. 
+This magic is accomplished by having the linker initialize the array elements to their proper 
+values in the file containing the executable program. If the array was not initialized, the 
+initial values will be zero. When this file is loaded into memory for execution, the initialized 
+array values are loaded in exactly the same way as the program instructions. Thus when execution begins, 
+static arrays are already initialized.
+
+
+automatic variables are uninitialized by default. If initial values are given, the variables are initialized
+with implicit assignment statements each time execution enters the scope in which they were declared.
+For very large arrays, the initialization could take considerable time.  cause there are many assignments...
+
+Here is the tradeoff, then. When initializing an array that is local to a function (or a block), think carefully
+about whether it should be reinitialized each time the function (or block) is entered. If the answer is no,
+then declare the array static so that the initialization can be performed once before the program begins.
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Incomplete Initialization
+</h3>
+<pre>
+            int   vector[5] = { 1, 2, 3, 4, 5, 6 };
+            int   vector[5] = { 1, 2, 3, 4 };
+
+the first one is illegal, the second one is ok, the last element is initialized to 0
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Automatic Array Sizing
+</h3>
+<pre>
+int vector[] = {1, 2, 3, 4, 5};
+if the array size is missing, the compiler makes the array just big enough to hold the initializers
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Character Array Initialization
+</h3>
+<pre>
+you might think that the character arrays are initialized like this:
+char message[] = {'H', 'e', 'l', 'l', 'o', 0};
+
+the code works, but it is cumbersome...so the language standard provides a shorthand for character array:
+char message[] = "Hello";
+
+although it looks like a string literal, but it is simply an alternate way of writing the initializer.
+
+char message1[] = "Hello";    /* this is an array initializer */
+char *message2 = "Hello";     /* this is a true string literal */
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+Multidimensional Arrays
+</h3>
+<pre>
+int   d[3][6][10];
+d is an array of three elements, each of which is an array of six elements, and each of those is an array of ten integers
+d is an array of three arrays of six arrays of ten integers each
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Storage Order
+</h3>
+<pre>
+suppose we have: int array[3][6];
+ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __
+|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|
+and the elements' subscripts from left to right are:
+0,0    0,1    0,2    0,3    0,4    0,5    1,0    1,1    1,2
+1,3    1,4    1,5    2,0    2,1    2,2    2,3    2,4    2,5
+
+In C, elements of a multidimensional array are stored in the order given by varying their rightmost
+subscript most rapidly, called <font color=red>row major order</font>
+
+int matrix[3][10];  -> <font color=red>Array Name matrix</font> actually points to an array of 10 integers.
+                    -> this also creates <font color=red>matrix</font>, a one-dimensional array containing 6 elements.
+int *mp = &matrix[3][8];
+
+mp => [1][8];    ++mp => [1][9];     ++mp => [2][0]
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Subscripts
+</h3>
+<pre>
+int matrix[3][10];
+
+matrix is type of "pointer to an array of ten integers"
+matrix[1] is also a "pointer to an array of ten integers"
+</pre>
+<pre id = "code">
+  int matrix[3][10];
+
+  printf("m =%p, m =%p\n", matrix, &matrix[0][0]);
+  printf("m2=%p, m2=%p, m2=%p\n", matrix[1], *(matrix + 1), &matrix[1][0]);
+  
+  will print:
+  
+  m =0x7ffeed054a80, m =0x7ffeed054a80
+     matrix    ====     &matrix[0][0]
+
+  m2=0x7ffeed054aa8, m2=0x7ffeed054aa8, m2=0x7ffeed054aa8
+     matrix[1]   ====   *(matrix + 1) ==== &matrix[1][0]
+</pre>
+<pre>
+
+
+matrix[1] is equal to *(matrix + 1)
+matrix[1][5] is equal to *(*(matrix + 1) + 5) is equal to *(matrix[1] + 5)
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Pointers to Arrays
+</h3>
+<pre>
+int matrix[3][10], *mp = matrix;
+int matrix[3][10] is legal, while *mp = matrix is illegal.
+matrix is not a pointer to an integer, it is a pointer to an array of integers.
+
+so how to define this pointer?
+<font color=blue>int (*p)[10] = matrix;</font>
+Subscripts have a higher precedence than indirection, but the parentheses surrounding the
+indirection force it to go first. So p is a pointer to something, but to what?
+the subscript is applied next, so p points to some kind of array, this array is the first row of matrix.
+
+so, now p points to first row of matrix.  we change the code for a little bit:
+</pre>
+<pre id="code">
+  int matrix[3][10];
+  int (*p)[10] = matrix;
+
+  printf("m =%p, m =%p, p=%p, p+1=%p\n", matrix, &matrix[0][0], p, p+1);
+  printf("m2=%p, m2=%p, m2=%p\n", matrix[1], *(matrix + 1), &matrix[1][0]);
+  
+  will print:
+  m =0x7ffeed678a80, m =0x7ffeed678a80, p=0x7ffeed678a80, p+1=0x7ffeed678aa8
+                                          <font color=red>p=matrix            p+1=matrix[1]</font>
+  m2=0x7ffeed678aa8, m2=0x7ffeed678aa8, m2=0x7ffeed678aa8
+</pre>
+<pre>
+<font color=green>p+1=matrix[1]</font> because p points to array of 10 integers.  so increment p will scale by 10.
+0x7ffeed678aa8 - 0x7ffeed678a80 = 40 (which is 10 integer elements, 4 bytes each)
+
+what should you do if you want to go through the array integer by integer instead of row by row?
+we can still use p to navigate through the array:
+</pre>
+<pre id="code">
+  matrix[0][0] = -100;
+  matrix[0][1] = -200;
+
+  printf("**p=%d, *(*p+1)=%d\n", **p, *(*p+1));
+  
+  will print:
+  $ ./a.out
+  **p=-100, *(*p+1)=-200
+</pre>
+<pre>
+you can use:
+int *pi = &matrix[0][0];
+int *pi = matrix[0];
+
+incrementing pi points to the next integer
+
+and, to work with higher dimensions:
+  int matrix2[3][10][10];
+  int (*pi)[10][10] = matrix2;
+</pre>
+</li>
+
+
+
+</ul>
+</div>
+

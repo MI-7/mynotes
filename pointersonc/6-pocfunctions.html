@@ -1,0 +1,349 @@
+<link rel="stylesheet" href="../homepage/envoy.min.css">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>Functions</title>
+
+<style>
+	#code {
+    width:900px;
+    margin:0 auto;   
+    /*temporary text styles below*/
+    text-align:left;
+    font-weight:bold;
+    background: rgb(170,204,153);
+  }
+  main {
+    margin-bottom: 200%;
+  }
+  .floating-menu {
+    font-family: sans-serif;
+    background: transparent;
+    padding: 5px;;
+    width: 80px;
+    z-index: 100;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+  }
+  .floating-menu a, 
+  .floating-menu h3 {
+    font-size: 0.9em;
+    display: block;
+    margin: 0 0.5em;
+    color: white;
+  }
+  .floating-menu a:hover{
+    background: yellowgreen;
+  }
+</style>
+
+  <nav class="floating-menu">
+    <a href="../homepage2.html">Home</a>
+    <a href="../bitcoin/0-bitcoinhomepage.html">Bitcoin</a>
+    <a href="../crypto/0-cryptohomepage.html">Crypto</a>
+    <a href="0-pochomepage.html">C</a>
+    <a href="../linearalgebra/0-linearalgebrahomepage.html">Algebra</a>
+  </nav>
+
+<div class="col col-10 px2 js-linksHeight">
+<h3 class="red h2 mt0 mb4 px3">
+Functions</h3>
+<div class="mbn2 relative">
+<div class="js-active-tab z2" style="pointer-events: none;"></div>
+<ul class="list-style-none z3 js-galleryLinks">
+
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate blue h2">
+Function Definition
+</h3>
+<pre>
+function definition =
+</pre>
+<pre id = "code">
+type name(formal_parameters)
+block
+</pre>
+</li>
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate h5">
+Return Statement
+</h3>
+<pre id="code">
+return expression;
+</pre>
+<pre>
+expression is optional in return statement (for functions returning void type).
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate blue h2">
+Function Declaration
+</h3>
+<pre>
+when the compiler encounters a call to a function, it generates code to pass the
+arguments and call the function, and code to receive the value (if any) sent back
+by the function.
+
+but how does the compiler know what kinds of arguments (and how many) the function
+expects to get, and what kind of value that the function returns?
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Prototypes
+</h3>
+<pre>
+it is safer to give the compiler info about the function, and there are two ways to do it:
+* function prototypes
+* default function assumptions
+
+<font color=red><b>K&R C</font></b>
+if a function is defined using the old syntax:
+</pre>
+<pre id="code">
+int *
+find_int( key, array, array_len )
+int key;
+int array[];
+int array_len;
+{
+</pre>
+<pre>
+the compiler remembers only the type of the functionʹs return value. No information is saved on
+the number or types of the arguments. Because of this fact, it is important to use the new
+function declaration style whenever possible.
+
+second way to give the compiler information about a function is to use a <font color=blue>function prototype</font>
+
+a prototype summarizes the declaration at the beginning of the function definition, thus giving
+the compiler complete info on how the function is to be called.
+
+usually the prototypes are kept in a separate header file and included in the location where it is being called.
+
+parameter name is not mandatory:
+char *strcpy(char *, char *);
+
+yet it will be helpful to put some meaningful names in:
+char *strcpy(char *destination, char *source);
+
+functions with no arguments:
+char *somefunction(void);
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Default Function Assumptions
+</h3>
+<pre>
+assumption: when prototype is without type, funtion assumed to return int
+</pre>
+</li>
+
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+Function Arguments
+</h3>
+<pre>
+all scalar arguments to C functions are <font color=red>passed by value</font>.
+however, if array name is passed, the array element can still be modified.
+the function access the same array, the array is not copied: call by reference.
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+ADTs and Black Boxes
+</h3>
+<pre>
+ADT = functional spec + interface spec
+</pre>
+<pre id="code">
+/*
+** Abstract data type to maintain an address list.
+*/
+
+#include "addrlist.h"
+#include <stdio.h>
+
+/*
+**    The three parts to each address are kept in corresponding
+**    elements of these three arrays.
+*/
+static char  name[MAX_ADDRESSES][NAME_LENGTH];
+static char  address[MAX_ADDRESSES][ADDR_LENGTH];
+static char  phone[MAX_ADDRESSES][PHONE_LENGTH];
+
+/*
+**    This routine locates a name in the array and returns the
+**    subscript of the location found.  If the name does not exist,
+**    -1 is returned.
+*/
+static int
+find_entry( char const *name_to_find )
+{
+      int entry;
+      for( entry = 0; entry < MAX_ADDRESSES; entry += 1 )
+            if( strcmp( name_to_find, name[ entry ] ) == 0 )
+                  return entry;
+      return -1;
+}
+
+/*
+**    Given a name, look up and return the corresponding address.
+**    If the name was not found, return a NULL pointer instead.
+*/
+char const *
+lookup_address( char const *name )
+{
+      int entry;
+      entry = find_entry( name );
+      if( entry == -1 )
+            return NULL;
+      else
+            return address[ entry ];
+}
+
+/*
+**    Given a name, look up and return the corresponding phone
+**    number. If the name was not found, return a NULL pointer
+**    instead.
+*/
+char const *
+lookup_phone( char const *name )
+{
+      int entry;
+      entry = find_entry( name );
+      if( entry == -1 )
+            return NULL;
+      else
+            return phone[ entry ];
+}
+</pre>
+<pre>
+The functionality in the box is accessed through the specified interface, which in this case
+are the function lookup_address and lookup_phone. However, the user cannot directly access
+data that relate to the implementation, such as the array or the support function lookup_entry,
+because these items are declared static.
+
+<font color=green>the only possible way to access the module is through its defined interface.</font>
+</pre>
+</li>
+
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate blue h2">
+Recursion
+</h3>
+<pre>
+C supports recursive functions through its runtime stack
+Recursion does not offer any advantage for the first, and it is horribly inefficient for the second
+
+Many problems are explained recursively only because it is clearer than a non‐ recursive explanation.
+However, an iterative implementation of these problems is often more efficient than a recursive 
+implementation, even though the resulting code is less clear. When a problem is complex enough that 
+an iterative implementation is difficult for someone else to follow, then the clarity of the recursive 
+implementation may justify the runtime overhead that it will incur.
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate  blue h2">
+Variable Argument List
+</h3>
+<pre>
+有的时候要传的参数个数不固定：
+</pre>
+<pre id="code">
+/*
+** Compute the average of the specified number of values.
+*/
+
+#include <stdarg.h>
+
+float
+average( int n_values, ... )
+{
+      va_list     var_arg;
+      int   count;
+      float sum = 0;
+      
+      /*
+      ** Prepare to access the variable arguments.
+      */
+      va_start( var_arg, n_values );
+      
+      /*
+      ** Add the values from the variable argument list.
+      */
+      for( count = 0; count < n_values; count += 1 ){
+            sum += va_arg( var_arg, int );
+      }
+      
+      /*
+      ** Done processing variable arguments.
+      */
+      va_end( var_arg );
+      
+      return sum / n_values;
+}
+</pre>
+<pre>
+Variable argument list are implemented using macros defined in the <font color=red>stdarg.h</font> header, which is part of the standard
+library. The header declares a <font color=blue>type va_list and three macros – va_start, va_arg, and va_end</font>
+
+The function declares a variable called var_arg with which to access the unspecified portion of the argument list.
+This variable is initialized by calling va_start. The first parameter is the name of the va_list variable, 
+and the second parameter is the last named argument before the ellipsis. This initialization sets the var_arg 
+variable to point to the first of the variable arguments.
+
+To access an argument, va_arg is used. This macro takes two parameters: the va_list variable and the type of the 
+next value in the list. In this example, the variable arguments are all integers. In some functions, you may have 
+to determine the type of the next argument by examining previously obtained data.34 va_arg returns the value of 
+this argument and advances var_arg to point to the next variable argument.
+
+Finally, va_end is called after the last access to the variable arguments.
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Limitations of Variable Arguments
+</h3>
+<pre>
+1. The macros cannot determine how many arguments actually exist.
+2. The macros cannot determine the type of each argument.
+
+If you specify the wrong type with va_arg the results are unpredictable.
+</pre>
+</li>
+
+
+
+</ul>
+</div>
+
