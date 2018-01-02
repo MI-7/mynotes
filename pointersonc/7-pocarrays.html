@@ -801,6 +801,30 @@ and, to work with higher dimensions:
 
 
 
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Multidimensional Arrays as Function Arguments
+</h3>
+<pre>
+to pass one dimension array:
+int   vector[10];
+void func1(int *vec);
+void func1(int vec[]);
+func1(vector);
+
+to pass two dimensional array:
+int   matrix[3][10];
+void func2( int (*mat)[10] );
+void func2( int mat[][10] );
+func2( matrix );
+
+it is also correct to prototype func2 as void func2(int **mat);
+</pre>
+</li>
+
+
+
 </ul>
 </div>
 
