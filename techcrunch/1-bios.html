@@ -1,0 +1,289 @@
+<title>BIOS; UEFI; EFI...</title>
+
+<link rel="stylesheet" href="../homepage/envoy.min.css">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<style>
+	#code {
+    width:900px;
+    margin:0 auto;   
+    /*temporary text styles below*/
+    text-align:left;
+    font-weight:bold;
+    background: rgb(170,204,153);
+  }
+  main {
+    margin-bottom: 200%;
+  }
+  .floating-menu {
+    font-family: sans-serif;
+    background: transparent;
+    padding: 5px;;
+    width: 80px;
+    z-index: 100;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+  }
+  .floating-menu a, 
+  .floating-menu h3 {
+    font-size: 0.9em;
+    display: block;
+    margin: 0 0.5em;
+    color: white;
+  }
+  .floating-menu a:hover{
+    background: yellowgreen;
+  }
+</style>
+
+  <nav class="floating-menu">
+    <a href="../homepage2.html">Home</a>
+    <a href="../bitcoin/0-bitcoinhomepage.html">Bitcoin</a>
+    <a href="../crypto/0-cryptohomepage.html">Crypto</a>
+    <a href="../pointersonc/0-pochomepage.html">C</a>
+    <a href="../machinelearning/0-mlhomepage.html">Machine Learning</a>
+    <a href="0-tchomepage.html">Tech Crunch</a>
+    <a href="../linearalgebra/0-linearalgebrahomepage.html">Algebra</a>
+  </nav>
+
+<div class="col col-10 px2 js-linksHeight">
+<h3 class="red h2 mt0 mb4 px3">
+BIOS, UEFI, EFI...</h3>
+<div class="mbn2 relative">
+<div class="js-active-tab z2" style="pointer-events: none;"></div>
+<ul class="list-style-none z3 js-galleryLinks">
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate blue h2">
+BIOS
+</h3>
+<pre>
+BIOS = 固件，装在主板的固件中
+       开机时用于初始化硬件，并引导操作系统
+       计算机通电，启动，前往内存地址0x000FFFF0 (20位寻址空间的旧时光。。。)
+       然后计算机说：我不知道到哪里去了，求求你给我指个路把
+       于是BIOS接手了：欢迎来到这个世界，刚启动的计算机哟。。。
+       让我们看看。。你有硬盘x，cd-rom y，hmmm接下来去0x7c00装载个操作系统看看吧
+       
+       老的BIOS有问题么？有一些容量上的问题，经典的BIOS已经问世30年了
+       老的BIOS基于32位数字来做计算，有很长一段时间，硬盘的大小不能超过2.1gb，
+       因为列出所有硬盘地址的位数不能超过4095个（4095 * 16 * 63 * 512 = 2.1gb）
+       慢慢的这个限制变成3.2gb，4.2gb，7.9gb，8.4gb，33.8gb，137gb，最后到2tb
+       老得BIOS也没有办法限制或者观察你插入的硬件，更不用说监测选择安全的driver了
+       
+       所以，64位的UEFI带来了一些便利：
+       不再以来老式的MBR
+       有更多的磁盘分区选择了
+       可以限制硬件的类型，比如“只能插入这种硬件”，提高安全性
+       BIOS只能被修改后重新装载，UEFI可以跑类似于.exe一样的.efi文件
+       其实UEFI有点像一个小型的操作系统了。。
+       
+       以下摘自鸟哥：
+       http://cn.linux.vbird.org/linux_basic/0130designlinux_2.php#partition_mbr
+       CMOS是记录各项硬件参数且嵌入在主板上面的储存器，BIOS则是一个写入到主板上的一个韧体(再次说明， 韧体就是写入到硬件上的一个软件程序)。
+       这个BIOS就是在启动的时候，计算机系统会主动运行的第一个程序了！
+       
+       接下来BIOS会去分析计算机里面有哪些储存设备，我们以硬盘为例，BIOS会依据使用者的配置去取得能够启动的硬盘， 并且到该硬盘里面去读取第一个磁区的MBR位置。
+       MBR这个仅有446 bytes的硬盘容量里面会放置最基本的启动管理程序， 此时BIOS就功成圆满，而接下来就是MBR内的启动管理程序的工作了。
+       
+       这个启动管理程序的目的是在加载(load)核心文件， 由於启动管理程序是操作系统在安装的时候所提供的，所以他会认识硬盘内的文件系统格式，因此就能够读取核心文件，
+       然后接下来就是核心文件的工作，启动管理程序也功成圆满，之后就是大家所知道的操作系统的任务啦！
+       
+       简单的说，整个启动流程到操作系统之前的动作应该是这样的：
+       1. BIOS：启动主动运行的韧体，会认识第一个可启动的装置；
+       2. MBR：第一个可启动装置的第一个磁区内的主要启动记录区块，内含启动管理程序；
+       3. 启动管理程序(boot loader)：一支可读取核心文件来运行的软件；
+       4. 核心文件：开始操作系统的功能...
+
+Install Pillow:
+<font color=green>pip install Pillow</font>
+
+Install qrcode 5.3 (generation only, cannot recognize):
+<font color=green>pip install qrcode</font>
+
+Other Lib for QR Code Encoding / Decoding:
+<font color=blue>pyqrcode, zbar (seems encoder only)</font>
+
+Free QR Code encoder / decoders:
+<a href="http://qrcode.osdn.jp/">http://qrcode.osdn.jp/</a>
+<a href="http://pyqrcode.sourceforge.net/">http://pyqrcode.sourceforge.net/</a>
+</pre>
+</li>
+
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate h5">
+What is QR Code
+</h3>
+<pre>
+A Quick Response code is a two-dimensional pictographic code used for its fast readability and
+comparatively large storage capacity. The code consists of black modules arranged in a square
+pattern on a white background. The information encoded can be made up of any kind of data
+(e.g., binary, alphanumeric, or Kanji symbols)
+
+<a href="http://www.qrcode.com/en/about/">http://www.qrcode.com/en/about/</a>
+<font color=blue>QR Code Feature - High Capacity Encoding of Data</font>
+While conventional bar codes are capable of storing a maximum of approximately 20 digits, QR Code
+is capable of handling several dozen to several hundred times more information.
+
+QR Code is capable of handling all types of data, such as numeric and alphabetic characters, Kanji,
+Kana, Hiragana, symbols, binary, and control codes. Up to 7,089 characters can be encoded in one symbol.
+
+<img src="qrcode-feature1.png"></img>
+
+<font color=blue>QR Code Feature - Small Pintout Size</font>
+Since QR Code carries information both horizontally and vertically, QR Code is capable of encoding the
+same amount of data in approximately one-tenth the space of a traditional barcode. (For a smaller printout
+size, Micro QR Code is available.)
+
+<img src="qrcode-feature2.png"></img>
+
+<font color=blue>QR Code Feature - Kanji and Kana Capability</font>
+As a symbology developed in Japan, QR Code is capable of encoding JIS Level 1 and Level 2 kanji character set.
+In case of Japanese, one full-width Kana or Kanji character is efficiently encoded in 13 bits, allowing QR Code
+to hold more than 20% data than other 2D symbologies.
+
+<img src="qrcode-feature3.png"></img>
+
+<font color=blue>QR Code Feature - Dirt and Damage Resistant</font>
+QR Code has error correction capability. Data can be restored even if the symbol is partially dirty or damaged.
+A maximum 30% of codewords can be restored.
+
+A codeword is a unit that constructs the data area. In the case of QR Code, one codeword is equal to 8 bits.
+Data restoration may not be fully performed depending on the amount of dirt or damage
+
+<img src="qrcode-feature4.png"></img>
+
+<font color=blue>QR Code Feature - Readable from any direction in 360</font>
+QR Code is capable of 360 degree (omni-directional), high speed reading. QR Code accomplishes this task
+through position detection patterns located at the three corners of the symbol. These position detection
+patterns guarantee stable high-speed reading, circumventing the negative effects of background interference.
+
+<img src="qrcode-feature5.png"></img>
+
+<font color=blue>QR Code Feature - Structured Appending</font>
+QR Code can be divided into multiple data areas. Conversely, information stored in multiple QR Code
+symbols can be reconstructed as a single data symbol.　One data symbol can be divided into up to 16
+symbols, allowing printing in a narrow area.
+
+<img src="qrcode-feature6.png"></img>
+</pre>
+</li>
+
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate h5">
+QR Code Types
+</h3>
+<pre>
+<img src="qrcode-types.png"></img>
+</pre>
+</li>
+
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate h5">
+QR Code Outline Spec
+</h3>
+<pre>
+<img src="qrcode-outlinespec.png"></img>
+</pre>
+</li>
+
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate h5">
+QR Code Versions
+</h3>
+<pre>
+The symbol versions of QR Code range from Version 1 to Version 40. Each version has a different module
+configuration or number of modules. (The module refers to the black and white dots that make up QR Code.)
+
+"Module configuration" refers to the number of modules contained in a symbol, commencing with
+Version 1 (21 × 21 modules) up to Version 40 (177 × 177 modules). Each higher version number comprises
+4 additional modules per side.
+
+How to determine the version of QR Code to be used?
+Find the mapping on page <a href="http://www.qrcode.com/en/about/version.html">http://www.qrcode.com/en/about/version.html</a>
+e.g. the data to be input consists of 100-digit numbers.
+choose numeral as type of data.  and find the closest number, which is 101 (should be > 100) in the table.
+pick a correction level, e.g. M.
+The version to be used is 3.
+<img src="qrcode-chooseversion.png"></img>
+</pre>
+</li>
+
+
+
+<li class="p3 js-animateTab js-activeLink" data-tab="0">
+<h3 class="mt0 mb1 slate h5">
+Usage
+</h3>
+<pre>
+Pillow document: <a href="http://pillow.readthedocs.io/en/4.3.x/reference/Image.html">http://pillow.readthedocs.io/en/4.3.x/reference/Image.html</a>
+From the command line, use the installed qr script:
+</pre>
+<pre id = "code">
+qr "Some text" > test.png
+</pre>
+<pre>
+Or in Python, use the make shortcut function:
+</pre>
+<pre id = "code">
+import qrcode
+img = qrcode.make('Some data here')
+img.save("c:\\test.png", "png")  ==> "jpeg", "svg"...
+</pre>
+</li>
+
+<li class="p3 js-animateTab " data-tab="1">
+<h3 class="mt0 mb1 slate h5">
+Advanced Usage
+</h3>
+<pre>
+For more control, use the QRCode class. For example:
+</pre>
+<pre id="code">
+import qrcode
+qr = qrcode.QRCode(
+    version=1,
+    error_correction=qrcode.constants.ERROR_CORRECT_L,
+    box_size=10,
+    border=4,
+)
+qr.add_data('Some data')
+qr.make(fit=True)
+
+img = qr.make_image()
+</pre>
+<pre>
+The version parameter is an integer from 1 to 40 that controls the size of the QR Code
+(the smallest, version 1, is a 21x21 matrix). Set to None and use the fit parameter when making
+the code to determine this automatically.
+
+The error_correction parameter controls the error correction used for the QR Code. The following
+four constants are made available on the qrcode package:
+
+ERROR_CORRECT_L
+About 7% or less errors can be corrected.
+ERROR_CORRECT_M (default)
+About 15% or less errors can be corrected.
+ERROR_CORRECT_Q
+About 25% or less errors can be corrected.
+ERROR_CORRECT_H.
+About 30% or less errors can be corrected.
+
+The box_size parameter controls how many pixels each “box” of the QR code is.
+
+The border parameter controls how many boxes thick the border should be (the default is 4, which is
+the minimum according to the specs).
+</pre>
+</li>
+
+
+
+</ul>
+</div>
+
