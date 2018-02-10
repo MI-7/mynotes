@@ -1,0 +1,375 @@
+因为用到的RHEL7.1也是个虚拟机，所以，在其中运行虚拟机模拟其他64位操作系统大概会有点问题。
+
+有几种选择，一种是在硬件上装RHEL7.1，继续试验；或者在windows上配置环境；或者在可以访问到的Mac OS X上继续。
+
+公司环境比较难找到光着的机器；不太想在windows上做实验；所以在Mac上继续。
+  Vagrant = 2.0.2
+    Mac上的Vagrant很容易安装，2.02版本的地址：https://www.vagrantup.com/downloads.html；下载dmg直接安装即可。
+  Python = 3.6
+  Ansible = 2.4.3
+    Mac上用的python是3.6，Ansible安装过程不变。
+  VirtualBox = 5.2.4
+    下载Mac版本的dmg文件直接安装。
+
+装好以后使用同样的命令（VirtualBox的版本=5.2.4）：
+  $ vagrant init ubuntu/trusty64
+  $ vagrant up
+
+等待启动顺利完成，就可以ssh到虚拟机中（ssh端口2222，用户名vagrant，每个虚拟机的key都是一样的，生产环境必须重新生成，这是后话）
+  $ vagrant ssh
+
+你会看到
+  Welcome to Ubuntu 14.04.1 LTS (GNU/Linux 3.13.0-141-generic x86_64)
+  ... ... ...
+  $ exit
+
+查看ssh连接的详细信息：
+  $ vagrant ssh-config
+
+  Host default
+  HostName 127.0.0.1
+  User vagrant
+  Port 2222
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  IdentityFile /Users/chenliang/vmconfig/.vagrant/machines/default/virtualbox/private_key
+  IdentitiesOnly yes
+  LogLevel FATAL
+
+你也可以直接使用ssh命令登陆：
+  $ ssh vagrant@localhost -p 2222 -i /Users/chenliang/vmconfig/.vagrant/machines/default/virtualbox/private_key
+  ... ...
+  $ exit
+
+merge到基础部分：
+你可以执行一些adhoc命令：
+  $ ansible testserver -m command -a uptime
+  -m command = 调用command 模块
+  -a uptime = 调用模块带上的参数
+
+command模块使用太频繁，可以在命令里面忽略：
+  $ ansible testserver -a uptime
+
+命令参数里面带空格可以用引号：
+  $ ansible testserver -a "tail /var/log/dmesg"
+
+有些命令需要root权限，可以带参数-s让ansible sudo到root：
+  $ ansible testserver -s -a "tail /var/log/syslog"
+
+-s参数在以后版本里面会被移除，改用become：
+  $ ansible testserver -b -a "tail /var/log/syslog"
+
+修改Vagrantfile，加入：
+  config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 443, host: 8443
+访问本机8080，8443端口的时候，会被转到虚拟机的80，443端口
+
+重新载入配置：
+  $ vagrant reload
+  $ vagrant halt
+  $ vagrant destroy --force
+
+做个简单的playbook（web-notls.yml）：
+目录=playbook_basic
+虚拟机名=basic
+启动虚拟机：
+  $ vagrant up basic
+
+playbook=web-notls.yml
+    - name: Configure webserver with nginx
+      hosts: webservers
+      sudo: True
+      tasks:
+        - name: install nginx
+          apt: name=nginx update_cache=yes
+        - name: copy nginx config file
+          copy: src=files/nginx.conf dest=/etc/nginx/sites-available/default
+        - name: enable configuration
+          file: >
+            dest=/etc/nginx/sites-enabled/default
+            src=/etc/nginx/sites-available/default
+            state=link
+        - name: copy index.html
+          template: src=templates/index.html.j2 dest=/usr/share/nginx/html/index.html
+            mode=0644
+        - name: restart nginx
+          service: name=nginx state=restarted
+
+简单的nginx配置（files/nginx.conf）
+    server {
+        listen 80 default_server;
+        listen [::]:80 default_server ipv6only=on;
+        
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+        
+        server_name localhost;
+        
+        location / {
+            try_files $uri $uri/ = 404;
+        }
+    }
+
+简单的html（templates/index.html.j2）
+    <html>
+        <head>
+            <title>Welcome to ansible</title>
+        </head>
+        
+        <body>
+            <h1>nginx, configured by Ansible</h1>
+            <p>If you can see this, Ansible successfully installed nginx.</p>
+            <p>{{ ansible_managed }}</p>
+        </body>
+    </html>
+
+运行playbook
+  $ ansible-playbook web-notls.html
+  你可以从某个task开始执行：absible --start-at-task <task name>
+访问http://localhost:8080
+
+在运行其他playbook之前，可以把当前环境销毁：
+  $ vagrant halt
+  $ vagrant destroy --force
+
+Playbook 语法 = YAML（也可以写成JSON格式）
+  文件头：---；不写也可以
+  注释：#
+  字符串类型：不带引号的连续字符；this is a lovely string
+    JSON的格式："this is a lovely string"
+  布尔类型：
+    YAML认为这些表示真：true, True, TRUE, yes, Yes, YES, on, On, ON, y, Y
+    YAML认为这些表示假：false, False, FALSE, no, No, NO, off, Off, OFF, n, N
+    尽量使用True / False吧。
+    JSON的格式：true / false
+  列表类型：用减号隔开的字符串
+    - line 1
+    - line 2
+    - line 3
+    或者单行的格式：[line 1, line 2, line 3]
+    JSON的格式：["line 1", "line 2", "line 3"]
+  字典类型：
+    address: 123 abc street
+    city: springfield
+    state: North Takoma
+    JSON的格式：{"address": "221 baker street", "city": "London", "state": "England"}
+  超长字串的多行表示：
+    address: >
+      221
+      baker
+      street
+    空行会被空格替代
+    JSON的格式：{"address": "221 baker
+                           street", ...
+
+所以，一个Playbook是一个Plays列表，每个Plays列表包含一个Task列表，每个Task都是一个字典，a list of dictionaries
+  playbook
+    - play (hosts)
+      - task (module)
+      - task (module)
+      - task (module)
+    - play (hosts)
+      - task
+      - task
+一个Task必须包含module名作为某个key，后面跟着module调用参数。
+一种老的语法是：
+  action: apt name=nginx update_cache=yes
+
+一个Ansible自带的Module是使用Python写的脚本，刚才使用到的一些Module：
+  apt: ubuntu apt package manager
+  copy: 从本机拷贝文件至虚拟机
+  file: 设置文件、symlink、和目录的属性
+  service: 起停某个服务
+  template: 从模版生成文件，并拷贝至虚拟机
+
+文档：需要一节写文档
+ansible-doc <module_name>
+
+Playbook运行后的虚拟机状态（Host状态）
+如果虚拟机有内容被修改，会返回状态changed
+  TASK: [install nginx] *********************************************************
+  changed: [testserver]
+
+如果虚拟机内容不变，比如拷贝进去的文件与原有文件一样，返回ok
+  TASK: [enable configuration] **************************************************
+  ok: [testserver]
+
+状态变化之后，Ansible可以使用handlers获得通知，会在下面介绍。
+
+清理环境：
+  $ vagrant halt basic
+  $ vagrant destroy basic --force
+
+使用ansible配置nginx + TLS（web-tls.yml）
+目录=playbook_tls
+虚拟机名=tls
+启动虚拟机：
+  $ vagrant up tls
+
+playbook=playbook_tls.yml
+    - name: Configure webserver with nginx and tls
+      hosts: webservers
+      sudo: True
+      vars:
+        key_file: /etc/nginx/ssl/nginx.key
+        cert_file: /etc/nginx/ssl/nginx.crt
+        conf_file: /etc/nginx/sites-available/default
+        server_name: localhost
+      tasks:
+        - name: Install nginx
+          apt: name=nginx update_cache=yes cache_valid_time=3600
+        - name: create directories for ssl certificates
+          file: path=/etc/nginx/ssl state=directory
+        - name: copy TLS key
+          copy: src=files/nginx.key dest={{ key_file }} owner=root mode=0600
+          notify: restart nginx
+        - name: copy TLS certificate
+          copy: src=files/nginx.crt dest={{ cert_file }}
+          notify: restart nginx
+        - name: copy nginx config file
+          template: src=templates/nginx.conf.j2 dest={{ conf_file }}
+          notify: restart nginx
+        - name: enable configuration
+          file: dest=/etc/nginx/sites-enabled/default src={{ conf_file }} state=link
+          notify: restart nginx
+        - name: copy index.html
+          template: src=templates/index.html.j2 dest=/usr/share/nginx/html/index.html
+                    mode=0644
+      handlers:
+        - name: restart nginx
+          service: name=nginx state=restarted
+
+生成TLS证书
+生产环境的TLS证书应该是要从证书发行机构购买的，在实验中我们可以使用自己签名的证书。
+files/nginx.key和files/nginx.crt生成的方法：
+  $ cd files
+  $ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -subj /CN=localhost -keyout nginx.key -out nginx.crt
+  Generating a 2048 bit RSA private key
+  ..................+++
+  .......+++
+  writing new private key to 'nginx.key'
+  -----
+  $ ls
+  nginx.crt   nginx.key
+
+使用变量
+定义变量
+在play的开头加上vars一段：
+  vars:
+      key_file: /etc/nginx/ssl/nginx.key
+      cert_file: /etc/nginx/ssl/nginx.crt
+      conf_file: /etc/nginx/sites-available/default
+      server_name: localhost
+
+使用变量：
+不光是playbook定义，任何用到的模版都可以使用变量。
+  - name: copy TLS key
+      copy: src=files/nginx.key dest={{ key_file }} owner=root mode=0600
+
+尽管yaml的字符串不需要引号，还是有地方会用到引号，比如：
+  - name: perform some task
+    command: {{ myapp }} -a 参数
+ansible会认为{{ myapp }} -a 参数是一个inline字典，正确的方法是：
+  - name: perform some task
+    command: "{{ myapp }} -a 参数"
+
+此外，如果参数中带有冒号，比如：
+  - name: show a message
+    debug: msg="The debug module will print a message: hello"
+必须写成：
+  - name: show a message
+    debug: "msg='The debug module will print a message: hello'"
+
+生成nginx配置文件模版
+templates/nginx.conf.j2
+    server {
+        listen 80 default_server;
+        listen [::]:80 default_server ipv6only=on;
+        
+        listen 443 ssl;
+        
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+        
+        server_name {{ server_name }};
+        ssl_certificate {{ cert_file }};
+        ssl_certificate_key {{ key_file }};
+        
+        location / {
+            try_files $uri $uri/ =404;
+        }
+    }
+Ansible使用Jinja2模版引擎，用j2作为文件结尾表明它是Jinja2 Template。
+
+Handlers
+通知handler事件发生
+在task中：notify: restart nginx，的意思是：
+  如果task的结果改变了虚拟机的状态，那么相应的handler会被调用
+
+在playbook中，可能有很多地方需要通知handler，比如，如果以下任意一个task改变了状态：
+* 拷贝nginx key
+* 拷贝nginx certificate
+* 拷贝nginx config
+* ...
+那么handler中的task就会被执行，但是它不会被执行多次，而是等到所有playbook task被执行以后，执行一遍。
+
+运行playbook_tls：
+  $ ansible-playbook web-tls.yml
+  ... ... ...
+访问https://localhost:8443
+
+清理环境
+  $ vagrant halt tls
+  $ vagrant destroy tls --force
+
+
+多个虚拟机环境
+目录=playbook_multi_server
+虚拟机名=vagrant1; vagrant2; vagrant3
+启动虚拟机：
+  $ vagrant up -> 这会起来三个虚拟机vagrant1/2/3
+  $ vagrant ssh-config
+  
+  Host vagrant1
+  HostName 127.0.0.1
+  Port 2222
+  IdentityFile /Users/chenliang/.vagrant.d/insecure_private_key
+  ... ...
+
+  Host vagrant2
+  HostName 127.0.0.1
+  Port 2200
+  IdentityFile /Users/chenliang/.vagrant.d/insecure_private_key
+  ... ...
+
+  Host vagrant3
+  HostName 127.0.0.1
+  Port 2201
+  IdentityFile /Users/chenliang/.vagrant.d/insecure_private_key
+  ... ...
+
+修改hosts文件：
+  vagrant1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222
+  vagrant2 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2200
+  vagrant3 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2201
+  [vagrant]
+  vagrant1
+  vagrant2
+  vagrant3
+
+Inventory参数
+在配置host的时候，可以配置下列参数覆盖缺省值：
+    Name                            Default             Description
+    ansible_ssh_host                name of host        Hostname or IP address to SSH to
+    ansible_ssh_port                22                  Port to SSH to
+    ansible_ssh_user                root                User to SSH as
+    ansible_ssh_pass                none                Password to use for SSH authentication
+    ansible_connection              smart               How Ansible will connect to host (see below)
+    ansible_ssh_private_key_file    none                SSH private key to use for SSH authentication
+    ansible_shell_type              sh                  Shell to use for commands (see below)
+    ansible_python_interpreter      /usr/bin/python     Python interpreter on host (see below)
+    ansible_*_interpreter           none                Like ansible_python_interpreter for other languages (see below)
+
+ansible_connection
+ansible_shell_type
