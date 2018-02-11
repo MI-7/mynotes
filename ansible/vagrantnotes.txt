@@ -358,6 +358,7 @@ Handlers
   vagrant2
   vagrant3
 
+跟多关于Inventory文件的配置规则
 Inventory参数
 在配置host的时候，可以配置下列参数覆盖缺省值：
     Name                            Default             Description
@@ -373,3 +374,70 @@ Inventory参数
 
 ansible_connection
 ansible_shell_type
+
+Groups of Groups
+组可以包含其他组：
+  [supergroup]
+  webservers
+  applicationservers
+
+批量定义Hosts
+  [web]
+  web[1:20].example.com
+  
+  [web]
+  web[01:20].example.com
+  
+  [web]
+  web-[a-t].example.com
+
+Host与组变量
+之前在定义host的ssh属性的时候：
+  vagrant1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222
+使用了以上的Inventory参数，你也可以给某个host指定任意名字的变量：
+  webserver.example.com color=red
+
+为组定义变量的方法是
+  [all]
+  ... ...
+  [all:vars]
+  ntp_server = ntp.ubuntu.com
+  [production:vars]
+  db_primary_host=primary.db.com
+  db_primary_port=5432
+为所有服务器指定ntp服务器；指定production环境的db服务器参数。。。
+
+Host与组变量可以在playbook中被引用。
+
+为变量指定个单独的存放地点
+缺省情况下，ansible在host_vars和group_vars这两个目录下寻找变量定义。
+
+这两个目录必须存在于playbook，或者inventory文件的存放目录下。
+
+我们的例子playbook和inventory在一起，不知道他们分开，而且两个地方都有host_vars / group_vars能不能工作。。
+
+变量文件的名字要和host/group的名字一样。
+
+比如：group_vars/production：
+  db_primary_host: primary.db.com
+  db_primary_port: 5432
+
+group_vars/production也可以写成yml字典：
+  db:
+    primary:
+      host: primary.db.com
+      port: 5432
+
+在引用的时候，名字会有点差别：{ { db_primary_host } } 和 { { db.primary.host } }
+
+动态Inventory
+有的时候，你的host是被别的系统管理的，比如Amazon EC2，EC2帮你保管所有host的信息。
+
+这时候你可能要从EC2的查询接口，比如awscli获得host的信息。这些信息用手动方式更新会很够呛，Ansible支持动态Inventory来管理这种情况。
+
+如果你的inventory文件是可执行的（不知道windows怎么处理的。。chmod +x dynamic.py），那么ansible会把它当成动态Inventory去执行它。
+
+动态Inventory脚本接口
+
+
+动态Inventory脚本（Python）
