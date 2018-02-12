@@ -438,6 +438,60 @@ group_vars/production也可以写成yml字典：
 如果你的inventory文件是可执行的（不知道windows怎么处理的。。chmod +x dynamic.py），那么ansible会把它当成动态Inventory去执行它。
 
 动态Inventory脚本接口
+ansible运行Inventory脚本获取host信息，ansible与Inventory脚本之间有约定的接口，这个接口的定义是：
+Inventory必须支持两个命令行参数：
+  --host=<hostname> 显示host详细信息
+  --list 来返回group的信息
 
+显示host详细信息
+  ./dynamic.py --host=vagrant2
+  输出应该如下，包含所有变量和inventory参数：
+  { "ansible_ssh_host": "127.0.0.1", "ansible_ssh_port": 2200, "ansible_ssh_user": "vagrant"}
+
+显示group信息
+  ./dynamic.py --list
+  输出应该如下,key是组名，对应的值是host名字的列表：
+  {
+    "vagrant": ["vagrant1", "vagrant2", "vagrant3"]
+  }
+  
+  还可以带上额外的一个key，叫"_meta"，把所有的host variables带上，这样--list里面也包含了变量，不用单独再调用一次--host
+  "_meta" :
+  { "hostvars" :
+    "vagrant1" : { "ansible_ssh_host": "127.0.0.1", "ansible_ssh_port": 2222, "ansible_ssh_user": "vagrant"},
+    "vagrant2": { "ansible_ssh_host": "127.0.0.1", "ansible_ssh_port": 2200, "ansible_ssh_user": "vagrant"},
+    ...
+  }
 
 动态Inventory脚本（Python）
+我们没有EC2，没有awscli的调用，不过我们有vagrant，vagrant有一些命令来提供host的信息：
+  $ vagrant status
+  Current machine states:
+  vagrant1                  running (virtualbox)
+  vagrant2                  running (virtualbox)
+  vagrant3                  running (virtualbox)
+  This environment represents multiple VMs. The VMs are all listed
+  above with their current state. For more information about a specific
+  VM, run `vagrant status NAME`.
+  
+  $ vagrant status --machine-readable
+  1518402021,vagrant1,metadata,provider,virtualbox
+  1518402021,vagrant2,metadata,provider,virtualbox
+  1518402022,vagrant3,metadata,provider,virtualbox
+  1518402022,vagrant1,provider-name,virtualbox
+  1518402022,vagrant1,state,running
+  1518402022,vagrant1,state-human-short,running
+  1518402022,vagrant1,state-human-long,The VM is running. To stop this VM%!(VAGRANT_COMMA) you can run `vagrant halt` to\nshut it down forcefully%!(VAGRANT_COMMA) or you can run `vagrant suspend` to simply\nsuspend the virtual machine. In either case%!(VAGRANT_COMMA) to restart it again%!(VAGRANT_COMMA)\nsimply run `vagrant up`.
+  1518402022,vagrant2,provider-name,virtualbox
+  1518402022,vagrant2,state,running
+  1518402022,vagrant2,state-human-short,running
+  1518402022,vagrant2,state-human-long,The VM is running. To stop this VM%!(VAGRANT_COMMA) you can run `vagrant halt` to\nshut it down forcefully%!(VAGRANT_COMMA) or you can run `vagrant suspend` to simply\nsuspend the virtual machine. In either case%!(VAGRANT_COMMA) to restart it again%!(VAGRANT_COMMA)\nsimply run `vagrant up`.
+  1518402022,vagrant3,provider-name,virtualbox
+  ... ... ...
+
+  $ vagrant ssh-config vagrant2
+  HostName 127.0.0.1
+  User vagrant
+  Port 2200
+  ... ... ...
+
