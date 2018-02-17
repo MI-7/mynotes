@@ -495,3 +495,19 @@ Inventory必须支持两个命令行参数：
   Port 2200
   ... ... ...
 
+运行时添加host与group
+动态inventory并不是实时提供host / group的信息，它在playbook启动之初被执行一次。因此当playbook正在执行的时候新机器上线，动态inventory脚本不会发现新的host。
+
+如果你的在使用infrastructure-as-a-service云服务，那么ansible需要知道新机器被provision出来以后的信息。
+
+有两个新的task可以使用：add_host; group_by
+
+动态添加一个新的host
+  - name: add new vagrant host
+    add_host: >
+        name=vagrant
+        ansible_ssh_host=127.0.0.1
+        ansible_ssh_port=2222
+        ansible_ssh_user=vagrant
+        ansible_ssh_private_key_file=/...../insecure_private_key
+

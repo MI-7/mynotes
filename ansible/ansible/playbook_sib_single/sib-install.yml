@@ -1,0 +1,146 @@
+#!/usr/bin/env ansible-playbook
+- name: Pre-Install SIB
+  hosts: sibserver
+  become: True
+  become_user: root
+  become_method: su
+  tasks:
+    - name: set hostname
+      command: hostnamectl set-hostname {{sib_host_name}}
+      
+    - name: copy host file
+      template: src=templates/hosts.j2 dest=/etc/hosts mode=0644
+      
+    - name: copy sshd_config
+      copy: src=templates/sshd_config dest=/etc/ssh/sshd_config
+      
+    - name: restart sshd
+      service: name=sshd state=restarted
+      
+    - name: add sib group
+      group: name={{sib_group_name}}
+      
+    - name: add sibadmin group
+      group: name={{sibadmin_group_name}}
+      
+    - name: add sib user
+      user: name={{sib_user_name}} group={{sib_group_name}} password={{sib_user_pass}}
+      
+    - name: add sibadmin user
+      user: name={{sibadmin_user_name}} group={{sibadmin_group_name}} password={{sibadmin_user_pass}}
+      
+    - name: copy sib admin sudoer config
+      template: src=templates/hpe-sib-admin-sudoers.j2 dest=/etc/sudoers.d/hpe-sib-admin-sudoers mode=0440
+      
+    - name: copy sib sudoer config
+      template: src=templates/hpe-sib-sudoers.j2 dest=/etc/sudoers.d/hpe-sib-sudoers mode=0400
+      
+    - name: create siu dir
+      file: path={{siu_dir}} state=directory owner={{sib_user_name}} group={{sib_group_name}} mode=0700 recurse=yes
+    
+    - name: create sib dir
+      file: path={{sib_dir}} state=directory owner={{sib_user_name}} group={{sib_group_name}} mode=0700 recurse=yes
+      
+    - name: set limits
+      template: src=templates/limits.conf.j2 dest=/etc/security/limits.conf
+      
+    - name: check selinux - 1
+      shell: /usr/sbin/sestatus -v | grep status
+      register: result
+    - name: check selinux - 1 result
+      debug: var=result
+      
+    - name: check selinux - 2
+      shell: /usr/sbin/getenforce
+      register: result
+    - name: check selinux - 2 result
+      debug: var=result
+      
+    - name: stopping firewall
+      shell: systemctl stop firewalld
+      
+    - name: disable firewall
+      shell: systemctl disable firewalld
+      
+    - name: check firewall status
+      shell: systemctl status firewalld.service | grep Active
+      register: result
+    - name: check firewall status result
+      debug: var=result
+      
+    - name: install epel
+      yum: name=https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm state=present
+      
+    - name: install required packages
+      yum: name={{item}} state=present
+      with_items:
+      - GeoIP
+      - lmdb-devel
+      - lmdb
+      - lmdb-libs
+      - unzip
+      
+    - name: copy jdk installer into /root
+      copy: src=/Users/chenliang/Documents/mycode/sib_installation/software/jdk-8u152-linux-x64.rpm dest=/root/jdk-8u152-linux-x64.rpm
+      
+    - name: install jdk
+      yum: name=/root/jdk-8u152-linux-x64.rpm state=present
+      
+    - name: set java home in bashrc
+      shell: echo "export JAVA_HOME={{java_home}}" >> ~/.bashrc
+      
+    - name: set path in bashrc
+      shell: echo "export PATH=\$JAVA_HOME/bin:$PATH" >> ~/.bashrc
+      
+    - name: set java home in bashrc
+      shell: echo "export JAVA_HOME={{java_home}}" >> /home/{{sib_user_name}}/.bash_profile
+      
+    - name: set path in bashrc
+      shell: echo "export PATH=\$JAVA_HOME/bin:$PATH" >> /home/{{sib_user_name}}/.bash_profile
+      
+    - name: source bashrc
+      shell: source ~/.bashrc
+
+    # - name: Set JAVA_HOME
+      # lineinfile: dest=/etc/environment state=present regexp='^JAVA_HOME' line='JAVA_HOME=/usr/java/jdk1.8.0_152'
+      
+    # - name: set path
+      # lineinfile: dest=/etc/environment state=present regexp='^PATH' line='PATH=$JAVA_HOME/bin:$PATH'
+      
+    - name: copy jce jars
+      copy: src=/Users/chenliang/Documents/mycode/sib_installation/software/UnlimitedJCEPolicyJDK8/US_export_policy.jar dest={{java_home}}/jre/lib/security/US_export_policy.jar
+      
+    - name: copy jce jars
+      copy: src=/Users/chenliang/Documents/mycode/sib_installation/software/UnlimitedJCEPolicyJDK8/local_policy.jar dest={{java_home}}/jre/lib/security/local_policy.jar
+      
+    - name: copy java.security
+      copy: src=templates/java.security.j2 dest={{java_home}}/jre/lib/security/java.security
+      
+    - name: create edr / cdr folder
+      file: path=/{{item.0}}/{{item.1}} state=directory owner={{sib_user_name}} group={{sib_group_name}}
+      with_nested:
+        - ['share', 'share', 'share']
+        - ['edr',   'cdr',   'archive']
+      
+    - name: show java home and path
+      shell: java -version
+      register: result
+    - name: show java home and path result
+      debug: var=result
+      
+    - name: copy installation files
+      copy: src=/Users/chenliang/Documents/mycode/sib_installation/ dest=/home/{{sib_user_name}}/sib_installation
+
+    - name: change ownership
+      file: path=/home/{{sib_user_name}}/sib_installation owner={{sib_user_name}} group={{sib_group_name}} recurse=yes
+    
+    - name: change autoinstall mode
+      file: path=/home/{{sib_user_name}}/sib_installation/autoinstall.sh mode="u+x"
+      
+    - name: change package mode
+      file: path=/home/{{sib_user_name}}/sib_installation/packages mode=0777 recurse=yes
+      
+    #- name: execute installation
+      #shell: autoinstall.sh
+      #args:
+        #chdir: /home/{{sib_user_name}}/sib_installation

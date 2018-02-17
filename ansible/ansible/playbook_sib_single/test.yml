@@ -1,0 +1,10 @@
+#!/usr/bin/env ansible-playbook
+- name: Pre-Install SIB
+  hosts: sibserver
+  become: True
+  become_user: root
+  become_method: su
+  tasks:
+      
+    - name: add sib user
+      user: name=abc group=sib password=$6$UKqg/Egx9M4dbxuz$SFd.qnAZtaX1fWlhwws99XkKvs7nHOi4rfNsUusVNvn66109TlydgM2vf/2VX8ATigw4HK7qCqYtKi9mmlh9q.

@@ -1,0 +1,6 @@
+dada
+dd
+export x=/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/bin
+export x=''/bin
+export x=/bin
+export x=$X/bin

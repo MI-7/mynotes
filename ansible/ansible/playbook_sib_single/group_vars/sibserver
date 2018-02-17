@@ -1,0 +1,13 @@
+sib_host_name: SIB
+sib_group_name: sib
+sib_user_name: sib
+sib_user_pass: $6$UKqg/Egx9M4dbxuz$SFd.qnAZtaX1fWlhwws99XkKvs7nHOi4rfNsUusVNvn66109TlydgM2vf/2VX8ATigw4HK7qCqYtKi9mmlh9q.
+
+sibadmin_user_name: sibadmin
+sibadmin_group_name: sibadmin
+sibadmin_user_pass: $6$7ykmoI/fl7Kgt3aT$TnyLwhFEQ3JkHRC8pxlvdS7VYqtnNCZI0vE.WJULndlBpk4QYS4u6iN5C0yl.3uzm4.LJaq2ke2vIf7WrnA9w1
+
+sib_dir: /opt/SIU_sib/SIB
+siu_dir: /opt/SIU_sib
+
+java_home: /usr/java/jdk1.8.0_152

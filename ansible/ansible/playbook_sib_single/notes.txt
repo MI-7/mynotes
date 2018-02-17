@@ -1,0 +1,14 @@
+使用become成为超级用户
+在play级别或者task级别，你可以成为某个用户来执行相应的命令。
+    #!/usr/bin/env ansible-playbook
+    - name: Pre-Install Configuration
+      hosts: servers
+      become: True
+      become_user: root
+      become_method: su
+      tasks:
+        - name: set hostname
+          command: hostnamectl set-hostname chenliang
+
+在执行playbook的时候，指定password：
+  ./sib-install.yml --extra-vars='ansible_become_pass=vagrant'
