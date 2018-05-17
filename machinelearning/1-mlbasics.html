@@ -64,6 +64,9 @@ scikit-learn is based on numpy and scipy.  they can be installed separately.  in
 pip3.6 install scikit-learn
 pip3.6 install numpy
 pip3.6 install scipy
+
+>> import sklearn
+>> sklearn.__version__
 </font>
 </pre>
 </li>
@@ -107,9 +110,10 @@ Machine learning tasks
 </h3>
 <pre>
 two most common <font color=red>supervised</font> machine learning tasks = <font color=blue>classification</font> and <font color=blue>regression</font>
-classification task = program learn to predict discrete values for response variables (output) from features (input)
-                                      (predict the most probable category)
-regression task     = program predict values of response variables from features
+classification task = program must learn to predict discrete values for one or more response variables from one or more features
+                                          (predict the most probable category, e.g. deciding whether a news article belongs to the politics or leisure sections, requires <font color=green>supervised learning</font>)
+regression task     = program must predict the values of one more or continuous response variables from one or more features
+                                          (e.g. predicting the sales revenue for a new product, requires <font color=green>supervised learning</font>)
 
 a common <font color=red>unsupervised</font> learning task = <font color=blue>clustering</font> = discover groups of related observations, called <font color=blue>clusters</font>
 another <font color=red>unsupervised</font> task = <font color=blue>dimensionality reduction</font> = process of discovering features that account for the greatest changes in response variable.
@@ -139,10 +143,18 @@ complete observations => training set (~75%) + test set (~25%) + validation set 
 
 <li class="p3 js-animateTab " data-tab="1">
 <h3 class="mt0 mb1 slate h5">
-Characters
+Bias and variance
 </h3>
 <pre>
-Standard
+measuring performance !
+
+two fundamental causes of prediction error: a model's <font color=blue>bias, and its variance</font>
+
+A model with <font color=red>high bias</font> will produce similar errors for an input regardless of the training set it used to learn
+
+A model with <font color=red>high variance</font>, conversely, will produce different errors for an input depending on the training set that it used to learn
+
+<img src="bias_variance.png"></img>
 </pre>
 </li>
 
@@ -151,7 +163,7 @@ Standard
 
 <li class="p3 js-animateTab " data-tab="1">
 <h3 class="mt0 mb1 slate h5">
-Comments
+introducing scikit-learn
 </h3>
 <pre>
 C comments
