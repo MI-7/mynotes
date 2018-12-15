@@ -105,6 +105,45 @@ Python, for example, provides the ^ operator that performs bitwise XOR on intege
 
 </li>
 
+
+
+<li class="p3 js-animateTab " data-tab="7">
+<h3 class="mt0 mb1 slate blue h2">Symmetric-Key Encryption</h3>
+
+<pre>
+Symmetric Meaning using the same key.
+</pre>
+<p/>
+<pre>
+There are two types of ciphers:
+* <font color=green>Block Cipher:</font> process plaintext of fixed length
+C=E(K, M)
+C and M are both binary with length n
+K is binary with length r
+
+n is called block length of the cipher
+
+Typical block lengths n are 64 (DES) or 128 (AES)
+Typical key lengths r are 56 (DES) or 128, 192, 256 (AES)
+
+There are 2 ** n plaintext blocks and 2 ** n cipher text blocks of length n.
+The Function E maps {0, 1}n bijectively to {0, 1}n
+To choose a key k, means to select a permutation Ek of {0, 1}n
+
+Max security = choose randomly for all n bits.  But 2 ** n key length is too long, too much for storage.  So get a shorter key.
+
+* <font color=green>Stream Cipher:</font> process plaintext of streams
+C = E(K, M) / M = D(K, C)
+c1 = E(k1, m1), c2 = E(k2, m2), c3 ...
+m1 = D(k1, c1), m2 = D(k2, c2), m3 ...
+ci / mi / ki are binary bits or bytes
+</pre>
+<p/>
+
+</li>
+
+
+
 <li class="p3 js-animateTab " data-tab="3">
 <h3 class="mt0 mb1 slate h5">One-Time Pads</h3>
 <p class="m0">
@@ -314,12 +353,54 @@ Meaning: same key is used for both Encryption and Decryption.
 {Permutations of P blocks}    <=== maps to === by key ===>    {Permutations of C blocks}
 </pre>
 <p/>
+<pre>
+
+</pre>
+<p/>
+
+</li>
+
+
+
+
+
+
+
+
+<li class="p3 js-animateTab " data-tab="7">
+<h3 class="mt0 mb1 slate h5">DES</h3>
+
+<pre>
+<font color=green>DES</font> = Data Encryption Standard
+
+<font color=green>DES</font> = FIPS46, 1977
+
+<font color=green>DES</font> = 56 bits key length, 64 bits plaintext length, 16 rounds (16 major steps)
+
+In each round, a 48-bit round key ki is used.  The 16 round keys k1, k2, ... k16 are computed from the 56 bit key k.
+
+Basic building block of DES: f = map {0, 1}48 * {0, 1}32 -> {0, 1}32
+
+f(k', x) = P(S(E(x) xor k'))
+
+Eight substitution boxes.
+
+</pre>
+<p/>
 <p class="m0">
 B
 </p>
 <p/>
 
 </li>
+
+
+
+
+
+
+
+
 
 
 <li class="p3 js-animateTab " data-tab="7">
